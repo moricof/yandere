@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>The Cage of Obsession — 執着お嬢様と絶望の檻</title>
+
+  <!-- Fonts: Cinzel (luxury titles) + Cormorant Garamond (body) + Noto Serif JP (Japanese) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: LOADING
+     Auto-advances to Home after 2.8 seconds.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-loading" class="screen active" aria-label="Loading">
+
+  <div class="loading-bg" aria-hidden="true"></div>
+
+  <div class="loading-inner">
+
+    <!-- Brand name -->
+    <p class="loading-brand">FREAKS TOKYO INC.</p>
+
+    <!-- Decorative crest (CSS-drawn rotating rings) -->
+    <div class="loading-crest" aria-hidden="true">
+      <div class="crest-ring crest-outer"></div>
+      <div class="crest-ring crest-middle"></div>
+      <div class="crest-ring crest-inner"></div>
+      <span class="crest-kanji">檻</span>
+    </div>
+
+    <!-- Game title -->
+    <h1 class="loading-title">
+      <span class="loading-title-jp">執着お嬢様と絶望の檻</span>
+      <span class="loading-title-en">THE CAGE OF OBSESSION</span>
+    </h1>
+
+    <!-- Loading bar -->
+    <div class="loading-bar-track" aria-hidden="true">
+      <div class="loading-bar-fill" id="loading-bar-fill"></div>
+    </div>
+    <p class="loading-hint" id="loading-hint">Entering the Academy…</p>
+  </div>
+
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: HOME
+     Shows 4 heroine cards + 2 locked hidden characters.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-home" class="screen" aria-label="Home">
+
+  <!-- Ambient floating particles -->
+  <div class="ambient-particles" aria-hidden="true">
+    <span class="ap ap-1"></span><span class="ap ap-2"></span>
+    <span class="ap ap-3"></span><span class="ap ap-4"></span>
+    <span class="ap ap-5"></span><span class="ap ap-6"></span>
+    <span class="ap ap-7"></span><span class="ap ap-8"></span>
+  </div>
+
+  <!-- Header -->
+  <header class="home-header">
+    <p class="home-brand-mark">FREAKS TOKYO INC.</p>
+    <div class="home-title-block">
+      <p class="home-title-jp">執着お嬢様と絶望の檻</p>
+      <p class="home-title-en">THE CAGE OF OBSESSION</p>
+    </div>
+  </header>
+
+  <!-- Main 2×2 heroine grid -->
+  <main class="heroine-grid" role="list" aria-label="Select a heroine">
+
+    <!-- ── Himari ─────────────────────────────────── -->
+    <button class="heroine-card hc-himari" data-id="himari" role="listitem"
+            aria-label="Himari Eika — The Possessive Queen">
+      <div class="hc-portrait">
+        <div class="hc-portrait-bg"></div>
+        <span class="hc-kanji" aria-hidden="true">英</span>
+        <div class="hc-glow" aria-hidden="true"></div>
+        <!-- Completion ring (SVG — circumference of r16 = 100.53) -->
+        <div class="hc-ring-wrap" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <circle class="ring-track" cx="20" cy="20" r="16"/>
+            <circle class="ring-prog himari-ring" cx="20" cy="20" r="16"
+                    stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+          </svg>
+          <span class="hc-pct">0%</span>
+        </div>
+      </div>
+      <div class="hc-info">
+        <p class="hc-name-jp">英華 陽葵</p>
+        <p class="hc-name-en">Himari Eika</p>
+        <p class="hc-role">The Possessive Queen</p>
+        <p class="hc-chapter-info">Ch.1 · 0 / 10</p>
+      </div>
+    </button>
+
+    <!-- ── Shizuku ────────────────────────────────── -->
+    <button class="heroine-card hc-shizuku" data-id="shizuku" role="listitem"
+            aria-label="Shizuku Kiyotaki — The Dependent Tragedy">
+      <div class="hc-portrait">
+        <div class="hc-portrait-bg"></div>
+        <span class="hc-kanji" aria-hidden="true">清</span>
+        <div class="hc-glow" aria-hidden="true"></div>
+        <div class="hc-ring-wrap" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <circle class="ring-track" cx="20" cy="20" r="16"/>
+            <circle class="ring-prog shizuku-ring" cx="20" cy="20" r="16"
+                    stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+          </svg>
+          <span class="hc-pct">0%</span>
+        </div>
+      </div>
+      <div class="hc-info">
+        <p class="hc-name-jp">清滝 雫</p>
+        <p class="hc-name-en">Shizuku Kiyotaki</p>
+        <p class="hc-role">The Dependent Tragedy</p>
+        <p class="hc-chapter-info">Ch.1 · 0 / 10</p>
+      </div>
+    </button>
+
+    <!-- ── Reina ──────────────────────────────────── -->
+    <button class="heroine-card hc-reina" data-id="reina" role="listitem"
+            aria-label="Reina Kuzuba — The Controlling Strategist">
+      <div class="hc-portrait">
+        <div class="hc-portrait-bg"></div>
+        <span class="hc-kanji" aria-hidden="true">葛</span>
+        <div class="hc-glow" aria-hidden="true"></div>
+        <div class="hc-ring-wrap" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <circle class="ring-track" cx="20" cy="20" r="16"/>
+            <circle class="ring-prog reina-ring" cx="20" cy="20" r="16"
+                    stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+          </svg>
+          <span class="hc-pct">0%</span>
+        </div>
+      </div>
+      <div class="hc-info">
+        <p class="hc-name-jp">葛葉 怜奈</p>
+        <p class="hc-name-en">Reina Kuzuba</p>
+        <p class="hc-role">The Controlling Strategist</p>
+        <p class="hc-chapter-info">Ch.1 · 0 / 10</p>
+      </div>
+    </button>
+
+    <!-- ── Mei ────────────────────────────────────── -->
+    <button class="heroine-card hc-mei" data-id="mei" role="listitem"
+            aria-label="Mei Momozono — The Innocent Destroyer">
+      <div class="hc-portrait">
+        <div class="hc-portrait-bg"></div>
+        <span class="hc-kanji" aria-hidden="true">桃</span>
+        <div class="hc-glow" aria-hidden="true"></div>
+        <div class="hc-ring-wrap" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <circle class="ring-track" cx="20" cy="20" r="16"/>
+            <circle class="ring-prog mei-ring" cx="20" cy="20" r="16"
+                    stroke-dasharray="100.53" stroke-dashoffset="100.53"/>
+          </svg>
+          <span class="hc-pct">0%</span>
+        </div>
+      </div>
+      <div class="hc-info">
+        <p class="hc-name-jp">桃園 芽衣</p>
+        <p class="hc-name-en">Mei Momozono</p>
+        <p class="hc-role">The Innocent Destroyer</p>
+        <p class="hc-chapter-info">Ch.1 · 0 / 10</p>
+      </div>
+    </button>
+
+  </main><!-- /heroine-grid -->
+
+  <!-- Hidden character row — locked until all main routes complete -->
+  <div class="hidden-row" aria-label="Locked characters">
+    <div class="hidden-slot" aria-label="Unknown character — locked">
+      <div class="hidden-silhouette" aria-hidden="true">?</div>
+      <p class="hidden-name">???</p>
+      <p class="hidden-hint">Complete all main routes</p>
+    </div>
+    <div class="hidden-slot" aria-label="Unknown character — locked">
+      <div class="hidden-silhouette" aria-hidden="true">?</div>
+      <p class="hidden-name">???</p>
+      <p class="hidden-hint">Complete all main routes</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="home-footer">
+    <p>© 2026 FREAKS TOKYO INC. — All Rights Reserved</p>
+  </footer>
+
+</div><!-- /screen-home -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: CHARACTER SELECT
+     More detailed presentation, shown after prologue or from menu.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-select" class="screen" aria-label="Character Selection">
+
+  <div class="select-bg-layer" aria-hidden="true"></div>
+
+  <button class="btn-back" onclick="UI.back()" aria-label="Back">← Back</button>
+
+  <div class="select-header">
+    <p class="select-eyebrow">— Choose your fate —</p>
+    <h2 class="select-headline">Which lady will you begin<br/>your descent into?</h2>
+  </div>
+
+  <!-- Vertically-scrollable character card list -->
+  <div class="select-list" role="list">
+
+    <!-- Himari -->
+    <article class="sc-card sc-himari" role="listitem">
+      <div class="sc-portrait">
+        <div class="sc-portrait-bg"></div>
+        <span class="sc-portrait-kanji" aria-hidden="true">英</span>
+      </div>
+      <div class="sc-body">
+        <p class="sc-name-jp">英華 陽葵</p>
+        <p class="sc-name-en">Himari Eika</p>
+        <p class="sc-title">The Possessive Queen</p>
+        <p class="sc-tagline">"Everything you are… belongs to me."</p>
+        <button class="sc-enter-btn" onclick="UI.openAlbum('himari')">Enter ✦</button>
+      </div>
+    </article>
+
+    <!-- Shizuku -->
+    <article class="sc-card sc-shizuku" role="listitem">
+      <div class="sc-portrait">
+        <div class="sc-portrait-bg"></div>
+        <span class="sc-portrait-kanji" aria-hidden="true">清</span>
+      </div>
+      <div class="sc-body">
+        <p class="sc-name-jp">清滝 雫</p>
+        <p class="sc-name-en">Shizuku Kiyotaki</p>
+        <p class="sc-title">The Dependent Tragedy</p>
+        <p class="sc-tagline">"If you leave… I'll disappear."</p>
+        <button class="sc-enter-btn" onclick="UI.openAlbum('shizuku')">Enter ✦</button>
+      </div>
+    </article>
+
+    <!-- Reina -->
+    <article class="sc-card sc-reina" role="listitem">
+      <div class="sc-portrait">
+        <div class="sc-portrait-bg"></div>
+        <span class="sc-portrait-kanji" aria-hidden="true">葛</span>
+      </div>
+      <div class="sc-body">
+        <p class="sc-name-jp">葛葉 怜奈</p>
+        <p class="sc-name-en">Reina Kuzuba</p>
+        <p class="sc-title">The Controlling Strategist</p>
+        <p class="sc-tagline">"Your schedule has been… optimized."</p>
+        <button class="sc-enter-btn" onclick="UI.openAlbum('reina')">Enter ✦</button>
+      </div>
+    </article>
+
+    <!-- Mei -->
+    <article class="sc-card sc-mei" role="listitem">
+      <div class="sc-portrait">
+        <div class="sc-portrait-bg"></div>
+        <span class="sc-portrait-kanji" aria-hidden="true">桃</span>
+      </div>
+      <div class="sc-body">
+        <p class="sc-name-jp">桃園 芽衣</p>
+        <p class="sc-name-en">Mei Momozono</p>
+        <p class="sc-title">The Innocent Destroyer</p>
+        <p class="sc-tagline">"You're my favorite toy, you know~"</p>
+        <button class="sc-enter-btn" onclick="UI.openAlbum('mei')">Enter ✦</button>
+      </div>
+    </article>
+
+  </div><!-- /select-list -->
+
+</div><!-- /screen-select -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: ALBUM  (Card Collection + Chapter Progression)
+     Content rendered dynamically by script.js → renderAlbum()
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-album" class="screen" aria-label="Card Album">
+
+  <!-- Themed background for the selected heroine (color changed via JS) -->
+  <div class="album-bg" id="album-bg" aria-hidden="true"></div>
+
+  <!-- Top header bar -->
+  <div class="album-header">
+    <button class="btn-back-icon" onclick="UI.back()" aria-label="Back">←</button>
+    <!-- Heroine identity — updated by renderAlbum() -->
+    <div class="album-identity" id="album-identity">
+      <p class="album-name-jp" id="album-name-jp">英華 陽葵</p>
+      <p class="album-name-en" id="album-name-en">Himari Eika</p>
+    </div>
+    <!-- Spacer so identity centers correctly -->
+    <div style="width:40px"></div>
+  </div>
+
+  <!-- Circular progress chart section -->
+  <div class="album-chart-section">
+    <div class="chart-container">
+      <!-- SVG progress ring. Circumference of r=50 = 314.16 -->
+      <svg class="chart-svg" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="chart-track"    cx="60" cy="60" r="50"/>
+        <circle class="chart-progress" cx="60" cy="60" r="50"
+                id="chart-progress-ring"
+                stroke-dasharray="314.16"
+                stroke-dashoffset="314.16"/>
+        <!-- Decorative inner ring -->
+        <circle class="chart-inner"    cx="60" cy="60" r="40"/>
+        <!-- Tick marks around the outside (decorative) -->
+        <g class="chart-ticks" id="chart-ticks"></g>
+      </svg>
+      <!-- Percentage label overlaid on chart center -->
+      <div class="chart-center">
+        <span class="chart-pct-num" id="chart-pct-num">0</span>
+        <span class="chart-pct-sym">%</span>
+        <span class="chart-pct-label">Complete</span>
+      </div>
+    </div>
+    <p class="album-endings-count" id="album-endings-count">0 / 10 Endings Collected</p>
+  </div>
+
+  <!-- Chapter selector tabs -->
+  <div class="chapter-tabs" id="chapter-tabs" role="tablist" aria-label="Select chapter">
+    <button class="ch-tab active" data-ch="1" role="tab" aria-selected="true">Ch.1</button>
+    <button class="ch-tab locked" data-ch="2" role="tab" aria-selected="false">Ch.2</button>
+    <button class="ch-tab locked" data-ch="3" role="tab" aria-selected="false">Ch.3</button>
+    <button class="ch-tab locked" data-ch="4" role="tab" aria-selected="false">Ch.4</button>
+    <button class="ch-tab locked" data-ch="5" role="tab" aria-selected="false">Ch.5</button>
+  </div>
+
+  <!-- Card grid — 10 card slots, generated by buildCardGrid() in script.js -->
+  <div class="ending-grid" id="ending-grid" role="grid" aria-label="Ending cards"></div>
+
+  <!-- Play button (bottom CTA — the most important interactive element) -->
+  <div class="album-play-area">
+    <button class="play-btn" id="play-btn" onclick="UI.startDialogue()">
+      <span class="play-btn-icon" aria-hidden="true">▶</span>
+      <div class="play-btn-labels">
+        <span class="play-btn-main" id="play-btn-main">PLAY CHAPTER 1</span>
+        <span class="play-btn-sub" id="play-btn-sub">Free to Play</span>
+      </div>
+      <!-- Shine sweep overlay -->
+      <div class="play-btn-shine" aria-hidden="true"></div>
+    </button>
+  </div>
+
+</div><!-- /screen-album -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: DIALOGUE  (Visual Novel Gameplay)
+     Full-screen cinematic scene player.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-dialogue" class="screen" aria-label="Story">
+
+  <!-- Layer 0 — Background image (CSS background-image) -->
+  <div id="bg-layer" class="dl-layer"></div>
+
+  <!-- Layer 1 — Dark gradient overlay for readability -->
+  <div id="bg-overlay" class="dl-layer dl-bg-overlay" aria-hidden="true"></div>
+
+  <!-- Layer 2 — Horror / effect overlay (red flash, glitch, etc.) -->
+  <div id="horror-overlay" class="dl-layer dl-horror hidden" aria-hidden="true"></div>
+
+  <!-- Layer 3 — Character sprites (injected by JS) -->
+  <div id="character-layer" class="dl-layer" aria-live="polite" aria-label="Scene characters"></div>
+
+  <!-- Layer 4 — UI chrome -->
+  <div id="ui-layer" class="dl-layer dl-ui">
+
+    <!-- Top navigation bar -->
+    <div class="dl-topbar">
+      <button class="dl-menu-btn" onclick="UI.back()" aria-label="Back to menu">≡</button>
+      <span class="dl-chapter-label" id="chapter-title">Prologue</span>
+      <!-- Status button (will open stat diagnosis panel later) -->
+      <button class="dl-status-btn" aria-label="Character status">♡</button>
+    </div>
+
+    <!-- Main dialogue box (bottom ~30% of screen) -->
+    <div id="dialogue-box" class="dl-dialogue-box hidden">
+      <!-- Speaker name plate -->
+      <div id="name-plate" class="dl-name-plate">
+        <span id="character-name" class="dl-char-name"></span>
+      </div>
+      <!-- Dialogue text — typewriter animation target -->
+      <p id="dialogue-text" class="dl-dialogue-text" aria-live="polite"></p>
+      <!-- Blinking "tap to continue" arrow -->
+      <div id="next-indicator" class="dl-next-ind hidden" aria-label="Tap to continue">▼</div>
+    </div>
+
+    <!-- Choice buttons (replaces dialogue box when choices appear) -->
+    <div id="choice-container" class="dl-choices hidden" role="group" aria-label="Make a choice"></div>
+
+    <!-- Timed choice countdown bar -->
+    <div id="timed-bar" class="dl-timed-bar hidden" aria-hidden="true">
+      <div id="timed-bar-fill" class="dl-timed-bar-fill"></div>
+    </div>
+
+    <!-- End-of-route card -->
+    <div id="end-card" class="dl-end-card hidden">
+      <div class="dl-end-inner">
+        <div class="dl-end-line"></div>
+        <p class="dl-end-text">— To be continued —</p>
+        <div class="dl-end-line"></div>
+        <div class="dl-end-actions">
+          <button class="btn-outline-sm" onclick="UI.showResult()">View Ending Card</button>
+          <button class="btn-outline-sm" onclick="UI.goTo('screen-home')">Return Home</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ui-layer -->
+
+</div><!-- /screen-dialogue -->
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: RESULT  (Ending Card Reveal)
+     Dramatic reveal animation when a new ending is unlocked.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-result" class="screen" aria-label="Ending Unlocked">
+
+  <div class="result-bg" aria-hidden="true"></div>
+
+  <!-- Congratulatory header -->
+  <div class="result-header">
+    <p class="result-eyebrow">You have reached…</p>
+    <p class="result-congratulations" id="result-congrats">
+      Congratulations… or perhaps not.
+    </p>
+  </div>
+
+  <!-- The ending card (large, animated reveal) -->
+  <div class="result-card-wrap">
+    <div class="result-card" id="result-card">
+
+      <!-- Holographic sheen overlay (CSS animation — more visible on Rare+) -->
+      <div class="result-holo-overlay" aria-hidden="true"></div>
+
+      <!-- Card portrait -->
+      <div class="result-card-portrait" id="result-card-portrait">
+        <div class="result-portrait-bg" id="result-portrait-bg"></div>
+        <span class="result-portrait-kanji" id="result-portrait-kanji">英</span>
+      </div>
+
+      <!-- Card text content -->
+      <div class="result-card-body">
+        <p class="result-card-heroine" id="result-card-heroine">Himari Eika</p>
+        <div class="result-card-divider"></div>
+        <p class="result-card-ending" id="result-card-ending">Complete Ownership</p>
+        <div class="result-rarity" id="result-rarity">★ Rare Ending</div>
+      </div>
+
+      <!-- Serial number watermark at card bottom -->
+      <p class="result-serial" id="result-serial">#000001</p>
+
+    </div>
+  </div>
+
+  <!-- Below-card info -->
+  <div class="result-info">
+    <p class="result-heroine-label" id="result-heroine-label">Himari Eika</p>
+    <p class="result-ending-label" id="result-ending-label">Complete Ownership</p>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="result-actions">
+    <button class="result-share-btn">↑ Share</button>
+    <button class="result-album-btn" onclick="UI.goTo('screen-album')">
+      View Collection
+    </button>
+  </div>
+
+  <div class="result-footer-links">
+    <button class="btn-text-link" onclick="UI.startDialogue()">↻ Play Again</button>
+    <span class="result-sep">|</span>
+    <button class="btn-text-link" onclick="UI.goTo('screen-home')">Home</button>
+  </div>
+
+</div><!-- /screen-result -->
+
+
+<!-- ─────────────────────────────────────────────────────
+     Scripts — data file first, then engine
+     ───────────────────────────────────────────────────── -->
+<script src="data/scenario.js"></script>   <!-- Story data (characters, scenes) -->
+<script src="script.js"></script>           <!-- Game engine + UI navigation    -->
+
+</body>
+</html>
