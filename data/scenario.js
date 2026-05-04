@@ -2673,10 +2673,40 @@ const SCENES = {
     ],
   },
 
+  /* ══════════════════════════════════════════════════════════
+     MEI CHAPTER 1 — "My Favorite Toy"
+     Four endings accessible via two branch paths.
+
+     PLAYFUL PATH:
+       mei_ch1_start → mei_ch1_playful_1 → mei_ch1_playful_2
+         → mei_end_devoted_servant  [Ending 0 — Normal]
+         → mei_end_perfect_cage     [Ending 1 — Rare]
+
+     UNSETTLE PATH:
+       mei_ch1_start → mei_ch1_unsettle_1 → mei_ch1_unsettle_2
+         → mei_end_eternal_leash       [Ending 8 — Normal]
+         → mei_end_complete_ownership  [Ending 9 — True]
+     ══════════════════════════════════════════════════════════ */
+
   mei_ch1_start: {
     id   : 'mei_ch1_start',
     steps: [
+
       { type: 'bg', bg: 'assets/bg/courtyard.jpg' },
+
+      {
+        type: 'narration',
+        text: 'You hear her before you see her.',
+      },
+      {
+        type: 'narration',
+        text: 'Not her voice.\n\nSomething else.\nA small sound.\nHigh and faint.\n\nLike a bell.',
+      },
+      {
+        type: 'narration',
+        text: 'Later you\'ll understand what it was.',
+      },
+
       {
         type       : 'expression',
         character  : 'mei',
@@ -2693,15 +2723,682 @@ const SCENES = {
         type       : 'dialogue',
         character  : 'mei',
         expression : 'smile',
-        text       : '(She holds up a small stuffed rabbit.)\n\n"I wanted to show you Mr. Buttons.\nHe\'s been wanting to meet you for a long time."',
+        text       : 'I\'ve been looking everywhere.\n\nWell — not everywhere.\n\n(She tilts her head to the left.)\n\n"I knew you\'d be here."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She holds Mr. Buttons out toward you.)\n\n"Mr. Buttons says hi~\nHe\'s been wanting to see you for days."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I hold my hand out to Mr. Buttons.]',
+            nextScene : 'mei_ch1_playful_1',
+            statEffect: { affection: 7, dependency: 4 },
+          },
+          {
+            label     : '"How did you know I\'d be here?"',
+            nextScene : 'mei_ch1_unsettle_1',
+            statEffect: { fear: 6, dependency: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Playful Path: Act 1 ─────────────────────────────── */
+
+  mei_ch1_playful_1: {
+    id   : 'mei_ch1_playful_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She makes Mr. Buttons bow very seriously.)\n\n"He says you have good manners~\nHe doesn\'t shake hands with just anyone."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'We have a rule.\n\n(She says this very casually.)\n\n"You have to answer when I call you.\nThat\'s the rule for being Mr. Buttons\' friend."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She said "we."\n\nYou and her.\nA rule between you.\n\nYou didn\'t agree to it.\nShe doesn\'t seem to notice.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She looks up at you.)\n\n"You agree, right~?"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She sits down.\nPats the ground beside her.)\n\n"Sit~\nI have something to show you.\nI made it."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch1_playful_2' },
+
+    ],
+  },
+
+
+  /* ── Playful Path: Act 2 — the bracelet box ─────────── */
+
+  mei_ch1_playful_2: {
+    id   : 'mei_ch1_playful_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She pulls a small box from her bag.\nDecorated with your name in careful letters.)\n\n"I made this for you~"',
       },
       {
         type       : 'dialogue',
         character  : 'mei',
         expression : 'default',
-        text       : '…He says he\'s glad you\'re still here.\n\n(She tilts her head.)\n\nWe all are.',
+        text       : '…I made a lot of them, actually.',
       },
-      { type: 'end' },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Inside: a bracelet.\nSmall beads.\nYour name in the center.',
+      },
+      {
+        type: 'narration',
+        text: 'And beside it: several more.\nSlightly different.\nSome with errors.\nLike she practiced until she got it right.',
+      },
+      {
+        type: 'narration',
+        text: 'There are a lot of practice ones.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'The first twenty or so weren\'t very good.\n\n(She picks up the final one.)\n\n"This one is perfect, though~"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She holds it up like a prize.)\n\n"Will you wear it~?\nI want to see it on you."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I hold out my wrist.]',
+            nextScene : 'mei_end_devoted_servant',
+            statEffect: { affection: 12, obedience: 8 },
+          },
+          {
+            label     : '"How many did you make to practice?"',
+            nextScene : 'mei_end_perfect_cage',
+            statEffect: { fear: 8, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Unsettle Path: Act 1 ────────────────────────────── */
+
+  mei_ch1_unsettle_1: {
+    id   : 'mei_ch1_unsettle_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She tilts her head.\nLeft.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'I always know~',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She skips forward a step.\nSits cross-legged on the ground in front of you.)\n\n"You come here on days when classes go badly.\nAnd on days when someone upsets you.\nAnd on days when it rained during lunch and you didn\'t have an umbrella."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She tilts her head the other way.)\n\n"Today it rained during lunch.\n\nYou didn\'t have an umbrella.\n\nI knew~"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She knew.\n\nFrom the rain.\nFrom your habits.\nFrom a pattern she\'s been reading\nlong enough to know it by heart.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She holds up one finger.)\n\n"Plus there\'s the other thing.\nBut that\'s a secret for now~"',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch1_unsettle_2' },
+
+    ],
+  },
+
+
+  /* ── Unsettle Path: Act 2 — the tally ───────────────── */
+
+  mei_ch1_unsettle_2: {
+    id   : 'mei_ch1_unsettle_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She pulls a small notebook from her pocket.\nThe cover has your name on it.\nDecorated with tiny stars.)\n\n"I keep track~\nEvery time I find you.\nI write it down."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Columns of dates.\nTimes.\nLocations.\n\nThe notebook is nearly full.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She finds the last entry.)\n\n"Five hundred and nine times.\nSince April."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Five hundred and nine.\n\nApril was eight months ago.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She looks up.\nStill smiling.)\n\n"Don\'t worry — I never miss~\nWell.\nAlmost never.\n\nThe almost-misses are on the red pages."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You didn\'t know there were red pages.',
+      },
+      {
+        type: 'narration',
+        text: 'There are three of them.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[Don\'t react. Stay very still.]',
+            nextScene : 'mei_end_eternal_leash',
+            statEffect: { fear: 8, obedience: 6, dependency: 6 },
+          },
+          {
+            label     : '"Mei — the other thing. What did you put on my bag?"',
+            nextScene : 'mei_end_complete_ownership',
+            statEffect: { fear: 14, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 0: Devoted Servant ───────────────────────── */
+
+  mei_end_devoted_servant: {
+    id   : 'mei_end_devoted_servant',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She makes a small, delighted sound.)\n\nOh~! ♪\n\nIt fits perfectly~',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She takes your wrist in both hands.\nStudies the bracelet.)\n\n"I measured."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(Beat.)\n\n"I measured your wrist while you were sleeping once.\n\nI was going to say it a different way.\nBut that\'s what happened."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it with complete serenity.\nLike it explains itself.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'You won\'t take it off, right~?\n\n(She looks up from your wrist.)\n\n"Mr. Buttons says people who take off gifts\ndon\'t really like you.\n\nAnd I know you really like me."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says "I know"\nthe way other people say "I hope."',
+      },
+      {
+        type: 'narration',
+        text: 'Or maybe she just says it differently.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Devoted Servant',
+        endingIndex : 0,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 1: The Perfect Cage ─────────────────────── */
+
+  mei_end_perfect_cage: {
+    id   : 'mei_end_perfect_cage',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t answer right away.',
+      },
+      {
+        type: 'narration',
+        text: 'She counts.\n\nShe touches each practice bracelet, one by one.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '…Thirty-one.\nThirty-one practice ones.\nAnd then this one.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Thirty-two total.\nFor one bracelet.\nFor you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Is that a lot~?\n\n(She tilts her head.)\n\n"I wanted it to be perfect.\nYou deserve the perfect version."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She holds the perfect one back out.)\n\n"Some of my other favorites only got ten or twelve.\n\nYou got thirty-one."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says "other favorites"\nthe way you\'d say "other friends."\n\nLike it\'s a category.\nLike it\'s been organized.',
+      },
+      {
+        type: 'narration',
+        text: 'Like there\'s a hierarchy.\n\nAnd you know, without her saying it:\nyou\'re at the top.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Perfect Cage',
+        endingIndex : 1,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 8: Eternal Leash ─────────────────────────── */
+
+  mei_end_eternal_leash: {
+    id   : 'mei_end_eternal_leash',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She watches you not react.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Good~\n\n(She makes a small approving sound.)\n\n"Mr. Buttons says calm people are the best kind.\nThey last longer."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She opens the notebook.\nAdds a new entry.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Five hundred and ten now~\n\n(She closes it carefully.)\n\n"I\'ll show you the red pages someday.\nWhen we know each other better."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says "when we know each other better."\n\nYou\'ve been at this school together for eight months.\nShe has five hundred and ten entries about you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She stands.\nDusts off her skirt.)\n\n"Come find me tomorrow~\n\nOr I\'ll find you.\nEither way is fine."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You understand, looking at her bright honest face,\nthat she means exactly what she says.',
+      },
+      {
+        type: 'narration',
+        text: 'Either way.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Eternal Leash',
+        endingIndex : 8,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 9: Complete Ownership (True Ending) ──────── */
+
+  mei_end_complete_ownership: {
+    id   : 'mei_end_complete_ownership',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The smile stops.',
+      },
+      {
+        type: 'narration',
+        text: 'It stops for exactly one second.\n\nNo expression at all.\nJust Mei\'s face with nothing on it.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '…',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(Then it comes back.)\n\n…Ohh~\n\nYou noticed~ ♪',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She puts a hand to her mouth, delighted.)\n\n"It\'s a little bell~\nI tied it to the inside of your bag pocket.\n\nCan you hear it?\nWhen you walk?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You think about every day.\n\nThe small sound you kept almost-noticing.\nThe one you never traced.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'It\'s so I can always find you~\n\n(She sets Mr. Buttons down carefully.)\n\n"I tried other ways first.\nBut the bell was the most reliable."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Other ways.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'yandere',
+        text       : '(She looks at you directly.\nCompletely still.)\n\n"You\'re not going to take it out, are you?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She asks it the same way she asks\nif you want a snack.\n\nCheerful.\nCertain.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She picks Mr. Buttons back up.\nThe smile comes back\nfull brightness.)\n\n"Because if you took it out…\n\n…I\'d just find another way~ ♪"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it exactly like:\n"no problem, I have a backup plan."\n\nLike it\'s the most reasonable thing in the world.',
+      },
+      {
+        type: 'narration',
+        text: 'The most frightening part:\n\nfor her, it is.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Complete Ownership',
+        endingIndex : 9,
+        rarity      : 'true',
+      },
     ],
   },
 
