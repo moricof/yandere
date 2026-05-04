@@ -9390,6 +9390,2095 @@ const SCENES = {
     ],
   },
 
+
+  /* ══════════════════════════════════════════════════════════
+     HIMARI CHAPTER 5 — "Forever"
+     Graduation day. The life she arranged is now real.
+     She's standing in it. She's been standing in it for years,
+     in every version of the future she ran.
+
+     SURRENDER PATH:
+       himari_ch5_start → himari_ch5_surrender_1 → himari_ch5_surrender_2
+         → himari_end_ch5_forever_begins  [40 — Normal]
+         → himari_end_ch5_gilded_eternity [41 — Rare]
+
+     RESISTANCE PATH:
+       himari_ch5_start → himari_ch5_resist_1 → himari_ch5_resist_2
+         → himari_end_ch5_the_answer       [42 — Rare]
+         → himari_end_ch5_the_cage_complete [43 — True]
+     ══════════════════════════════════════════════════════════ */
+
+  himari_ch5_start: {
+    id   : 'himari_ch5_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/apartment.jpg' },
+
+      {
+        type: 'narration',
+        text: 'Graduation.\n\nThe ceremony was this morning.\nThe speeches. The photographs.\nThe slow dispersal of four years.',
+      },
+      {
+        type: 'narration',
+        text: 'And then this.\n\nThe apartment.\nThe one she arranged.\nThe key you\'ve been carrying for months.\n\nYou come home and she\'s already here.',
+      },
+      {
+        type: 'narration',
+        text: 'The flowers are fresh.\nThe table is set for two.\nThe light through the window is exactly the light she selected the apartment for.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You\'re home.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She says it simply.\nLike it\'s always been true.)\n\n"I\'ve been thinking about today for a long time.\nSince before I sent the first letter.\nSince before the clock tower."\n\n(She looks at you.)\n\n"Since I decided."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I set my things down. I stay.]',
+            nextScene : 'himari_ch5_surrender_1',
+            statEffect: { affection: 8, obedience: 9 },
+          },
+          {
+            label     : '"Himari. I need to tell you something."',
+            nextScene : 'himari_ch5_resist_1',
+            statEffect: { fear: 8, defiance: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Surrender Path: Act 1 ───────────────────────────── */
+
+  himari_ch5_surrender_1: {
+    id   : 'himari_ch5_surrender_1',
+    steps: [
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(Something in her expression opens — just slightly.\nSomething she\'s been holding for a very long time.)\n\nGood.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Sit.\n\nI\'ll pour the tea.\n\n(She moves to the kitchen — her kitchen now, the way she moves through it.)\n\n"Tell me about the ceremony.\nI want to hear your version."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You talk.\n\nShe listens the way she always listens — completely.\nEvery detail.\nHer eyes on you even when she\'s doing something else.',
+      },
+      {
+        type: 'narration',
+        text: 'The afternoon passes.\n\nThe light shifts.\nShe refills the tea without being asked.\nShe knows when you\'re cold before you do.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Tomorrow your position starts.\n\n(She says it without looking up from her cup.)\n\n"I\'ve arranged for us to commute together.\nThe timing works out.\nI checked it four months ago."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I\'ve been arranging tomorrow\nfor quite some time.',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch5_surrender_2' },
+
+    ],
+  },
+
+
+  /* ── Surrender Path: Act 2 ───────────────────────────── */
+
+  himari_ch5_surrender_2: {
+    id   : 'himari_ch5_surrender_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Evening.\n\nThe apartment is warm.\nThe window is dark.',
+      },
+      {
+        type: 'narration',
+        text: 'She\'s been here this whole time.\nIn every room.\nLearning it.\nMaking it hers.\n\nYours.\n\nBoth.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'There\'s something I want to show you.\n\n(She stands.\nHolds out her hand.)\n\n"One last room."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I take her hand.]',
+            nextScene : 'himari_end_ch5_forever_begins',
+            statEffect: { affection: 12, obedience: 10 },
+          },
+          {
+            label     : '[I follow without taking her hand.]',
+            nextScene : 'himari_end_ch5_gilded_eternity',
+            statEffect: { fear: 8, affection: 8 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Resistance Path: Act 1 ──────────────────────────── */
+
+  himari_ch5_resist_1: {
+    id   : 'himari_ch5_resist_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She waits.\n\nThe tea steeps.\nThe apartment holds its breath.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Tell me.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You say it.\n\nYou\'ve been building toward it for months.\nMaybe years.\nThe sentence that begins: I can\'t do this.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She sets down her cup.)\n\nI see.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(A pause.\nShe looks at the window.)\n\n"Where would you go?"',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch5_resist_2' },
+
+    ],
+  },
+
+
+  /* ── Resistance Path: Act 2 ──────────────────────────── */
+
+  himari_ch5_resist_2: {
+    id   : 'himari_ch5_resist_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You answer.\n\nSomewhere specific.\nA city. A name. A plan you\'d been building quietly\nin the back of your head.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(She nods slowly.)\n\nMm.\n\n"I know that address.\nI\'ve known it since you looked it up in February.\nI\'ve had it watched since March."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'The person you were planning to stay with —\nI know them too.\n\n(Quietly.)\n\n"I\'ve already spoken to them.\nAbout a number of things."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'I\'m not angry.\n\n(She picks her cup back up.)\n\n"Plans are good.\nI make plans too.\n\nI\'ve been making yours\nfor much longer than you have."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You had my plans watched."',
+            nextScene : 'himari_end_ch5_the_answer',
+            statEffect: { fear: 10, defiance: 5 },
+          },
+          {
+            label     : '[The sentence I was building falls apart.]',
+            nextScene : 'himari_end_ch5_the_cage_complete',
+            statEffect: { fear: 9, obedience: 8 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 40: Forever Begins ───────────────────────── */
+
+  himari_end_ch5_forever_begins: {
+    id   : 'himari_end_ch5_forever_begins',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The room at the end of the hall.',
+      },
+      {
+        type: 'narration',
+        text: 'You\'ve seen the rest of the apartment.\n\nYou haven\'t seen this one.\n\nShe opens the door.',
+      },
+      {
+        type: 'narration',
+        text: 'A study.\n\nYour books — the ones from your old room, packed and moved without you noticing.\nThe fountain pen from the first day, on the desk.\nYour handwriting on the calendar on the wall.\nExcept you didn\'t write it.\n\nShe copied it.\nFrom memory.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I\'ve been building this room for you\nsince the spring of second year.\n\n(She stands in the doorway.)\n\n"Every time I learned something new about you —\nI added it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'It took a long time to get right.\n\n(She looks at you with something close to peace.)\n\n"But I had time.\nI always knew we\'d get here."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The room is perfect.\n\nThat\'s the part that undoes you.\n\nNot that she built it.\nThat she got it right.\n\nEvery detail.\nBetter than you would have done yourself.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Forever Begins',
+        endingIndex : 40,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 41: Gilded Eternity ──────────────────────── */
+
+  himari_end_ch5_gilded_eternity: {
+    id   : 'himari_end_ch5_gilded_eternity',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The study.\n\nYour things.\nYour handwriting on the calendar, copied in hers.\nThe pen from the first day.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You didn\'t take my hand.\n\n(She notices. She always notices.)\n\n"That\'s all right."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You\'re still here.\n\n(She crosses the room.\nOpens the window.\nThe evening air comes in.)\n\n"You came home.\nYou\'ve been coming home for months.\n\nThe hand doesn\'t change anything important."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She\'s right.',
+      },
+      {
+        type: 'narration',
+        text: 'The hand doesn\'t change anything.\n\nThe room is built.\nThe life is built.\n\nYou are standing in the middle of it\nand it fits you\nperfectly.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Gilded Eternity',
+        endingIndex : 41,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 42: The Answer ───────────────────────────── */
+
+  himari_end_ch5_the_answer: {
+    id   : 'himari_end_ch5_the_answer',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She watches you arrive at the understanding.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Yes.\n\n(She says it gently.)\n\n"Every exit you\'ve considered.\nI\'ve known about it before you finished thinking it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'This isn\'t cruelty.\n\n(She pours the tea anyway.)\n\n"I just love you more carefully than most people do.\nI wanted to make sure there was nowhere for this to go\nexcept forward."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'Forward means here.\n\n(She slides the cup to you.)\n\n"With me.\nIn this room.\nFor as long as I can possibly arrange it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She has built every exit shut.\n\nNot with locks.\nWith foresight.\nWith time.\nWith the quiet certainty of someone who decided\nbefore you had a chance to.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Answer',
+        endingIndex : 42,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 43: The Cage Complete (True Ending) ──────── */
+
+  himari_end_ch5_the_cage_complete: {
+    id   : 'himari_end_ch5_the_cage_complete',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The sentence you were building falls apart.',
+      },
+      {
+        type: 'narration',
+        text: 'Not because she stopped you.\n\nBecause you got to the end of it\nand found there was nothing on the other side.',
+      },
+      {
+        type: 'narration',
+        text: 'The city you named.\nThe person you were going to stay with.\n\nShe\'s already been there.\nAlready spoken to them.\nAlready — quietly, without violence — closed that door.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You understand now.\n\n(She watches your face.\nReads it the way she\'s always read it.)\n\n"Not all at once.\nBut you\'re getting there."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She didn\'t break you.\n\nShe didn\'t need to.\n\nShe just — arranged things.\nFor long enough.\nCarefully enough.\n\nUntil leaving became the harder choice.\nUntil staying became what simply happens.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I told you.\n\n(She stands.\nHolds out her hand.)\n\n"From the very beginning.\nI told you.\n\nYou\'re not leaving.\n\nAnd now — finally —\nyou believe me."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You take her hand.',
+      },
+      {
+        type: 'narration',
+        text: 'Not because you\'re afraid.\n\nBecause somewhere between the clock tower and today,\nyou stopped wanting to let go.\n\nShe knew that would happen.\n\nShe was always going to wait.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Cage Complete',
+        endingIndex : 43,
+        rarity      : 'true',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     SHIZUKU CHAPTER 5 — "Always Here"
+     The library is closing for good. Last day for graduates.
+     She's been here since morning.
+     After today there's no structure. No campus. Just her need.
+
+     STAY PATH:
+       shizuku_ch5_start → shizuku_ch5_stay_1 → shizuku_ch5_stay_2
+         → shizuku_end_ch5_the_last_page [40 — Normal]
+         → shizuku_end_ch5_anchor        [41 — Rare]
+
+     AFTER PATH:
+       shizuku_ch5_start → shizuku_ch5_after_1 → shizuku_ch5_after_2
+         → shizuku_end_ch5_open_water [42 — Rare]
+         → shizuku_end_ch5_she_waits  [43 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  shizuku_ch5_start: {
+    id   : 'shizuku_ch5_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/library.jpg' },
+
+      {
+        type: 'narration',
+        text: 'They announced it in October.\nThe campus library would close to alumni after graduation.\n\nShe\'s been coming every day since.',
+      },
+      {
+        type: 'narration',
+        text: 'Today is the last day.\n\nThe shelves are already half-empty.\nBoxes. Labels. The small archaeology of a library being undone.',
+      },
+      {
+        type: 'narration',
+        text: 'She\'s in the back corner.\nThe same chair.\nThe bookmark still on page one.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'You found me.\n\n(She looks up.\nSomething tired in her eyes.\nSomething relieved.)\n\n"I wasn\'t sure you\'d come."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'They close at six.\n\n(She looks at the window.\nThe afternoon light.)\n\n"I\'ve been here since seven.\nI didn\'t want to miss any of it."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I\'ll stay until they close."',
+            nextScene : 'shizuku_ch5_stay_1',
+            statEffect: { affection: 8, dependency: 8 },
+          },
+          {
+            label     : '"Shizuku… what happens after today?"',
+            nextScene : 'shizuku_ch5_after_1',
+            statEffect: { fear: 6, dependency: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Stay Path: Act 1 ────────────────────────────────── */
+
+  shizuku_ch5_stay_1: {
+    id   : 'shizuku_ch5_stay_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(She breathes out slowly.)\n\n…Okay.\n\n(She moves her bag from the chair beside her.)\n\n"Sit."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She reads to you.\n\nNot from the book she\'s been not-reading.\nFrom memory.\nPoems she learned by heart because she had no one to read them to.',
+      },
+      {
+        type: 'narration',
+        text: 'Her voice barely above a whisper.\nNot performing.\nJust — giving it somewhere to go.',
+      },
+      {
+        type: 'narration',
+        text: 'Around four o\'clock a librarian comes by.\nShe looks at Shizuku.\nLooks at you.\nMoves on without saying anything.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'She\'s been very kind.\n\n(Shizuku watches the librarian go.)\n\n"She stopped asking why I was here in October.\nI think she understood."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I don\'t know what I\'ll do without a place to be.\n\n(Quietly.)\n\n"I\'ve always had somewhere to go.\nNow I\'ll just have — wherever you are."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch5_stay_2' },
+
+    ],
+  },
+
+
+  /* ── Stay Path: Act 2 ────────────────────────────────── */
+
+  shizuku_ch5_stay_2: {
+    id   : 'shizuku_ch5_stay_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Six o\'clock.\n\nThe lights change.\nA soft chime.\n\nLast call.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She doesn\'t move.)\n\nI have one more thing.\n\n(She reaches into her bag.\nProduces an envelope.)\n\n"Number thirty-eight.\nI wrote it last night."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I think — I think this is the one I give you.\n\n(She holds it out.\nHer hand is very steady.)\n\n"I\'ve been deciding for three years.\nI think today is right."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I take it. I don\'t open it yet.]',
+            nextScene : 'shizuku_end_ch5_the_last_page',
+            statEffect: { affection: 10, dependency: 10 },
+          },
+          {
+            label     : '[I take it. I open it now.]',
+            nextScene : 'shizuku_end_ch5_anchor',
+            statEffect: { fear: 9, dependency: 10 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── After Path: Act 1 ───────────────────────────────── */
+
+  shizuku_ch5_after_1: {
+    id   : 'shizuku_ch5_after_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She is quiet for a long time.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '…I haven\'t thought about it.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '(A pause.)\n\nI\'ve thought about nothing else.\n\n(She corrects herself quietly.)\n\n"Both things are true.\nI think about it every night.\nAnd I still don\'t have an answer."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch5_after_2' },
+
+    ],
+  },
+
+
+  /* ── After Path: Act 2 ───────────────────────────────── */
+
+  shizuku_ch5_after_2: {
+    id   : 'shizuku_ch5_after_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She looks at the half-empty shelves.\n\nThe boxes.\nThe labeled spines disappearing one by one.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I\'ve run through every version of after.\n\n(She says it slowly.)\n\n"Different cities. Different arrangements.\nVersions where I try to be better.\nVersions where I stop trying."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : 'Every version ends the same way.\n\n(She looks at you.)\n\n"With you still there.\n\nI don\'t know if that\'s me hoping\nor me knowing.\n\nI\'ve stopped being able to tell the difference."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What if I told you I wasn\'t going anywhere?"',
+            nextScene : 'shizuku_end_ch5_open_water',
+            statEffect: { affection: 8, dependency: 10 },
+          },
+          {
+            label     : '[I sit beside her. I don\'t answer the question.]',
+            nextScene : 'shizuku_end_ch5_she_waits',
+            statEffect: { affection: 7, dependency: 9 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 40: The Last Page ────────────────────────── */
+
+  shizuku_end_ch5_the_last_page: {
+    id   : 'shizuku_end_ch5_the_last_page',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You hold it.\n\nShe watches you hold it.\n\nThe library chimes again.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I suppose we have to leave now.\n\n(She doesn\'t move.)',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Neither of you moves.\n\nA librarian passes.\nLooks at you both.\nKeeps walking.',
+      },
+      {
+        type: 'narration',
+        text: 'Eventually the lights go off one section at a time.\n\nYou sit in the last lit corner\nwith an unread letter in your hands\nand a person who has been sitting in this chair\nwaiting for you\nsince the beginning of second year.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Last Page',
+        endingIndex : 40,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 41: Anchor ───────────────────────────────── */
+
+  shizuku_end_ch5_anchor: {
+    id   : 'shizuku_end_ch5_anchor',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You open it.',
+      },
+      {
+        type: 'narration',
+        text: 'It\'s short.\n\nShorter than you expected.\nAfter thirty-seven tries.',
+      },
+      {
+        type: 'narration',
+        text: 'It says:\n\n"You are the only reason I am still here.\nI don\'t know what to do with that\nexcept tell you.\nI\'ve been trying to tell you for three years.\n\nThis is me telling you.\n\nPlease don\'t go."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She watches you read.)\n\nThe others were longer.\n\n(Softly.)\n\n"I kept adding things.\nTrying to explain it properly.\nIn the end I think it only needed the last line."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Please don\'t go.\n\nThree years.\nThirty-eight letters.\nEvery night call.\nEvery hallway floor.\n\nAll of it was this one sentence.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Anchor',
+        endingIndex : 41,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 42: Open Water ───────────────────────────── */
+
+  shizuku_end_ch5_open_water: {
+    id   : 'shizuku_end_ch5_open_water',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She goes very still.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She looks at you for a long moment.)\n\nIs that — is that true?\n\n(Not hopeful.\nCareful.\nLike she\'s been wrong about this before.)',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You tell her it is.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(Something shifts in her face.\nNot relief.\nSomething quieter and more total.)\n\nThen I have everything I need.\n\n"I want you to understand — I would have been all right either way.\nI have been all right before."\n\n(A pause.)\n\n"But this is better.\nThis is so much better."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You understand, looking at her,\nthat "all right" covered a great many things\nshe will never describe to you.',
+      },
+      {
+        type: 'narration',
+        text: 'The library closes around you.\n\nShe doesn\'t let go of your hand.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Open Water',
+        endingIndex : 42,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 43: She Waits ────────────────────────────── */
+
+  shizuku_end_ch5_she_waits: {
+    id   : 'shizuku_end_ch5_she_waits',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit beside her.\n\nThe question hangs.\n\nYou don\'t answer it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(Eventually.)\n\nI\'ll be wherever we decide.\n\n"Every morning.\nBefore you wake up, probably.\nI can\'t help it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(She looks at the window.\nThe last of the light.)\n\n"I\'ve been here before you every day for four years.\n\nI don\'t know how to be anywhere else first."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The library goes quiet.\n\nThe boxes. The empty shelves.\nThe chair she\'s been in since seven o\'clock.',
+      },
+      {
+        type: 'narration',
+        text: 'She will find the next place.\n\nThe next chair.\nThe next window.\n\nShe will be there before you.\n\nEvery time.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'She Waits',
+        endingIndex : 43,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     REINA CHAPTER 5 — "The Final Model"
+     One last meeting. She has a document. Not a report.
+     A proposal. Written in her own hand.
+
+     READ PATH:
+       reina_ch5_start → reina_ch5_read_1 → reina_ch5_read_2
+         → reina_end_ch5_optimal_outcome   [40 — Normal]
+         → reina_end_ch5_final_projection  [41 — Rare]
+
+     BEFORE PATH:
+       reina_ch5_start → reina_ch5_before_1 → reina_ch5_before_2
+         → reina_end_ch5_the_pause     [42 — Rare]
+         → reina_end_ch5_data_complete [43 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  reina_ch5_start: {
+    id   : 'reina_ch5_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/student_council.jpg' },
+
+      {
+        type: 'narration',
+        text: 'The last day.\n\nThe student council room is clean.\nEverything filed. Everything ordered.\nFour years of her work, archived and closed.',
+      },
+      {
+        type: 'narration',
+        text: 'She\'s at the desk.\n\nOne document in front of her.\nA single sheet.\nNo cover. No binding.\n\nShe wrote it by hand.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Sit.\n\n(She slides the document across the desk.)\n\n"The model has reached its terminal state.\nI\'ve run all remaining projections.\n\nThere is one optimal outcome."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'This is a formal proposal.\n\n(She folds her hands.)\n\n"I\'ve prepared it carefully.\nIt represents the best available solution\nfor both parties."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I pick up the document. I read it.]',
+            nextScene : 'reina_ch5_read_1',
+            statEffect: { obedience: 7, affection: 6 },
+          },
+          {
+            label     : '"Reina."',
+            nextScene : 'reina_ch5_before_1',
+            statEffect: { affection: 7, defiance: 3 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Read Path: Act 1 ────────────────────────────────── */
+
+  reina_ch5_read_1: {
+    id   : 'reina_ch5_read_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The document is formatted correctly.\n\nOf course it is.',
+      },
+      {
+        type: 'narration',
+        text: 'A proposed continuation of the arrangement, post-graduation.\nTerms. Logistics. A schedule — revised, she notes, to account for new variables.\n\nShe\'s left space in the margins.\nAnnotations.\nReasons for each clause.',
+      },
+      {
+        type: 'narration',
+        text: 'One margin note reads:\n\n"Clause 4 — proximity schedule — subject consulted on preference for the first time.\nAdjusted accordingly."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'You\'re on clause four.\n\n(She says it without looking up.)\n\n"I asked you — indirectly — what you preferred.\nThree weeks ago.\nYou mentioned Thursday evenings.\nI\'ve incorporated that."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'It\'s the first time I\'ve asked.\n\n(A pause.)\n\n"I\'m aware of that."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch5_read_2' },
+
+    ],
+  },
+
+
+  /* ── Read Path: Act 2 ────────────────────────────────── */
+
+  reina_ch5_read_2: {
+    id   : 'reina_ch5_read_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The last page.\n\nThe formal language ends three-quarters of the way down.\n\nBelow it, in handwriting — not her usual clean print, something more careful, like she drafted it many times — one line.',
+      },
+      {
+        type: 'narration',
+        text: '"I don\'t want the model to end."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She\'s watching you read the last line.)\n\nI considered removing it.\n\n(She says it directly.)\n\n"I decided not to.\nI thought full variable disclosure was appropriate\nfor a document of this nature."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You finally asked what I wanted."',
+            nextScene : 'reina_end_ch5_optimal_outcome',
+            statEffect: { affection: 10, obedience: 8 },
+          },
+          {
+            label     : '[I read the last line again.]',
+            nextScene : 'reina_end_ch5_final_projection',
+            statEffect: { affection: 9, dependency: 9 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Before Path: Act 1 ──────────────────────────────── */
+
+  reina_ch5_before_1: {
+    id   : 'reina_ch5_before_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She goes still.\n\nJust your name.\nNothing after it.\n\nAnd she goes still.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(Four seconds.)\n\nI\'ve been preparing for every response.\n\n(She says it quietly.)\n\n"Every question you might ask.\nEvery objection.\nEvery way this conversation could go."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I did not prepare for that.\n\n(She looks at you.)\n\n"Just my name."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch5_before_2' },
+
+    ],
+  },
+
+
+  /* ── Before Path: Act 2 ──────────────────────────────── */
+
+  reina_ch5_before_2: {
+    id   : 'reina_ch5_before_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The room is very quiet.\n\nFour years of her work, filed and finished.\n\nJust you.\nJust her.\nJust her name still hanging in the air.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The document is still there.\n\n(She gestures at it.\nSomething in her voice is different.\nStill precise.\nBut underneath the precision — something exposed.)\n\n"You don\'t have to read it right now."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I ran seventeen scenarios in which you leave.\n\n(She says it for the last time.)\n\n"I ran them again this morning.\n\nAnd then I put the notebook away\nand wrote this instead."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Say it again — just your name?"',
+            nextScene : 'reina_end_ch5_the_pause',
+            statEffect: { affection: 10, dependency: 8 },
+          },
+          {
+            label     : '[I pick up the document.]',
+            nextScene : 'reina_end_ch5_data_complete',
+            statEffect: { affection: 8, obedience: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 40: Optimal Outcome ──────────────────────── */
+
+  reina_end_ch5_optimal_outcome: {
+    id   : 'reina_end_ch5_optimal_outcome',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She is quiet for a moment.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Yes.\n\n(She says it without her usual armor.)\n\n"I have been optimizing for the arrangement\nwithout — adequately — accounting for the subject\'s preferences.\n\nThe model had a flaw.\nI corrected it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Thursday evenings.\n\n(She points to clause four.)\n\n"That\'s yours.\nThe rest is mine.\nI thought — splitting it that way — seemed equitable."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Equitable.\n\nYou have one clause in a twelve-page proposal.\n\nShe is smiling.\nJust barely.\nBut she is.',
+      },
+      {
+        type: 'narration',
+        text: 'It is, for Reina Kuzuba,\nthe most open thing she has ever offered you.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Optimal Outcome',
+        endingIndex : 40,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 41: Final Projection ─────────────────────── */
+
+  reina_end_ch5_final_projection: {
+    id   : 'reina_end_ch5_final_projection',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"I don\'t want the model to end."',
+      },
+      {
+        type: 'narration',
+        text: 'Not: I have calculated that the model should continue.\nNot: the optimal outcome requires continuation.\n\nWant.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I\'ve used that word — precisely — once before.\n\n(She says it carefully.)\n\n"In four years.\nOnce.\n\nI wasn\'t sure I was using it correctly.\nI checked the definition four times."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I\'m using it correctly.\n\n(She looks at the document.\nThen at you.)\n\n"That\'s all."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'That\'s all.\n\nFour years of projections.\nEvery scenario.\nAll seventeen exits she made unacceptable.\n\nAnd underneath all of it:\nI don\'t want this to end.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Final Projection',
+        endingIndex : 41,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 42: The Pause ────────────────────────────── */
+
+  reina_end_ch5_the_pause: {
+    id   : 'reina_end_ch5_the_pause',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She is still for a long moment.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '…Say it again.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You say her name again.\n\nJust her name.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She opens the notebook.)\n\nI\'m logging this.\n\n(She writes something.\nThen stops.\nLooks at what she wrote.)\n\n"I don\'t — actually —\n\n(A pause.)\n\n"I don\'t want to log this one."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She closes the notebook.\n\nSets it aside.\n\nFor four years she has documented everything.\nEvery variable.\nEvery deviation.\nEvery exit.\n\nShe closes the notebook and sets it aside.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Pause',
+        endingIndex : 42,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 43: Data Complete ────────────────────────── */
+
+  reina_end_ch5_data_complete: {
+    id   : 'reina_end_ch5_data_complete',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You pick it up.\n\nShe watches you read it.\n\nShe has been watching you read things\nfor four years.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The last line is mine.\n\n(She says it before you reach it.)\n\n"Not the model\'s.\nNot the arrangement\'s.\n\nMine."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You reach the last line.\n\n"I don\'t want the model to end."\n\nHer handwriting.\nCareful.\nLike she wrote it many times before she got it right.',
+      },
+      {
+        type: 'narration',
+        text: 'The data set is complete.\n\nFour years.\nEvery month.\nEvery correction.\n\nAnd at the end of all of it:\none sentence she couldn\'t fit into any category.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Data Complete',
+        endingIndex : 43,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     MEI CHAPTER 5 — "The Bell"
+     Graduation day. You hear it before you see her.
+     The same bell from Chapter 1.
+     Now you understand what it was.
+
+     LISTEN PATH:
+       mei_ch5_start → mei_ch5_listen_1 → mei_ch5_listen_2
+         → mei_end_ch5_the_smile_stays [40 — Normal]
+         → mei_end_ch5_underneath      [41 — Rare]
+
+     BELL PATH:
+       mei_ch5_start → mei_ch5_bell_1 → mei_ch5_bell_2
+         → mei_end_ch5_the_bell_answer [42 — Rare]
+         → mei_end_ch5_complete        [43 — True]
+     ══════════════════════════════════════════════════════════ */
+
+  mei_ch5_start: {
+    id   : 'mei_ch5_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/academy_gates.jpg' },
+
+      {
+        type: 'narration',
+        text: 'Graduation.\n\nThe crowd. The robes. The slow dispersal of four years into an afternoon.',
+      },
+      {
+        type: 'narration',
+        text: 'You hear it before you see her.\n\nA small sound.\nHigh and faint.\n\nA bell.',
+      },
+      {
+        type: 'narration',
+        text: 'Now you understand what it was.\n\nNow you understand it has been there since the very first day.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '{name}~! ♪\n\n(She finds you in the crowd the way she always finds you.)\n\n"I\'ve been looking everywhere.\nWell — not everywhere."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She tilts her head.)\n\n"I knew where you\'d be."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'I want to tell you something.\n\n(She says it simply.\nWithout the usual brightness on it.)\n\n"Something real.\nIs that okay?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Tell me."',
+            nextScene : 'mei_ch5_listen_1',
+            statEffect: { affection: 7, dependency: 7 },
+          },
+          {
+            label     : '"The bell. You\'ve had it on my bag this whole time."',
+            nextScene : 'mei_ch5_bell_1',
+            statEffect: { fear: 7, defiance: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Listen Path: Act 1 ──────────────────────────────── */
+
+  mei_ch5_listen_1: {
+    id   : 'mei_ch5_listen_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She\'s quiet for a moment.\n\nWhich is unusual.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'I\'m very scared all the time.\n\n(She says it without decoration.)\n\n"I just — I don\'t look like it.\nI\'ve gotten good at not looking like it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Mr. Buttons helps.\n\n(She looks at the bear in her arms.)\n\n"And the game.\nAnd the notebook.\nAnd watching.\n\nAll of it is — it\'s not because I\'m bad.\nIt\'s because if I stop —"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stops.',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t finish the sentence.\n\nShe doesn\'t need to.',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch5_listen_2' },
+
+    ],
+  },
+
+
+  /* ── Listen Path: Act 2 ──────────────────────────────── */
+
+  mei_ch5_listen_2: {
+    id   : 'mei_ch5_listen_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'I\'ve never left someone I loved.\n\n(She says it carefully.)\n\n"I don\'t know how to do it.\nI don\'t know if I could.\n\nI think if I tried —"\n\n(She looks at Mr. Buttons.)\n\n"The number would go up again."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The number.\n\nThe red pages.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'You\'re not going anywhere.\n\n(The smile comes back — the full brightness.)\n\n"I made sure.\nBut even if I hadn\'t —"\n\n(She tilts her head.)\n\n"I think you would have stayed anyway.\nYou always do."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I look at her smile. I can\'t tell which part is real.]',
+            nextScene : 'mei_end_ch5_the_smile_stays',
+            statEffect: { fear: 8, affection: 8 },
+          },
+          {
+            label     : '"Thank you for telling me."',
+            nextScene : 'mei_end_ch5_underneath',
+            statEffect: { affection: 10, dependency: 9 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Bell Path: Act 1 ────────────────────────────────── */
+
+  mei_ch5_bell_1: {
+    id   : 'mei_ch5_bell_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She tilts her head.)\n\nMm~\n\n"You figured it out."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I put it there on the fourth day~\n\n(Simply.)\n\n"After the second day I thought — I need a way to know where you are.\nWhen I can\'t see you.\n\nThe bell was the nicest option."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"The nicest option."\n\nYou focus on that.\nYou don\'t ask about the others.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I can hear it from about twelve meters~\n\n(She holds up her fingers.)\n\n"More in quiet spaces.\nI know your walk by the rhythm now.\nI could hear you coming even without it."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch5_bell_2' },
+
+    ],
+  },
+
+
+  /* ── Bell Path: Act 2 ────────────────────────────────── */
+
+  mei_ch5_bell_2: {
+    id   : 'mei_ch5_bell_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You ask what she would have done.\n\nIf you had taken it out.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She considers this seriously.)\n\nWell~\n\nFirst I would have put a new one somewhere else.\n\n(She lists it the way you\'d list groceries.)\n\n"Probably your jacket lining.\nOr your bag strap — inside the seam.\nSomewhere you wouldn\'t look."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'And if you found all of those —\n\n(She tilts her head.)\n\n"I\'d find another way.\nI always find another way.\nI said that on the first day."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Show me the bell."',
+            nextScene : 'mei_end_ch5_the_bell_answer',
+            statEffect: { fear: 9, dependency: 7 },
+          },
+          {
+            label     : '[I reach into my bag. I find it. I hold it out to her.]',
+            nextScene : 'mei_end_ch5_complete',
+            statEffect: { fear: 10, obedience: 9 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 40: The Smile Stays ──────────────────────── */
+
+  mei_end_ch5_the_smile_stays: {
+    id   : 'mei_end_ch5_the_smile_stays',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The smile stays.',
+      },
+      {
+        type: 'narration',
+        text: 'Full brightness.\nPerfect.\n\nYou look at it and you think:\nis this the real one?\nIs this the one that\'s just for you?\n\nOr is this the one she shows everyone\nwhile the real thing moves underneath like deep water?',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She takes your arm.\nThe crowd moves around you both.)\n\nNe~\n\n"It doesn\'t matter which one it is.\nDoes it?"\n\n(She tilts her head.)\n\n"You\'re going to stay either way."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She\'s right.\n\nIt doesn\'t matter.\n\nThe smile stays.\nSo do you.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Smile Stays',
+        endingIndex : 40,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 41: Underneath ───────────────────────────── */
+
+  mei_end_ch5_underneath: {
+    id   : 'mei_end_ch5_underneath',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She goes still.\n\nFor a moment — just a moment — the smile is gone.\n\nNot replaced by anything frightening.\nJust her face.\nWith nothing performing.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(Quietly.)\n\nNo one\'s — said that to me before.\n\n"In that way."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You see it.\n\nFor one second.\nWhat\'s underneath the game and the notebook and the smile.\n\nSomething small.\nSomething frightened.\nSomething that has been doing all of this\nbecause it didn\'t know another way to hold on.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(The smile comes back.\nFull brightness.\nAlways full brightness.)\n\nOkay~\n\n"Let\'s go."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Underneath',
+        endingIndex : 41,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 42: The Bell Answer ──────────────────────── */
+
+  mei_end_ch5_the_bell_answer: {
+    id   : 'mei_end_ch5_the_bell_answer',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She reaches into her pocket.)\n\nOh~\n\n"I have it here actually.\nI took it off your bag this morning.\nTo clean it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Small.\nSilver.\nA thread she can follow across any distance.',
+      },
+      {
+        type: 'narration',
+        text: 'She holds it up between her fingers.\n\nIt rings — very softly — when she moves her hand.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Do you want it?\n\n(She holds it out.)\n\n"You can have it.\nYou can throw it away.\n\nIt\'s yours."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(The smile.)\n\n"I\'d just find another way~ ♪"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The same words.\n\nFrom the first day.\nThe last day.\n\nSame sentence.\nSame certainty.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Bell Answer',
+        endingIndex : 42,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 43: Complete (True Ending) ───────────────── */
+
+  mei_end_ch5_complete: {
+    id   : 'mei_end_ch5_complete',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You reach into your bag.\n\nYou find it where it always is.\nSmall. Silver. Worn from four years of carrying.',
+      },
+      {
+        type: 'narration',
+        text: 'You hold it out to her.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(The smile stops.)\n\n…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(One second.\nThe face with nothing on it.)\n\nYou found it.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She takes it from your hand.\nHolds it.)\n\nYou found it and you\'re giving it back.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She looks at it.\nThen at you.\nSomething in her is — trying to understand this.)\n\n"Why?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t have a clean answer.\n\nMaybe because taking it out didn\'t seem like the point.\nMaybe because you\'ve understood for a while now\nthat the bell was never really the thing keeping you here.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(The smile comes back.\nBut slower this time.\nLike it means something different.)\n\nOh.\n\n"Oh, {name}~"\n\n(She closes her fingers around the bell.)\n\n"That\'s the most — that\'s the most—"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t finish the sentence.\n\nShe doesn\'t need to.',
+      },
+      {
+        type: 'narration',
+        text: 'She puts the bell back in her pocket.\n\nShe takes your hand.\n\nThe crowd moves around you both in the afternoon light.',
+      },
+      {
+        type: 'narration',
+        text: 'You gave her the bell back.\n\nNot because you were afraid.\nNot because she would have found another way.\n\nBecause somewhere between the first day and today\nyou stopped counting the reasons to leave\nand started counting something else entirely.',
+      },
+      {
+        type: 'narration',
+        text: 'She knew.\n\nShe always knew.\n\nShe was just waiting\nfor you to know it too.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Complete',
+        endingIndex : 43,
+        rarity      : 'true',
+      },
+    ],
+  },
+
 };
 
 
