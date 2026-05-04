@@ -573,6 +573,7 @@ const EngineState = {
   waitingForInput : false,
   activeSprites   : {},     // { characterId: HTMLElement }
   stats           : {},     // Player stat values (affection, fear, etc.)
+  currentEnding   : null,   // Set when an 'end' step with ending data is processed
 };
 
 // ── DOM References for Dialogue Screen ───────────────────────────────────────
@@ -785,6 +786,10 @@ function processStep(index) {
       triggerHorrorEffect(step.effect, () => processStep(index + 1));
       break;
 
+    case 'goto-scene':
+      loadScene(step.scene);
+      break;
+
     case 'goto-screen':
       // Mark prologue done the first time we leave the dialogue into a real screen
       if (!UIState.prologueDone) {
@@ -795,7 +800,7 @@ function processStep(index) {
       break;
 
     case 'end':
-      showEndCard();
+      showEndCard(step.endingName, step.endingIndex, step.rarity);
       break;
 
     default:
@@ -843,9 +848,22 @@ function showChoices(choices) {
   });
 }
 
-function showEndCard() {
+function showEndCard(endingName, endingIndex, rarity) {
   D.dialogueBox.classList.add('hidden');
   D.choiceContainer.classList.add('hidden');
+
+  if (endingIndex !== undefined && UIState.heroine) {
+    EngineState.currentEnding = {
+      endingName : endingName || `Ending ${endingIndex + 1}`,
+      rarity     : rarity || 'normal',
+      index      : endingIndex,
+    };
+    unlockEnding(UIState.heroine, UIState.chapter, endingIndex);
+    updateHomeRings();
+  } else {
+    EngineState.currentEnding = null;
+  }
+
   D.endCard.classList.remove('hidden');
 }
 

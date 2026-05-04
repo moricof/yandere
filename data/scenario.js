@@ -626,45 +626,78 @@ const SCENES = {
 
 
   /* ══════════════════════════════════════════════════════════
-     HIMARI CHAPTER 1 — "The Invitation" (placeholder)
-     This scene plays when the player taps "Play Chapter 1"
-     in Himari's album. Replace with full branching content.
+     HIMARI CHAPTER 1 — "The Invitation"
+     Four endings accessible via two branch paths.
+
+     DEVOTED PATH:
+       himari_ch1_start → himari_ch1_devoted_1 → himari_ch1_devoted_2
+         → himari_end_devoted_servant   [Ending 1 — Normal]
+         → himari_end_perfect_cage      [Ending 2 — Rare]
+
+     DEFIANT PATH:
+       himari_ch1_start → himari_ch1_defiant_1 → himari_ch1_defiant_2
+         → himari_end_shattered_resistance  [Ending 4 — Rare]
+         → himari_end_gilded_prison          [Ending 5 — Normal]
      ══════════════════════════════════════════════════════════ */
+
   himari_ch1_start: {
     id   : 'himari_ch1_start',
     steps: [
 
       { type: 'bg', bg: 'assets/bg/academy_corridor.jpg' },
+
+      {
+        type: 'narration',
+        text: 'The note arrived during third period.\n\nIvory envelope.\nYour name in careful script.\nNo sender.',
+      },
+      {
+        type: 'narration',
+        text: 'The Rose Salon.\nEnd of the East Wing.\nA room with no official purpose.',
+      },
+      {
+        type: 'narration',
+        text: 'You\'ve passed it a hundred times without thinking about it.\n\n\n\n…You\'ve never been inside.',
+      },
+
+      { type: 'bg', bg: 'assets/bg/rose_salon.jpg' },
+
       {
         type       : 'expression',
         character  : 'himari',
-        expression : 'default',
+        expression : 'smile',
         position   : 'center',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
         expression : 'smile',
-        text       : 'Oh my… you actually came.\n\nHow unexpectedly bold of you.',
+        text       : 'You came exactly on time.\n\n(She sets down her teacup without looking up.)\n\n"I wasn\'t sure you would."',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
         expression : 'default',
-        text       : 'Did you think I would simply wait forever?\n\nHow… cute.',
+        text       : 'A small lie, actually.\n\nI was perfectly certain.',
       },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Please.\n\nSit.',
+      },
+
       {
         type   : 'choice',
         choices: [
           {
-            label     : '"I came as fast as I could."',
-            nextScene : 'route_devoted',
-            statEffect: { affection: 10, obedience: 8 },
+            label     : '[I sit across from her.]',
+            nextScene : 'himari_ch1_devoted_1',
+            statEffect: { affection: 5, obedience: 6 },
           },
           {
-            label     : '"I almost didn\'t come at all."',
-            nextScene : 'route_defiant',
-            statEffect: { fear: 12, affection: -3, dependency: 4 },
+            label     : '"I can\'t stay long."',
+            nextScene : 'himari_ch1_defiant_1',
+            statEffect: { fear: 7, defiance: 5 },
           },
         ],
       },
@@ -672,9 +705,25 @@ const SCENES = {
     ],
   },
 
-  route_devoted: {
-    id   : 'route_devoted',
+
+  /* ── Devoted Path: Act 1 ─────────────────────────────── */
+
+  himari_ch1_devoted_1: {
+    id   : 'himari_ch1_devoted_1',
     steps: [
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Mm.\n\n(She refills your cup before you ask.)\n\nGood.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I prepared something for you.\n\nDon\'t look at me like that.\nIt isn\'t much.',
+      },
       {
         type       : 'expression',
         character  : 'himari',
@@ -685,52 +734,576 @@ const SCENES = {
         type       : 'dialogue',
         character  : 'himari',
         expression : 'blush',
-        text       : 'Fufu… is that so.\nI suppose I can forgive your tardiness… this once.',
+        text       : '(She places a small, flat box on the table.)\n\n"Open it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A fountain pen.\nBlack lacquer.\nGold nib.\n\nYour name engraved on the side.',
+      },
+      {
+        type: 'narration',
+        text: 'Your name.\n\nIn her handwriting.\n\nOn something she clearly had made to order.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
         expression : 'smile',
-        text       : 'Stay close to me. Always.\nThat is not a request.',
+        text       : 'You\'re going to write something for me one day.\n\nI want it to be with that.',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
-        expression : 'yandere',
-        text       : 'Because if you ever try to leave…\n\nI will simply have to make sure you cannot.',
+        expression : 'default',
+        text       : '(She lifts her cup again.)\n\n"We have thirty minutes before your next class.\nI took the liberty of clearing your afternoon as well."',
       },
-      { type: 'end' },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I\'d like you to stay.',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch1_devoted_2' },
+
     ],
   },
 
-  route_defiant: {
-    id   : 'route_defiant',
+
+  /* ── Devoted Path: Act 2 — the album ────────────────── */
+
+  himari_ch1_devoted_2: {
+    id   : 'himari_ch1_devoted_2',
     steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You stay.\n\nOf course you stay.',
+      },
+
       {
         type       : 'expression',
         character  : 'himari',
-        expression : 'angry',
+        expression : 'default',
         position   : 'center',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
-        expression : 'angry',
-        text       : '…Excuse me?\n\nYou almost did not come?',
+        expression : 'default',
+        text       : 'I want to show you something.',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
-        expression : 'yandere',
-        text       : 'How… interesting.\n\nI did not realize you wished to test me.',
+        expression : 'default',
+        text       : '(She opens a drawer in the writing desk.\nTakes out a leather-bound album.)\n\n"This is private.\nYou\'re the only person I\'ve shown it to."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'It\'s photographs.\n\nAll of them are of you.',
+      },
+      {
+        type: 'narration',
+        text: 'Not stolen — or not precisely stolen.\n\nThe courtyard. The hallway. The library window.\nYour back. Your profile.\nOnce, somehow, you looking up at the sky.',
+      },
+      {
+        type: 'narration',
+        text: 'Months of them.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
       },
       {
         type       : 'dialogue',
         character  : 'himari',
         expression : 'smile',
-        text       : 'Do not worry.\n\nYou will learn very quickly…\n\nthat I always win.',
+        text       : 'I know every lecture you\'ve ever been late to.\nEvery meal you skipped.\nEvery face you made when you thought no one was watching.',
       },
-      { type: 'end' },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : '(She closes the album gently, like closing a prayer.)\n\n"You\'ve never been alone.\nNot once.\nNot since I decided."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I\'m… thank you."',
+            nextScene : 'himari_end_devoted_servant',
+            statEffect: { affection: 12, obedience: 8 },
+          },
+          {
+            label     : '"That\'s… that\'s a lot, Himari."',
+            nextScene : 'himari_end_perfect_cage',
+            statEffect: { fear: 8, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Defiant Path: Act 1 ─────────────────────────────── */
+
+  himari_ch1_defiant_1: {
+    id   : 'himari_ch1_defiant_1',
+    steps: [
+
+      { type: 'clear-characters' },
+      {
+        type: 'narration',
+        text: 'The sentence lands wrong in the room.',
+      },
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She sets her cup down.\nVery carefully.)\n\n"You can\'t stay long."\n\nThat\'s what you said.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Your third period ends at two-forty.\nYour club meeting was rescheduled — I had the advisor move it.\nYour last class today has been marked as a free period.\n\n(She tilts her head.)\n\n"By whom, you ask?"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '…By me.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You have nowhere else to be.\n\n(She gestures at the empty chair.)\n\n"Sit down."',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch1_defiant_2' },
+
+    ],
+  },
+
+
+  /* ── Defiant Path: Act 2 — the record ───────────────── */
+
+  himari_ch1_defiant_2: {
+    id   : 'himari_ch1_defiant_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit.\n\nYou tell yourself it isn\'t because you\'re afraid.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'There\'s no need for that expression.\n\nI\'m not angry.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(She pours your tea as if nothing happened.)\n\n"Anger would mean I expected something different from you."\n\n"I never expect things.\nI arrange them."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'ve been resisting me for some time, actually.\n\n(She opens a slim notebook.)\n\n"I\'ve kept a record."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Your name on the spine.\nDate-stamped entries going back months.',
+      },
+      {
+        type: 'narration',
+        text: 'Every time you sat elsewhere in the cafeteria.\nEvery assignment you turned in to someone other than her.\nEach conversation she wasn\'t part of.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She closes it.)\n\n"It\'s a very short list, now that I look at it."\n\n"You\'ve been very good.\nWithout even knowing I was watching."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I find that… charming, actually.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I won\'t be controlled."',
+            nextScene : 'himari_end_shattered_resistance',
+            statEffect: { fear: 10, defiance: 8 },
+          },
+          {
+            label     : '[Stay silent. Don\'t move.]',
+            nextScene : 'himari_end_gilded_prison',
+            statEffect: { fear: 6, obedience: 5, dependency: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 1: Devoted Servant ───────────────────────── */
+
+  himari_end_devoted_servant: {
+    id   : 'himari_end_devoted_servant',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(Something shifts in her expression.\nNot surprise — she doesn\'t do surprise.)\n\n"…Fufu."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'blush',
+        text       : 'I see.\n\n(She takes the album back, holds it against her chest.)\n\n"That\'s the right answer."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I knew you\'d understand.\n\nYou always do.\n\nEven before you know what you\'re agreeing to.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She begins talking — softly, happily — about the future.\n\nApartments she\'s looked at.\nSchedules she\'s planned.\nRooms she\'s already decorated.',
+      },
+      {
+        type: 'narration',
+        text: 'The pen is still in your hands.\nYour name in her handwriting.',
+      },
+      {
+        type: 'narration',
+        text: 'Somewhere, distantly, you understand:\nyou just agreed to something permanent.',
+      },
+      {
+        type: 'narration',
+        text: 'You\'re not sure when.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Devoted Servant',
+        endingIndex : 0,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 2: The Perfect Cage ─────────────────────── */
+
+  himari_end_perfect_cage: {
+    id   : 'himari_end_perfect_cage',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t flinch.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'A lot.\n\n(She considers this.)\n\nYes. I suppose it is.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'But you\'re still here.\n\n(She stands. Straightens her uniform.)\n\n"You didn\'t leave.\nYou didn\'t scream.\nYou\'re sitting in my chair, in my room, with your name in my hands."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : '(She looks at you from across the table.)\n\n"So it can\'t be that much.\n\nCan it?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t have an answer.\n\nShe knew you wouldn\'t.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'We\'ll meet here again tomorrow.\n\nSame time.\n\n(She moves to the door — opens it, waits.)\n\n"I won\'t send a note next time.\nYou\'ll simply know to come."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The frightening part:\n\nyou think you will.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Perfect Cage',
+        endingIndex : 1,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 4: Shattered Resistance ─────────────────── */
+
+  himari_end_shattered_resistance: {
+    id   : 'himari_end_shattered_resistance',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The room goes very still.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She sets the notebook down.)\n\nI see.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'How refreshing.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'Most people don\'t say it out loud.\n\n(She comes around the table — slowly, unhurried.)\n\n"It never changes anything, of course.\nBut it\'s nice to hear."\n\n"It means there\'s still something here to break."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stops just in front of you.\n\nLooks at you the way you look at something you intend to own completely\nbefore you\'re finished with it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'Don\'t worry.\nI\'m not angry.\n\n(A pause.)\n\n"I\'m motivated."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t make it home that afternoon.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Shattered Resistance',
+        endingIndex : 3,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 5: Gilded Prison ─────────────────────────── */
+
+  himari_end_gilded_prison: {
+    id   : 'himari_end_gilded_prison',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t answer.\n\nShe watches you not answering.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Mm.\n\n(She closes the notebook.)\n\n"Smart."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Silence is the most honest thing you\'ve said to me today.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Don\'t worry.\nI know what you\'re feeling.\nYou don\'t have to name it.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stands. Moves to the window.\nThe afternoon light catches the side of her face.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'ll get used to this.\n\nEveryone does, eventually.\n\n(Without turning.)\n\n"The important thing is — you came."\n"You stayed."\n"You\'ll come again."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'That\'s all I need from you.\n\nFor now.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The door is right there.\n\nYou could leave.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t move.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Gilded Prison',
+        endingIndex : 4,
+        rarity      : 'normal',
+      },
     ],
   },
 
