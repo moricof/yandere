@@ -5474,6 +5474,1958 @@ const SCENES = {
     ],
   },
 
+
+  /* ══════════════════════════════════════════════════════════
+     HIMARI CHAPTER 3 — "The Arrangement"
+     She's arranged your life after graduation.
+     Apartment. Job. Schedule. You were never asked.
+
+     ACCEPT PATH:
+       himari_ch3_start → himari_ch3_accept_1 → himari_ch3_accept_2
+         → himari_end_ch3_new_address      [20 — Normal]
+         → himari_end_ch3_signed_in_full   [21 — Rare]
+
+     REFUSE PATH:
+       himari_ch3_start → himari_ch3_refuse_1 → himari_ch3_refuse_2
+         → himari_end_ch3_terms_and_conditions [22 — Rare]
+         → himari_end_ch3_the_open_door        [23 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  himari_ch3_start: {
+    id   : 'himari_ch3_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/rose_salon.jpg' },
+
+      {
+        type: 'narration',
+        text: 'There are documents on the table.\n\nA stack of them.\nAnd beside the stack, on the white cloth, a single key on a silver ring.',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t greet you at the door.\nShe\'s already sitting.\nAlready waiting.\n\nThe tea is poured.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I\'ve been looking forward to this conversation.\n\n(She gestures at the chair across from her.)\n\n"Please."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'After graduation.\n\nI\'ve given it a great deal of thought.\n\n(She sets one hand on the documents.)\n\n"And I\'ve made the necessary arrangements."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'The key is yours.\n\n(She slides it toward you across the cloth.)\n\n"Whenever you\'re ready."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I pick up the key.]',
+            nextScene : 'himari_ch3_accept_1',
+            statEffect: { affection: 7, obedience: 8 },
+          },
+          {
+            label     : '"I haven\'t agreed to any arrangement."',
+            nextScene : 'himari_ch3_refuse_1',
+            statEffect: { fear: 8, defiance: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Accept Path: Act 1 ──────────────────────────────── */
+
+  himari_ch3_accept_1: {
+    id   : 'himari_ch3_accept_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Mm.\n\n(Something in her expression softens — just slightly.)\n\nGood.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'The apartment is in the Shirotsuru district.\nFifteenth floor.\nSoutheast-facing.\n\n(She opens the first document.)\n\n"I selected it for the light. You do better with natural light.\nI have three months of data on it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She begins going through the documents.\n\nOne by one.\nIn order.',
+      },
+      {
+        type: 'narration',
+        text: 'The apartment.\nThe position she\'s arranged at a firm she has connections with.\nA weekly schedule — including meals, transit, and what she calls "designated proximity time."\n\nThree and a half hours.\nDaily.\nAlready cleared in her own calendar.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'The lease begins the first of next month.\n\nThe position starts two weeks after that.\n\n(She refills your cup.)\n\n"I\'ve accounted for the transition period.\nYou won\'t need to worry about any of it."',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch3_accept_2' },
+
+    ],
+  },
+
+
+  /* ── Accept Path: Act 2 ──────────────────────────────── */
+
+  himari_ch3_accept_2: {
+    id   : 'himari_ch3_accept_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The key is still in your hand.\n\nIt\'s small. Warm from the table.\nYour address engraved on a small tag beneath the ring.',
+      },
+      {
+        type: 'narration',
+        text: 'Your address.\nAlready engraved.\nBefore you agreed.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'There\'s one more thing.\n\n(She removes the final document from the stack.\nSlides it across.)\n\n"This one requires your signature."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I look at what I\'m being asked to sign.]',
+            nextScene : 'himari_end_ch3_new_address',
+            statEffect: { affection: 10, obedience: 8 },
+          },
+          {
+            label     : '[I set the key down. Something is wrong.]',
+            nextScene : 'himari_end_ch3_signed_in_full',
+            statEffect: { fear: 10, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Refuse Path: Act 1 ──────────────────────────────── */
+
+  himari_ch3_refuse_1: {
+    id   : 'himari_ch3_refuse_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A pause.\n\nVery brief.\nVery controlled.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You haven\'t.\n\n(She agrees, simply.)\n\n"Not formally.\nNo."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'But some arrangements don\'t require agreement.\nThey simply require time.\n\n(She opens the first document anyway.)\n\n"The lease, for instance.\nIs already signed.\nIt began last Tuesday."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Last Tuesday.\n\nYou were in class last Tuesday.\nYou had lunch in the courtyard.\nYou fed the pigeons.',
+      },
+      {
+        type: 'narration',
+        text: 'The apartment exists.\nThe lease is active.\n\nYour address is already decided.',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch3_refuse_2' },
+
+    ],
+  },
+
+
+  /* ── Refuse Path: Act 2 ──────────────────────────────── */
+
+  himari_ch3_refuse_2: {
+    id   : 'himari_ch3_refuse_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'The position, similarly.\n\nI spoke to the director last month.\nYour name is already in the system.\nOrientation is the fourteenth.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I understand this feels sudden.\n\n(She pours the tea as if the conversation is simply informational.)\n\n"But I want you to understand — none of this requires your agreement to exist.\nI\'m telling you as a courtesy.\nBecause I think you\'d like to know."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'The key is still on the table.\n\n(She looks at it, then at you.)\n\n"You can refuse it.\nThe apartment will still be there."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"This isn\'t legal. You can\'t do this."',
+            nextScene : 'himari_end_ch3_terms_and_conditions',
+            statEffect: { fear: 10, defiance: 7 },
+          },
+          {
+            label     : '[I look at the key. I don\'t move.]',
+            nextScene : 'himari_end_ch3_the_open_door',
+            statEffect: { fear: 8, obedience: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 20: New Address ──────────────────────────── */
+
+  himari_end_ch3_new_address: {
+    id   : 'himari_end_ch3_new_address',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'It\'s a residency agreement.\n\nDetailed.\nLegal language.\nHer name and yours at the top.\n\nThe space for your signature is already marked.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'It outlines mutual expectations.\n\n(She folds her hands.)\n\n"Nothing unreasonable.\nProximity schedules.\nCommunication protocols.\nNotification requirements."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Page four covers the termination clause.\n\n(A pause.)\n\n"You\'ll notice it\'s quite short."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Page four is one sentence.\n\n"This agreement does not terminate."',
+      },
+      {
+        type: 'narration',
+        text: 'The key is still in your hand.\n\nShe watches you read.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'New Address',
+        endingIndex : 20,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 21: Signed in Full ───────────────────────── */
+
+  himari_end_ch3_signed_in_full: {
+    id   : 'himari_end_ch3_signed_in_full',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : '(She watches you set it down.)\n\n…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Something is wrong.\n\n(She says it softly.\nLike a diagnosis.)\n\n"What\'s wrong?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t know how to begin.\n\nShe waits.\nShe has always been very patient.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You\'re frightened.\n\n(Not unkindly.)\n\n"That\'s all right.\nI expected that.\nI\'ve built for it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You don\'t have to sign today.\n\n(She slides the document closer anyway.)\n\n"But the apartment exists whether you sign or not.\nThe pen is right there."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The pen is right there.\n\nYou understand — with absolute clarity —\nthat the only question is how long it takes.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Signed in Full',
+        endingIndex : 21,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 22: Terms and Conditions ────────────────── */
+
+  himari_end_ch3_terms_and_conditions: {
+    id   : 'himari_end_ch3_terms_and_conditions',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She considers this.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'re right that there are legal complexities.\n\n(She doesn\'t flinch.)\n\n"I\'ve had it reviewed.\nThe residency agreement is standard.\nThe employment arrangement is standard.\nThe lease is in your name — I simply paid for it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'None of this is illegal.\n\nNone of it requires your consent to exist.\n\n(She meets your eyes.)\n\n"What you\'re feeling isn\'t a legal question.\nIt\'s a much more personal one."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'The apartment is yours.\nThe job is yours.\nThe life is yours.\n\n(A pause.)\n\n"I simply built it.\nYou just have to live in it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She waits.\n\nShe has been waiting much longer than today.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Terms and Conditions',
+        endingIndex : 22,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 23: The Open Door ────────────────────────── */
+
+  himari_end_ch3_the_open_door: {
+    id   : 'himari_end_ch3_the_open_door',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stands.\n\nCrosses to the door.\nOpens it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You can leave.\n\n(She holds the door open.\nThe corridor beyond is quiet.)\n\n"I\'m not stopping you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'The apartment will still be there.\nThe position will still be there.\n\n(She tilts her head slightly.)\n\n"And I will still be here.\nAs I always have been."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t move.',
+      },
+      {
+        type: 'narration',
+        text: 'The door is open.\n\nShe is right.\nShe is not stopping you.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t move.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Open Door',
+        endingIndex : 23,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     SHIZUKU CHAPTER 3 — "The Letter"
+     A letter fell from her bag. She didn't mean you to see it.
+     It is addressed to you. It was never going to be sent.
+
+     RETURN PATH:
+       shizuku_ch3_start → shizuku_ch3_return_1 → shizuku_ch3_return_2
+         → shizuku_end_ch3_unread  [20 — Normal]
+         → shizuku_end_ch3_draft   [21 — Rare]
+
+     READ PATH:
+       shizuku_ch3_start → shizuku_ch3_read_1 → shizuku_ch3_read_2
+         → shizuku_end_ch3_every_word  [22 — Rare]
+         → shizuku_end_ch3_permission  [23 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  shizuku_ch3_start: {
+    id   : 'shizuku_ch3_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/library.jpg' },
+
+      {
+        type: 'narration',
+        text: 'It falls when she reaches into her bag for her bookmark.\n\nA folded envelope.\nWhite.\nYour name on the front in her careful script.',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t notice immediately.\n\nShe\'s still looking in her bag.',
+      },
+      {
+        type: 'narration',
+        text: 'The envelope is on the floor between you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I pick it up and hand it back without looking.]',
+            nextScene : 'shizuku_ch3_return_1',
+            statEffect: { affection: 6, obedience: 4 },
+          },
+          {
+            label     : '[I pick it up. My name is on it. I open it.]',
+            nextScene : 'shizuku_ch3_read_1',
+            statEffect: { fear: 7, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Return Path: Act 1 ──────────────────────────────── */
+
+  shizuku_ch3_return_1: {
+    id   : 'shizuku_ch3_return_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She turns.\n\nSees the envelope in your hand.\nSees that it\'s still folded.\nSees that you\'re holding it out to her.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '…',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : '(She takes it.\nVery carefully.\nLike it might come apart.)\n\nYou didn\'t read it.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : '(It isn\'t a question.)\n\nYou didn\'t read it.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She holds it against her chest.\n\nThe way you hold something you almost lost.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Thank you.\n\n(Very quietly.)\n\n"I — thank you."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch3_return_2' },
+
+    ],
+  },
+
+
+  /* ── Return Path: Act 2 ──────────────────────────────── */
+
+  shizuku_ch3_return_2: {
+    id   : 'shizuku_ch3_return_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She sits with the envelope in her hands for a long time.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I\'ve written thirty-seven of these.\n\n(She says it like a confession.)\n\n"Since the beginning of second year.\nOne every few weeks."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I keep deciding which one to give you.\n\nAnd then I don\'t.\n\n(She looks at the envelope.)\n\n"This one got away from me."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Would you like to read it to me?"',
+            nextScene : 'shizuku_end_ch3_unread',
+            statEffect: { affection: 10, dependency: 9 },
+          },
+          {
+            label     : '"Thirty-seven."',
+            nextScene : 'shizuku_end_ch3_draft',
+            statEffect: { fear: 9, dependency: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Read Path: Act 1 ────────────────────────────────── */
+
+  shizuku_ch3_read_1: {
+    id   : 'shizuku_ch3_read_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Your name is on it.\n\nYou open it.',
+      },
+      {
+        type: 'narration',
+        text: 'The handwriting is hers.\nBut different from her usual careful script.\nThis is the version that comes at 3am.\nThe version that shakes a little.',
+      },
+      {
+        type: 'narration',
+        text: 'The letter begins:\n\n"I know I\'m not supposed to feel this way.\nI know what it would look like if anyone else could see inside my head.\nI\'ve been trying to correct it for eight months.\nI don\'t think I can."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'cry',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(She turns.)\n\n{name}—',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(She sees the letter open in your hands.)\n\n…',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch3_read_2' },
+
+    ],
+  },
+
+
+  /* ── Read Path: Act 2 ────────────────────────────────── */
+
+  shizuku_ch3_read_2: {
+    id   : 'shizuku_ch3_read_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t try to take it back.\n\nShe watches you read.',
+      },
+      {
+        type: 'narration',
+        text: 'The letter goes on for four pages.\n\nMost of it is careful — she\'s clearly drafted it multiple times.\nBut there are passages that break through.\n\nThings she thought about doing.\nPaths she\'d considered.\nThings she tells herself not to want.',
+      },
+      {
+        type: 'narration',
+        text: 'The last line:\n\n"I\'m going to keep feeling this way forever.\nI thought you should know.\nI\'m sorry.\nI\'m not sorry."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Does it change anything?\n\n(She asks it quietly.\nSteadily.\nLike she\'s been practicing.)',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Shizuku… this is a lot."',
+            nextScene : 'shizuku_end_ch3_every_word',
+            statEffect: { fear: 10, dependency: 7 },
+          },
+          {
+            label     : '[I fold the letter. I hand it back.]',
+            nextScene : 'shizuku_end_ch3_permission',
+            statEffect: { fear: 7, affection: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 20: Unread ───────────────────────────────── */
+
+  shizuku_end_ch3_unread: {
+    id   : 'shizuku_end_ch3_unread',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She looks at you for a long moment.)\n\n…Yes.\n\n(Slowly.)\n\n"Actually.\nYes.\nI think I would."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Her voice is very quiet when she reads.\n\nShe stops at certain passages.\nStays with them a moment.\nThen continues.',
+      },
+      {
+        type: 'narration',
+        text: 'When she finishes she folds it back along the same creases.\nPuts it in her bag.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : 'I\'ll give you one of the others eventually.\n\n(She opens her book again.)\n\n"When I find the right one."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(Without looking up.)\n\n"There are thirty-six left."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Unread',
+        endingIndex : 20,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 21: The Draft ────────────────────────────── */
+
+  shizuku_end_ch3_draft: {
+    id   : 'shizuku_end_ch3_draft',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She doesn\'t look embarrassed.)\n\nThirty-seven.\n\n"The first one was from the end of first year.\nRight after I realized."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'Some of them are very short.\n\n(She looks at the envelope.)\n\n"Some of them are long enough that I had to stop.\nBecause I was frightening myself."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it without drama.\n\nJust information.\nJust the truth of what\'s been living inside her.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : 'I was going to give you number twelve.\n\n(Very quietly.)\n\n"It\'s the most honest one.\nI\'ve been deciding for two months.\n\nI think I\'ll give it to you soon."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Draft',
+        endingIndex : 21,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 22: Every Word ───────────────────────────── */
+
+  shizuku_end_ch3_every_word: {
+    id   : 'shizuku_end_ch3_every_word',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She nods.\n\nSlowly.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I know.\n\n(No apology in it.)\n\n"I wrote it because I knew it was a lot.\nI needed somewhere to put it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I\'ve been carrying all of that for a very long time.\n\n(She meets your eyes.)\n\n"Now you\'re carrying some of it too.\nI\'m sorry.\nI\'m not sorry."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The last line of the letter.\n\nThe same words.\n\nSaid out loud now.\nTo your face.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Every Word',
+        endingIndex : 22,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 23: Permission ───────────────────────────── */
+
+  shizuku_end_ch3_permission: {
+    id   : 'shizuku_end_ch3_permission',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She takes it back.\nHolds it.\nDoesn\'t put it away.)\n\nDoes it change anything?',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t answer.\n\nYou\'re not sure you could.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : 'That\'s okay.\n\n(She opens her book.\nThe bookmark is still on page one.)\n\n"You don\'t have to answer.\nI already know you\'ll come back tomorrow."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(Without looking up.)\n\n"And I\'ll be here.\nI\'m always here.\nThat\'s the part I didn\'t need to write down."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Permission',
+        endingIndex : 23,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     REINA CHAPTER 3 — "The Variable"
+     She has identified a flaw in the model.
+     The flaw is that she has developed feelings.
+     She is reporting this to you like a bug.
+
+     ENGAGE PATH:
+       reina_ch3_start → reina_ch3_engage_1 → reina_ch3_engage_2
+         → reina_end_ch3_controlled_variable  [20 — Normal]
+         → reina_end_ch3_non_linear_output    [21 — Rare]
+
+     DEFLECT PATH:
+       reina_ch3_start → reina_ch3_deflect_1 → reina_ch3_deflect_2
+         → reina_end_ch3_null_hypothesis      [22 — Rare]
+         → reina_end_ch3_standard_deviation   [23 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  reina_ch3_start: {
+    id   : 'reina_ch3_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/student_council.jpg' },
+
+      {
+        type: 'narration',
+        text: 'There\'s no folder this time.\n\nNo report.\nNo stack of documents.\n\nShe\'s just sitting at the desk.\nHands folded.\nExpression unreadable.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I\'ve identified an anomaly in the model.\n\n(She looks at you directly.)\n\n"I wanted to inform you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Over the past six weeks, my projected outcomes have been consistently deprioritizing rational optimization.\n\nIn favor of an unaccounted-for variable.\n\n(A pause.)\n\n"The variable is you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'More precisely:\n\nthe way I respond to your presence.\n\nIt falls outside the model\'s parameters.\nI cannot correct it.\nI have been attempting to for four weeks.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What does the variable do, exactly?"',
+            nextScene : 'reina_ch3_engage_1',
+            statEffect: { affection: 5, dependency: 6 },
+          },
+          {
+            label     : '"Reina… are you telling me you have feelings?"',
+            nextScene : 'reina_ch3_deflect_1',
+            statEffect: { fear: 4, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Engage Path: Act 1 ──────────────────────────────── */
+
+  reina_ch3_engage_1: {
+    id   : 'reina_ch3_engage_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Several things.\n\n(She opens a notebook — not the report, something smaller, personal-looking.)\n\n"One. I have begun allocating decision-making resources to your welfare at the expense of more pressing priorities. The ratio is increasing."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Two. I have found myself running simulations of adverse scenarios involving you.\nThey produce an irrational aversion response.\n\n(She turns the page.)\n\n"Three. Your absence from expected locations causes a measurable disruption in my workflow."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She\'s not blushing.\nShe\'s not nervous.\n\nShe\'s reading from notes.\nLike a presentation.\nLike she prepared for this meeting.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Four.\n\n(She closes the notebook.)\n\n"I have run seventeen scenarios in which the arrangement ends.\n\nIn all seventeen, the model collapses."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch3_engage_2' },
+
+    ],
+  },
+
+
+  /* ── Engage Path: Act 2 ──────────────────────────────── */
+
+  reina_ch3_engage_2: {
+    id   : 'reina_ch3_engage_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She looks at you the way she looks at unsolved problems.\n\nDirectly.\nWithout flinching.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I\'ve considered three possible responses to this anomaly.\n\nOne: correction.\nI\'ve established it\'s not possible.\n\nTwo: removal of the variable.\nI\'ve run the projections.\nThe outcomes are unacceptable.\n\n(She straightens her pen on the desk.)\n\n"Three: reclassification."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I have decided to reclassify the variable\nnot as a flaw,\nbut as a parameter.\n\n(She looks at you.)\n\n"The model now includes you as a fixed value."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"A fixed value."',
+            nextScene : 'reina_end_ch3_controlled_variable',
+            statEffect: { obedience: 8, dependency: 8 },
+          },
+          {
+            label     : '"Reina. Is this your way of saying you care about me?"',
+            nextScene : 'reina_end_ch3_non_linear_output',
+            statEffect: { affection: 10, fear: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Deflect Path: Act 1 ─────────────────────────────── */
+
+  reina_ch3_deflect_1: {
+    id   : 'reina_ch3_deflect_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A silence.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '"Feelings" is imprecise.\n\n(She doesn\'t look away.)\n\n"What I\'ve identified is a persistent, non-correctable anomaly in my decision-making framework that prioritizes inputs related to you above all other inputs.\n\nIf that\'s what you mean by feelings, then yes."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I\'m telling you because the model operates more efficiently with full variable disclosure.\n\n(She picks up her pen.)\n\n"You were the last undisclosed variable."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch3_deflect_2' },
+
+    ],
+  },
+
+
+  /* ── Deflect Path: Act 2 ─────────────────────────────── */
+
+  reina_ch3_deflect_2: {
+    id   : 'reina_ch3_deflect_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She opens the notebook.\n\nBegins writing something.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I\'ve run every scenario in which you leave the arrangement.\n\n(She writes without stopping.)\n\n"All scenarios. Every probable cause.\nEvery likely timeline."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The outputs are unacceptable.\n\n(She underlines something.)\n\n"All of them.\nWithout exception."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I want to be transparent about this.\n\n(She looks up.)\n\n"So that you understand the full scope of the arrangement\nyou are currently in."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What happens in those scenarios?"',
+            nextScene : 'reina_end_ch3_null_hypothesis',
+            statEffect: { fear: 10, dependency: 6 },
+          },
+          {
+            label     : '[I don\'t ask. I don\'t think I want to know.]',
+            nextScene : 'reina_end_ch3_standard_deviation',
+            statEffect: { fear: 8, obedience: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 20: Controlled Variable ─────────────────── */
+
+  reina_end_ch3_controlled_variable: {
+    id   : 'reina_end_ch3_controlled_variable',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Yes.\n\n(She says it without hesitation.)\n\n"A fixed value.\nConstant across all projections.\nNon-negotiable."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The model is more stable this way.\n\n(She closes the notebook.)\n\n"I wanted you to understand that your position in the arrangement\nis no longer conditional.\nIt\'s structural."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Structural.\n\nLike a wall.\nLike a foundation.\n\nNon-negotiable.',
+      },
+      {
+        type: 'narration',
+        text: 'She begins a new page.\n\nMonth four.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Controlled Variable',
+        endingIndex : 20,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 21: Non-Linear Output ────────────────────── */
+
+  reina_end_ch3_non_linear_output: {
+    id   : 'reina_end_ch3_non_linear_output',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She is quiet for three seconds.\n\nPrecisely three.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'That\'s one way to characterize it.\n\n(She considers the word.)\n\n"\'Care\' suggests preference.\nThis is more than preference."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The model now optimizes\nfor your continued presence.\n\n(She sets the pen down.)\n\n"At any cost.\nI\'ve checked the math multiple times.\nThe output doesn\'t change."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'At any cost.\n\nShe says it the way she says all true things:\ndirectly.\nWithout softening it.',
+      },
+      {
+        type: 'narration',
+        text: 'At any cost.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Non-Linear Output',
+        endingIndex : 21,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 22: Null Hypothesis ──────────────────────── */
+
+  reina_end_ch3_null_hypothesis: {
+    id   : 'reina_end_ch3_null_hypothesis',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She sets the pen down.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'In all scenarios — I implement a correction.\n\n(She says it without inflection.)\n\n"The nature of the correction varies by scenario.\nBut the outcome is consistent.\n\nYou remain in the arrangement."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The model will not accept any other output.\n\n(She looks at you.\nSomething in her expression is almost a warning.)\n\n"I thought it was important for you to know that\nbefore you asked the question."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You understand.\n\nYou think you understood before she finished the sentence.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Null Hypothesis',
+        endingIndex : 22,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 23: Standard Deviation ──────────────────── */
+
+  reina_end_ch3_standard_deviation: {
+    id   : 'reina_end_ch3_standard_deviation',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She watches you decide not to ask.\n\nMakes a note.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Smart.\n\n(She closes the notebook.)\n\n"This conversation has been logged.\nSubject demonstrated appropriate comprehension of scope."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Month four begins Thursday.\n\nNo report this cycle.\n\n(She stands.)\n\n"Just attendance."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Attendance."\n\nNot a meeting.\nNot a review.\n\nJust: be there.',
+      },
+      {
+        type: 'narration',
+        text: 'You will be there.\n\nYou both know it.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Standard Deviation',
+        endingIndex : 23,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     MEI CHAPTER 3 — "The Red Pages"
+     She said she'd show you someday. Today is that day.
+     You didn't agree to today being that day.
+
+     LOOK PATH:
+       mei_ch3_start → mei_ch3_look_1 → mei_ch3_look_2
+         → mei_end_ch3_red_ink      [20 — Normal]
+         → mei_end_ch3_three_pages  [21 — Rare]
+
+     DECLINE PATH:
+       mei_ch3_start → mei_ch3_decline_1 → mei_ch3_decline_2
+         → mei_end_ch3_already_happened  [22 — Rare]
+         → mei_end_ch3_keeping_count     [23 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  mei_ch3_start: {
+    id   : 'mei_ch3_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/school_rooftop.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She\'s already there when you arrive.\n\nSitting cross-legged.\nMr. Buttons in her lap.\nThe notebook open on the ground in front of her.',
+      },
+      {
+        type: 'narration',
+        text: 'The first pages are white.\n\nShe turns past them.\n\nThe pages she stops on are red.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '{name}~\n\n(She looks up.)\n\n"I said I\'d show you someday.\nI decided today is someday."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She holds the notebook out.)\n\n"Do you want to see?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I sit down. I look.]',
+            nextScene : 'mei_ch3_look_1',
+            statEffect: { fear: 6, dependency: 5 },
+          },
+          {
+            label     : '"I don\'t think I want to see."',
+            nextScene : 'mei_ch3_decline_1',
+            statEffect: { fear: 7, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Look Path: Act 1 ────────────────────────────────── */
+
+  mei_ch3_look_1: {
+    id   : 'mei_ch3_look_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She scoots closer so you can both see.)\n\nOkay~\n\n"I\'ll explain the ones that need explaining."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The red pages are not dramatic.\n\nThat is the most frightening thing about them.',
+      },
+      {
+        type: 'narration',
+        text: 'Each entry is dated.\nA name, sometimes.\nMore often a description.\nA brief note.\n\n"Transferred schools — April."\n"Stopped coming to class — late March."\n"Left the group project. Didn\'t speak to {name} again."',
+      },
+      {
+        type: 'narration',
+        text: 'People who used to be near you.\n\nPeople who aren\'t anymore.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Some of them resolved on their own~\n\n(She says it helpfully.)\n\n"I didn\'t have to do anything.\nThey just — left."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch3_look_2' },
+
+    ],
+  },
+
+
+  /* ── Look Path: Act 2 ────────────────────────────────── */
+
+  mei_ch3_look_2: {
+    id   : 'mei_ch3_look_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You stop on one entry.\n\nA name you recognize.\nSomeone who was your friend for two years\nand then, around April of last year,\nsimply wasn\'t.',
+      },
+      {
+        type: 'narration',
+        text: 'You asked them once what happened.\n\nThey said it was complicated.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'You\'re looking at that one~\n\n(She tilts her head.)\n\n"That one I helped a little.\nJust a little.\nI found some things out and I shared them.\n\nPeople make their own choices after that."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Did you do this to all of them?"',
+            nextScene : 'mei_end_ch3_red_ink',
+            statEffect: { fear: 9, defiance: 4 },
+          },
+          {
+            label     : '[I close the notebook. I hand it back.]',
+            nextScene : 'mei_end_ch3_three_pages',
+            statEffect: { fear: 10, dependency: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Decline Path: Act 1 ─────────────────────────────── */
+
+  mei_ch3_decline_1: {
+    id   : 'mei_ch3_decline_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She closes the notebook.\nNo argument.)\n\nThat\'s okay~',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'They happened either way.\n\n(She sets it in her lap.)\n\n"I just thought you might want to know.\nSo you\'d understand."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"They happened either way."\n\nYou focus on that.\n\nNot "I did this."\nNot "I caused this."\n\n"They happened."',
+      },
+      {
+        type: 'narration',
+        text: 'Like weather.\nLike gravity.',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch3_decline_2' },
+
+    ],
+  },
+
+
+  /* ── Decline Path: Act 2 ─────────────────────────────── */
+
+  mei_ch3_decline_2: {
+    id   : 'mei_ch3_decline_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I wanted you to understand\nthat I\'ve been careful.\n\n(She puts the notebook in her bag.)\n\n"For you.\nSpecifically.\nMore careful than I usually am."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'The number hasn\'t changed since I met you.\n\n(She picks up Mr. Buttons.)\n\n"That\'s — I think that\'s important for you to know.\nI\'ve been trying."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What number?"',
+            nextScene : 'mei_end_ch3_already_happened',
+            statEffect: { fear: 10, defiance: 4 },
+          },
+          {
+            label     : '[I don\'t ask. I look at her instead.]',
+            nextScene : 'mei_end_ch3_keeping_count',
+            statEffect: { fear: 7, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 20: Red Ink ──────────────────────────────── */
+
+  mei_end_ch3_red_ink: {
+    id   : 'mei_end_ch3_red_ink',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She thinks about it.)\n\nNot all of them.\n\n"Some of them I didn\'t have to.\nSome of them I just watched\nand waited\nand they went away on their own."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'People who aren\'t right for someone\nusually figure it out eventually~\n\n(She tilts her head.)\n\n"I just… helped the timeline.\nFor some of them."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Helped the timeline."\n\nShe says it the way you\'d say "shortened the commute."\n\nCheerfully.\nPractically.',
+      },
+      {
+        type: 'narration',
+        text: 'You think about every person who drifted away from you in the last two years.\n\nEvery one you couldn\'t explain.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Red Ink',
+        endingIndex : 20,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 21: Three Pages ──────────────────────────── */
+
+  mei_end_ch3_three_pages: {
+    id   : 'mei_end_ch3_three_pages',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She takes it back.)\n\nOkay~\n\n"That\'s okay.\nYou don\'t have to look at all of them."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'There are only three pages anyway.\n\n(She runs her thumb along the red edges.)\n\n"Three.\nFor two years.\n\nI think that\'s — I think that\'s pretty good, actually."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Pretty good.\n\nThree pages.\nFor two years.',
+      },
+      {
+        type: 'narration',
+        text: 'You look at her bright, earnest face.\n\nShe means it.\n\nShe has been — in her own way, by her own measure —\ntrying to be careful.\n\nFor you.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type: 'narration',
+        text: 'That is either the most comforting thing\nor the most frightening thing\nanyone has ever said to you.\n\nYou\'re not sure which.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Three Pages',
+        endingIndex : 21,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 22: Already Happened ─────────────────────── */
+
+  mei_end_ch3_already_happened: {
+    id   : 'mei_end_ch3_already_happened',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She looks at you for a moment.)\n\nThe number of red pages.\n\n(Simply.)\n\n"Since I met you it\'s been three.\nBefore I met you it was more."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'You make me want to be careful~\n\n(She holds Mr. Buttons up.)\n\n"Mr. Buttons says that\'s what it means when you really like someone.\nYou want to be better for them."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Before she met you.\n\nMore than three.',
+      },
+      {
+        type: 'narration',
+        text: 'You decide not to ask how many more.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type: 'narration',
+        text: 'They happened either way.\n\nShe said that.\n\nThey happened either way.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Already Happened',
+        endingIndex : 22,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 23: Keeping Count ────────────────────────── */
+
+  mei_end_ch3_keeping_count: {
+    id   : 'mei_end_ch3_keeping_count',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She looks back at you.)\n\nMm~\n\n"You\'re not going to ask."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'That\'s okay.\n\n(She puts Mr. Buttons back in her lap.)\n\n"The number is small.\nThat\'s all you need to know.\n\nAnd it\'s stayed small\nbecause of you."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it like a gift.\n\nLike she\'s giving you something.',
+      },
+      {
+        type: 'narration',
+        text: 'The notebook goes back in her bag.\n\nThe afternoon goes quiet.\n\nShe starts humming something soft.',
+      },
+      {
+        type: 'narration',
+        text: 'You stay.\n\nYou\'re not entirely sure why.\n\nMaybe because not asking\nfeels safer than knowing.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Keeping Count',
+        endingIndex : 23,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
 };
 
 
