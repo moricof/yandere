@@ -380,8 +380,8 @@
     <div class="dl-topbar">
       <button class="dl-menu-btn" onclick="UI.back()" aria-label="Back to menu">≡</button>
       <span class="dl-chapter-label" id="chapter-title">Prologue</span>
-      <!-- Status button (will open stat diagnosis panel later) -->
-      <button class="dl-status-btn" aria-label="Character status">♡</button>
+      <!-- Status button — opens the internal parameter panel -->
+      <button class="dl-status-btn" id="dl-status-btn" aria-label="Character status">♡</button>
     </div>
 
     <!-- Main dialogue box (bottom ~30% of screen) -->
@@ -402,6 +402,23 @@
     <!-- Timed choice countdown bar -->
     <div id="timed-bar" class="dl-timed-bar hidden" aria-hidden="true">
       <div id="timed-bar-fill" class="dl-timed-bar-fill"></div>
+    </div>
+
+    <!-- Status Panel — slides in from right when ♡ is tapped -->
+    <div id="status-panel" class="dl-status-panel hidden" role="dialog" aria-label="Internal Status">
+      <div class="sp-inner">
+        <div class="sp-header">
+          <p class="sp-eyebrow">Internal Parameters</p>
+          <button class="sp-close-btn" id="sp-close-btn" aria-label="Close status panel">✕</button>
+        </div>
+        <p class="sp-heroine-name" id="sp-heroine-name">—</p>
+        <div class="sp-divider"></div>
+        <div class="sp-stats" id="sp-stats">
+          <!-- Populated dynamically by renderStatPanel() in script.js -->
+        </div>
+        <div class="sp-divider"></div>
+        <p class="sp-note">These hidden values shape the story's direction.<br>Watch them shift with each choice you make.</p>
+      </div>
     </div>
 
     <!-- End-of-route card -->

@@ -434,12 +434,12 @@ const SCENES = {
           {
             label     : '"Of course. I won\'t go anywhere."',
             nextScene : 'prologue_devoted',
-            statEffect: { affection: 5 },
+            statEffect: { affection: 8, obedience: 5 },
           },
           {
             label     : '"I… I haven\'t made up my mind yet."',
             nextScene : 'prologue_uncertain',
-            statEffect: { fear: 5 },
+            statEffect: { fear: 8, dependency: 3 },
           },
         ],
       },
@@ -659,12 +659,12 @@ const SCENES = {
           {
             label     : '"I came as fast as I could."',
             nextScene : 'route_devoted',
-            statEffect: { affection: 10 },
+            statEffect: { affection: 10, obedience: 8 },
           },
           {
             label     : '"I almost didn\'t come at all."',
             nextScene : 'route_defiant',
-            statEffect: { fear: 10, affection: -3 },
+            statEffect: { fear: 12, affection: -3, dependency: 4 },
           },
         ],
       },
@@ -768,7 +768,21 @@ const SCENES = {
         expression : 'sad',
         text       : '(She looks down at her book. The same page as before.)\n\n"I can\'t focus when you\'re not nearby."\n"Is that… strange?"',
       },
-      { type: 'end' },
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"No. I\'ll stay here with you."',
+            nextScene : 'shizuku_ch1_stay',
+            statEffect: { dependency: 10, affection: 6 },
+          },
+          {
+            label     : '"…Maybe a little."',
+            nextScene : 'shizuku_ch1_hesitate',
+            statEffect: { fear: 6, dependency: 5 },
+          },
+        ],
+      },
     ],
   },
 
@@ -799,6 +813,62 @@ const SCENES = {
         character  : 'reina',
         expression : 'cold',
         text       : 'There is no room for deviation.\n\nYou will find that following my guidelines\nis simply… easier.',
+      },
+      { type: 'end' },
+    ],
+  },
+
+  shizuku_ch1_stay: {
+    id   : 'shizuku_ch1_stay',
+    steps: [
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(Her fingers stop trembling.\nShe exhales — slow, relieved.)\n\n…Thank you.\n\nPlease… don\'t ever leave.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : 'I know that\'s a lot to ask.\n\n(She turns back to her book, still smiling.)\n\n"I\'ll try to be worth staying for."',
+      },
+      { type: 'end' },
+    ],
+  },
+
+  shizuku_ch1_hesitate: {
+    id   : 'shizuku_ch1_hesitate',
+    steps: [
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'cry',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '…Oh.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(She turns the page. She hasn\'t read a word.)\n\n"I thought so."\n\n…It\'s all right.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(She looks up. The smile doesn\'t reach her eyes.)\n\n"You\'ll understand eventually."\n"That you can\'t leave either."',
       },
       { type: 'end' },
     ],

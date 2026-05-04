@@ -932,8 +932,8 @@ function loadScene(sceneId) {
 // ── Input Handler ─────────────────────────────────────────────────────────────
 
 function handleDialogueTap() {
-  // Don't advance while a name-input modal is open
   if (document.getElementById('name-input-overlay')) return;
+  if (!document.getElementById('status-panel').classList.contains('hidden')) return;
 
   if (EngineState.isTyping) {
     skipTyping();
@@ -945,6 +945,20 @@ function handleDialogueTap() {
 }
 
 document.getElementById('screen-dialogue').addEventListener('click', handleDialogueTap);
+
+document.getElementById('dl-status-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  openStatusPanel();
+});
+
+document.getElementById('sp-close-btn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  closeStatusPanel();
+});
+
+document.getElementById('status-panel').addEventListener('click', (e) => {
+  e.stopPropagation();
+});
 
 document.addEventListener('keydown', (e) => {
   if (!document.getElementById('screen-dialogue').classList.contains('active')) return;
@@ -960,7 +974,7 @@ function applyStatEffect(effects) {
   if (!effects) return;
   for (const [stat, delta] of Object.entries(effects)) {
     if (EngineState.stats[stat] !== undefined) {
-      EngineState.stats[stat] += delta;
+      EngineState.stats[stat] = Math.max(0, Math.min(100, EngineState.stats[stat] + delta));
     }
   }
   saveStats();
@@ -980,6 +994,61 @@ function loadStats() {
   } catch (e) {
     EngineState.stats = Object.assign({}, INITIAL_STATS);
   }
+}
+
+// ── Status Panel ──────────────────────────────────────────────────────────────
+
+const STAT_CONFIG = [
+  { key: 'affection',  label: 'Affection',  labelJP: '愛情', color: '#f05070' },
+  { key: 'dependency', label: 'Dependency', labelJP: '依存', color: '#88ccee' },
+  { key: 'fear',       label: 'Fear',       labelJP: '恐怖', color: '#aa66ee' },
+  { key: 'obedience',  label: 'Obedience',  labelJP: '従順', color: '#c4a050' },
+];
+
+function renderStatPanel() {
+  const heroine = UIState.heroine;
+  const hData   = heroine ? HEROINE_DATA[heroine] : null;
+
+  document.getElementById('sp-heroine-name').textContent =
+    hData ? `${hData.nameEN}  —  ${hData.nameJP}` : '—';
+
+  const container = document.getElementById('sp-stats');
+  container.innerHTML = '';
+
+  STAT_CONFIG.forEach(({ key, label, labelJP, color }) => {
+    const raw = EngineState.stats[key] || 0;
+    const val = Math.max(0, Math.min(100, raw));
+
+    const row = document.createElement('div');
+    row.className = 'sp-stat-row';
+    row.innerHTML = `
+      <div class="sp-stat-label">
+        <span class="sp-stat-name">${label}</span>
+        <span class="sp-stat-jp">${labelJP}</span>
+      </div>
+      <div class="sp-stat-bar-wrap">
+        <div class="sp-stat-bar" data-color="${color}" style="width:${val}%; background:${color};"></div>
+      </div>
+      <span class="sp-stat-val">${val}</span>
+    `;
+    container.appendChild(row);
+  });
+}
+
+function openStatusPanel() {
+  renderStatPanel();
+  const panel = document.getElementById('status-panel');
+  panel.classList.remove('hidden');
+  panel.classList.remove('sp-exit');
+}
+
+function closeStatusPanel() {
+  const panel = document.getElementById('status-panel');
+  panel.classList.add('sp-exit');
+  setTimeout(() => {
+    panel.classList.add('hidden');
+    panel.classList.remove('sp-exit');
+  }, 260);
 }
 
 

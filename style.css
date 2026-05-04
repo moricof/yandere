@@ -1476,6 +1476,179 @@ button {
 
 
 /* ════════════════════════════════════════════════════════════════════════════
+   STATUS PANEL  (internal parameter display — slides in from right)
+   ════════════════════════════════════════════════════════════════════════════ */
+
+.dl-status-panel {
+  position        : absolute;
+  top             : 0;
+  right           : 0;
+  bottom          : 0;
+  width           : min(80%, 280px);
+  z-index         : 25;
+  pointer-events  : all;
+  background      : linear-gradient(160deg, rgba(10,4,20,0.97) 0%, rgba(6,2,14,0.98) 100%);
+  border-left     : 1px solid var(--border);
+  backdrop-filter : blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  animation       : sp-slide-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  box-shadow      : -8px 0 40px rgba(0,0,0,0.60);
+}
+
+.dl-status-panel.sp-exit {
+  animation : sp-slide-out 0.26s ease-in forwards;
+}
+
+@keyframes sp-slide-in {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes sp-slide-out {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+
+.sp-inner {
+  height          : 100%;
+  display         : flex;
+  flex-direction  : column;
+  padding         : clamp(16px, 5vw, 24px) clamp(14px, 4vw, 20px);
+  gap             : clamp(12px, 3.5vw, 18px);
+  overflow-y      : auto;
+  scrollbar-width : thin;
+  scrollbar-color : var(--border) transparent;
+}
+
+/* Header row */
+.sp-header {
+  display         : flex;
+  align-items     : center;
+  justify-content : space-between;
+}
+
+.sp-eyebrow {
+  font-family   : var(--font-display);
+  font-size     : clamp(9px, 2.2vw, 11px);
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color         : var(--gold-light);
+}
+
+.sp-close-btn {
+  width           : 26px;
+  height          : 26px;
+  background      : rgba(255,255,255,0.06);
+  border          : 1px solid var(--border);
+  border-radius   : 50%;
+  color           : var(--text-2);
+  font-size       : 11px;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  transition      : background var(--t-fast), color var(--t-fast);
+  flex-shrink     : 0;
+}
+
+.sp-close-btn:hover {
+  background : rgba(255,255,255,0.14);
+  color      : var(--text-1);
+}
+
+/* Heroine name */
+.sp-heroine-name {
+  font-size     : clamp(11px, 3vw, 14px);
+  color         : var(--text-2);
+  font-style    : italic;
+  letter-spacing: 0.06em;
+  line-height   : 1.4;
+}
+
+/* Thin gold divider */
+.sp-divider {
+  height     : 1px;
+  background : linear-gradient(90deg, var(--gold-dark), transparent);
+  flex-shrink: 0;
+}
+
+/* Stat rows container */
+.sp-stats {
+  display       : flex;
+  flex-direction: column;
+  gap           : clamp(14px, 4vw, 20px);
+  flex          : 1;
+}
+
+/* Single stat row */
+.sp-stat-row {
+  display     : flex;
+  align-items : center;
+  gap         : clamp(8px, 2.5vw, 12px);
+}
+
+/* Label column */
+.sp-stat-label {
+  display       : flex;
+  flex-direction: column;
+  gap           : 1px;
+  min-width     : 68px;
+  width         : 68px;
+  flex-shrink   : 0;
+}
+
+.sp-stat-name {
+  font-family   : var(--font-display);
+  font-size     : clamp(9px, 2.2vw, 11px);
+  letter-spacing: 0.10em;
+  color         : var(--text-1);
+}
+
+.sp-stat-jp {
+  font-family : var(--font-jp);
+  font-size   : clamp(7px, 1.8vw, 9px);
+  color       : var(--text-3);
+}
+
+/* Bar track */
+.sp-stat-bar-wrap {
+  flex         : 1;
+  height       : 5px;
+  background   : rgba(255,255,255,0.06);
+  border-radius: 3px;
+  overflow     : hidden;
+}
+
+/* Bar fill — width set inline by JS */
+.sp-stat-bar {
+  height        : 100%;
+  border-radius : 3px;
+  transition    : width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width     : 2px;
+  filter        : drop-shadow(0 0 4px currentColor);
+}
+
+/* Numeric value */
+.sp-stat-val {
+  font-family   : var(--font-display);
+  font-size     : clamp(9px, 2.2vw, 11px);
+  color         : var(--text-2);
+  min-width     : 22px;
+  text-align    : right;
+  flex-shrink   : 0;
+  letter-spacing: 0.05em;
+}
+
+/* Footer note */
+.sp-note {
+  font-size     : clamp(7px, 1.8vw, 9px);
+  color         : var(--text-3);
+  font-style    : italic;
+  text-align    : center;
+  line-height   : 1.6;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════════
    RESULT SCREEN
    ════════════════════════════════════════════════════════════════════════════ */
 
