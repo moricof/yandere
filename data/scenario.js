@@ -7426,6 +7426,1970 @@ const SCENES = {
     ],
   },
 
+
+  /* ══════════════════════════════════════════════════════════
+     HIMARI CHAPTER 4 — "The Silence"
+     Things in your apartment have been moved.
+     A photograph you don't remember giving her is on your desk.
+     She has a key. She gave it to herself.
+
+     QUIET PATH:
+       himari_ch4_start → himari_ch4_quiet_1 → himari_ch4_quiet_2
+         → himari_end_ch4_familiar      [30 — Normal]
+         → himari_end_ch4_the_spare_key [31 — Rare]
+
+     CONFRONT PATH:
+       himari_ch4_start → himari_ch4_confront_1 → himari_ch4_confront_2
+         → himari_end_ch4_visiting_hours [32 — Rare]
+         → himari_end_ch4_still_yours    [33 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  himari_ch4_start: {
+    id   : 'himari_ch4_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/apartment.jpg' },
+
+      {
+        type: 'narration',
+        text: 'You notice the vase first.\n\nIt was on the windowsill.\nNow it\'s on the table.\nFilled with flowers that were not there this morning.',
+      },
+      {
+        type: 'narration',
+        text: 'Then the books.\nOrdered now.\nBy — you look closer — by date of publication.\nNot how you had them.',
+      },
+      {
+        type: 'narration',
+        text: 'Then the photograph.\n\nOn your desk.\nFramed.\nYou in the courtyard.\nLooking up at something off-frame.\n\nYou have never seen this photograph before.',
+      },
+      {
+        type: 'narration',
+        text: 'A knock at the door.\n\nThree precise taps.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(She steps inside before you answer.\nShe has a key.)\n\nOh good. You\'re home.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I was hoping to be here before you.\n\n(She sets her bag down.\nLooks around the room with quiet satisfaction.)\n\n"The books needed attention."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I don\'t say anything. I watch her move through my apartment.]',
+            nextScene : 'himari_ch4_quiet_1',
+            statEffect: { fear: 6, obedience: 7 },
+          },
+          {
+            label     : '"You\'ve been in here. When I wasn\'t home."',
+            nextScene : 'himari_ch4_confront_1',
+            statEffect: { fear: 8, defiance: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Quiet Path: Act 1 ───────────────────────────────── */
+
+  himari_ch4_quiet_1: {
+    id   : 'himari_ch4_quiet_1',
+    steps: [
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She notices you watching her.)\n\nThe kettle is in the left cupboard now.\n\n(She fills it without looking.)\n\n"You had it in the wrong one.\nThe humidity by the window was affecting the seal."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I also moved the lamp.\n\n(She turns it on.\nThe light falls across the desk better.)\n\n"You were reading in the wrong angle.\nI could tell from where the books were marked."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She knows where the kettle was.\n\nShe knows where you mark your books.\nShe knows the humidity by the window.',
+      },
+      {
+        type: 'narration',
+        text: 'She has been here more than once.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Sit.\n\n(She gestures at your own chair.)\n\n"I\'ll make the tea.\nI know how you take it."',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch4_quiet_2' },
+
+    ],
+  },
+
+
+  /* ── Quiet Path: Act 2 ───────────────────────────────── */
+
+  himari_ch4_quiet_2: {
+    id   : 'himari_ch4_quiet_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She makes the tea correctly.\n\nWithout asking.\nWithout checking.\n\nExactly right.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(She sets the cup down.\nSits across from you.\nLooks at the room with quiet satisfaction.)\n\n"It\'s better now.\nDon\'t you think?"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I have one more thing.\n\n(She opens her bag.\nProduces something small.\nSets it on the table between you.)',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I look at what she put on the table.]',
+            nextScene : 'himari_end_ch4_familiar',
+            statEffect: { affection: 8, obedience: 9 },
+          },
+          {
+            label     : '"How many times have you been here?"',
+            nextScene : 'himari_end_ch4_the_spare_key',
+            statEffect: { fear: 10, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Confront Path: Act 1 ────────────────────────────── */
+
+  himari_ch4_confront_1: {
+    id   : 'himari_ch4_confront_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stops.\n\nTurns.\nLooks at you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Yes.\n\n(She says it simply.)\n\n"Several times."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I have a key because I arranged this apartment.\n\n(She sets her bag down.)\n\n"It would be strange not to.\nI needed to know it was acceptable for you.\nThat the light was right. The layout. The distance from campus."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I made adjustments.\n\nSmall ones.\nNothing you\'d miss.\n\n(She tilts her head.)\n\n"Did you miss them?"',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch4_confront_2' },
+
+    ],
+  },
+
+
+  /* ── Confront Path: Act 2 ────────────────────────────── */
+
+  himari_ch4_confront_2: {
+    id   : 'himari_ch4_confront_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You didn\'t miss them.\n\nThat\'s the problem.\n\nYou didn\'t notice until now.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Everything I\'ve done here has been careful.\n\nThe photograph on your desk — that\'s from the album.\nYou\'ve seen it.\nI just thought it should be somewhere you\'d see it every day.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'I know this space better than you do now.\n\n(She says it without apology.)\n\n"I\'ve spent more waking hours in it."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You can\'t just — this is my space."',
+            nextScene : 'himari_end_ch4_visiting_hours',
+            statEffect: { fear: 10, defiance: 6 },
+          },
+          {
+            label     : '[I look at the photograph. I sit down.]',
+            nextScene : 'himari_end_ch4_still_yours',
+            statEffect: { fear: 7, obedience: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 30: Familiar ─────────────────────────────── */
+
+  himari_end_ch4_familiar: {
+    id   : 'himari_end_ch4_familiar',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'A key.\n\nSilver.\nA ring.\nA small tag engraved: spare.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'In case you need one.\n\n(She folds her hands.)\n\n"You should always have a spare.\nSomewhere safe."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I\'ll keep the original, of course.\n\n(She picks up her tea.)\n\n"For convenience."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'There are now two keys to your apartment.\n\nShe holds one.\nShe\'s given you the spare.',
+      },
+      {
+        type: 'narration',
+        text: 'You are a guest\nin the room she\'s made of your home.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Familiar',
+        endingIndex : 30,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 31: The Spare Key ────────────────────────── */
+
+  himari_end_ch4_the_spare_key: {
+    id   : 'himari_end_ch4_the_spare_key',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She considers.)\n\nEnough.\n\n(Precisely.)\n\n"To understand it.\nTo be certain it was right for you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You were at class.\nAt the library.\nAt dinner with someone on a Tuesday.\n\n(She lists them without looking at notes.)\n\n"You\'re never home on Tuesdays before eight."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She knows your schedule\nbetter than you do.',
+      },
+      {
+        type: 'narration',
+        text: 'She has been inside this room\nevery Tuesday for how long.\n\nYou don\'t ask.\n\nYou\'re not sure you want the number.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Spare Key',
+        endingIndex : 31,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 32: Visiting Hours ───────────────────────── */
+
+  himari_end_ch4_visiting_hours: {
+    id   : 'himari_end_ch4_visiting_hours',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t react the way you expect.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'It is yours.\n\n(She agrees, evenly.)\n\n"I\'ve never suggested otherwise."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'But I arranged it.\nI selected it.\nI furnished the parts you hadn\'t yet.\nI know every room.\n\n(She looks around, calm and satisfied.)\n\n"I care for what\'s yours because I care for you.\nIs that not what you\'d want?"',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'The key isn\'t about access.\n\n(She holds it up briefly.\nThen puts it away.)\n\n"It\'s about knowing that if something happened to you —\nI could be here immediately.\n\n"Is that so unreasonable?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it so reasonably.\n\nYou look for the flaw in it.\n\nYou can\'t find it.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Visiting Hours',
+        endingIndex : 32,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 33: Still Yours ──────────────────────────── */
+
+  himari_end_ch4_still_yours: {
+    id   : 'himari_end_ch4_still_yours',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She watches you look at the photograph.)\n\nThat\'s the one from the album.\nPage twelve.\n\n(She sets her tea down.)\n\n"You looked at it the longest when I showed you.\nI thought you\'d want it close."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She noticed.\n\nYou don\'t remember pausing on it.\nBut she noticed.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Nothing I\'ve done here changes what belongs to you.\n\n(She sits across from you.\nFolds her hands in her lap.)\n\n"I\'ve simply been — careful with it.\nWhile you weren\'t looking."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'While you weren\'t looking.\n\nYou pick up the photograph.\n\nYour face in the courtyard.\nLooking peaceful.\nUnwatched.\n\nOr so you thought.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Still Yours',
+        endingIndex : 33,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     SHIZUKU CHAPTER 4 — "The Bad Day"
+     She didn't call. She came instead.
+     She's been sitting outside your door for an unknown
+     amount of time. She didn't knock.
+
+     LET IN PATH:
+       shizuku_ch4_start → shizuku_ch4_letin_1 → shizuku_ch4_letin_2
+         → shizuku_end_ch4_floor_space   [30 — Normal]
+         → shizuku_end_ch4_no_distance   [31 — Rare]
+
+     OUTSIDE PATH:
+       shizuku_ch4_start → shizuku_ch4_outside_1 → shizuku_ch4_outside_2
+         → shizuku_end_ch4_outside_together [32 — Rare]
+         → shizuku_end_ch4_same_door        [33 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  shizuku_ch4_start: {
+    id   : 'shizuku_ch4_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/apartment.jpg' },
+
+      {
+        type: 'narration',
+        text: 'You open the door and she\'s there.\n\nOn the floor.\nBack against the wall.\nKnees drawn up.\nBag beside her.',
+      },
+      {
+        type: 'narration',
+        text: 'She looks up.\n\nHer eyes are dry.\nShe\'s past the crying stage.\nWhatever happened today, she\'s been sitting here long enough to get past it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I didn\'t knock.\n\n(She says it immediately.)\n\n"I was going to.\nAnd then I thought — if you don\'t answer, I\'ll have to leave.\nSo I didn\'t knock."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I just needed to be near the door.\n\n(Very quietly.)\n\n"I\'m sorry."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I step back. I hold the door open.]',
+            nextScene : 'shizuku_ch4_letin_1',
+            statEffect: { affection: 7, dependency: 8 },
+          },
+          {
+            label     : '[I sit down beside her in the hallway.]',
+            nextScene : 'shizuku_ch4_outside_1',
+            statEffect: { affection: 5, dependency: 7 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Let In Path: Act 1 ──────────────────────────────── */
+
+  shizuku_ch4_letin_1: {
+    id   : 'shizuku_ch4_letin_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She gets up slowly.\nPicks up her bag.)\n\n…Thank you.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I won\'t — I don\'t need anything.\n\n(She steps inside.\nShe doesn\'t go far.\nShe sits against the wall just inside the door.)\n\n"I just needed to not be out there."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t explain what happened.\n\nYou don\'t ask immediately.\n\nShe sits against your wall the way she sat against the wall outside — like the wall is load-bearing.\nLike it\'s holding something up.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Can you just — do whatever you were doing?\n\n(She closes her eyes.)\n\n"Pretend I\'m not here.\nI just want to hear the room."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch4_letin_2' },
+
+    ],
+  },
+
+
+  /* ── Let In Path: Act 2 ──────────────────────────────── */
+
+  shizuku_ch4_letin_2: {
+    id   : 'shizuku_ch4_letin_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'An hour passes.\n\nMaybe more.\n\nYou read. You make something to eat. You move through the room quietly.\n\nShe stays against the wall.',
+      },
+      {
+        type: 'narration',
+        text: 'At some point her breathing changes.\n\nShe\'s asleep.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I get a blanket. I leave it beside her.]',
+            nextScene : 'shizuku_end_ch4_floor_space',
+            statEffect: { affection: 10, dependency: 9 },
+          },
+          {
+            label     : '[I sit near her. I wait for her to wake up.]',
+            nextScene : 'shizuku_end_ch4_no_distance',
+            statEffect: { fear: 8, dependency: 10 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Outside Path: Act 1 ─────────────────────────────── */
+
+  shizuku_ch4_outside_1: {
+    id   : 'shizuku_ch4_outside_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The hallway floor is cold.\n\nYou sit beside her anyway.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She looks at you sideways.)\n\nYou don\'t have to—',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She stops.)\n\n…You sat down.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit beside her against the hallway wall.\n\nDoors on either side.\nThe light overhead is slightly too bright.\n\nNeither of you says anything.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I almost called.\n\n(After a while.)\n\n"Before I came.\nI had my phone out and everything."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I thought — if I call, I have to explain.\nAnd I was too tired to explain.\n\n(She pulls her knees closer.)\n\n"So I just came."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch4_outside_2' },
+
+    ],
+  },
+
+
+  /* ── Outside Path: Act 2 ─────────────────────────────── */
+
+  shizuku_ch4_outside_2: {
+    id   : 'shizuku_ch4_outside_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The hallway stays quiet.\n\nSomeone passes at the far end.\nDoesn\'t look at you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'How long were you going to sit here?\n\n(She asks it softly.\nNot accusingly.)',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t know.\n\nAs long as it took, probably.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '(She breathes in.\nHolds it.\nLets it go.)\n\nI\'ll always come here first.\n\n"Before anywhere else.\nNo matter what.\nI wanted you to know that."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Is that okay? That you always come here?"',
+            nextScene : 'shizuku_end_ch4_outside_together',
+            statEffect: { fear: 8, dependency: 9 },
+          },
+          {
+            label     : '[I don\'t answer. The hallway is enough for now.]',
+            nextScene : 'shizuku_end_ch4_same_door',
+            statEffect: { affection: 8, dependency: 8 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 30: Floor Space ──────────────────────────── */
+
+  shizuku_end_ch4_floor_space: {
+    id   : 'shizuku_end_ch4_floor_space',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t stir when you lay the blanket beside her.\n\nShe\'s fully asleep.\nSomething in her face has let go that hadn\'t let go since she got here.',
+      },
+      {
+        type: 'narration',
+        text: 'You sit in the chair across the room.\n\nThe lamp is on.\nThe room is quiet.',
+      },
+      {
+        type: 'narration',
+        text: 'She came here because there was nowhere else that would work.\n\nYou understand that.\n\nThe frightening part is:\nyou understand it completely.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(Hours later, half-awake.)\n\n…You\'re still here.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(She doesn\'t wait for an answer.\nShe closes her eyes again.)\n\nGood.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Floor Space',
+        endingIndex : 30,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 31: No Distance ──────────────────────────── */
+
+  shizuku_end_ch4_no_distance: {
+    id   : 'shizuku_end_ch4_no_distance',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit near her on the floor.\n\nNot close enough to wake her.\nJust — nearby.',
+      },
+      {
+        type: 'narration',
+        text: 'She wakes a little while later.\n\nSees you.\nDoes not look surprised.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I almost didn\'t come.\n\n(Sleep-rough voice.)\n\n"I sat outside for twenty minutes before I knocked — before I decided not to knock.\nI almost just went home."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : 'But I couldn\'t.\n\n(She looks at you.\nVery steadily.)\n\n"I can\'t put distance between us anymore.\nI\'ve tried.\nThe distance doesn\'t hold."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'No Distance',
+        endingIndex : 31,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 32: Outside Together ─────────────────────── */
+
+  shizuku_end_ch4_outside_together: {
+    id   : 'shizuku_end_ch4_outside_together',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A long pause.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'No.\n\n(She says it quietly.\nHonestly.)\n\n"It\'s probably not okay."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : 'But I\'m going to do it anyway.\n\n(She leans her head back against the wall.)\n\n"Every time something goes wrong —\nthis will be the first place I come.\n\nI don\'t know how to make that not true anymore."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The hallway light buzzes slightly.\n\nNeither of you moves.',
+      },
+      {
+        type: 'narration',
+        text: 'She came here because nowhere else would work.\n\nShe told you it\'s not okay.\n\nShe\'s going to keep coming.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Outside Together',
+        endingIndex : 32,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 33: Same Door ────────────────────────────── */
+
+  shizuku_end_ch4_same_door: {
+    id   : 'shizuku_end_ch4_same_door',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t answer.\n\nThe hallway holds the silence.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(Eventually.)\n\nThank you for sitting down.\n\n(She says it simply.)\n\n"You didn\'t have to."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit in the hallway until the building goes quiet.\n\nThen she stands.\nPicks up her bag.\nLooks at your door.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : 'I\'ll come back.\n\n(Not a question. Not a warning.\nJust a fact.)\n\n"Same door."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Same Door',
+        endingIndex : 33,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     REINA CHAPTER 4 — "The Deviation"
+     She was here all night. She looks tired — unprecedented.
+     Something happened. She corrected it. She will not say
+     exactly what. Only that you are safer now.
+
+     ACCEPT PATH:
+       reina_ch4_start → reina_ch4_accept_1 → reina_ch4_accept_2
+         → reina_end_ch4_incident_report     [30 — Normal]
+         → reina_end_ch4_protective_measure  [31 — Rare]
+
+     DEMAND PATH:
+       reina_ch4_start → reina_ch4_demand_1 → reina_ch4_demand_2
+         → reina_end_ch4_the_calculation    [32 — Rare]
+         → reina_end_ch4_necessary_outcome  [33 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  reina_ch4_start: {
+    id   : 'reina_ch4_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/student_council.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She\'s been here all night.\n\nYou can tell because the lamp is still on.\nBecause there are three empty tea cups.\nBecause Reina Kuzuba never looks tired\nand today she does.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'There was a deviation.\n\n(She says it before you ask.)\n\n"In the model.\nLast night.\nI corrected it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The arrangement is stable.\n\n(She sets down her pen.)\n\n"You don\'t need to concern yourself with the specifics.\nEverything is fine now."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I wanted you to know that there was a problem.\nAnd that it has been resolved.\n\n(She looks at you.)\n\n"That\'s all."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Are you all right?"',
+            nextScene : 'reina_ch4_accept_1',
+            statEffect: { affection: 5, dependency: 6 },
+          },
+          {
+            label     : '"Tell me what you did."',
+            nextScene : 'reina_ch4_demand_1',
+            statEffect: { fear: 7, defiance: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Accept Path: Act 1 ──────────────────────────────── */
+
+  reina_ch4_accept_1: {
+    id   : 'reina_ch4_accept_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She pauses.\n\nA real pause.\nNot calculated.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '…Yes.\n\n(She says it after a moment.)\n\n"Functionally."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The deviation emerged from an external variable I hadn\'t fully accounted for.\n\nSomeone whose continued proximity to you produced outcomes\nthe model classified as unacceptable.\n\n(She picks up her pen again.)\n\n"I ran the numbers. I made a decision. It\'s done."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Someone."\n\nNot "something."\n\nSomeone.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'You don\'t need to know the details.\n\n(She meets your eyes.)\n\n"You just need to know you\'re safe."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch4_accept_2' },
+
+    ],
+  },
+
+
+  /* ── Accept Path: Act 2 ──────────────────────────────── */
+
+  reina_ch4_accept_2: {
+    id   : 'reina_ch4_accept_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You sit across from her.\n\nShe begins working again.\nLike the conversation has reached its conclusion.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'There are things I will not allow the model to produce.\n\n(Without looking up.)\n\n"Outcomes that involve harm to you.\nDisruption to the arrangement.\nYour removal from it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'When variables threaten those constraints —\nI correct them.\n\n(She turns the page.)\n\n"That\'s all last night was."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What was the deviation, exactly?"',
+            nextScene : 'reina_end_ch4_incident_report',
+            statEffect: { fear: 8, obedience: 7 },
+          },
+          {
+            label     : '"You stayed here all night for me."',
+            nextScene : 'reina_end_ch4_protective_measure',
+            statEffect: { affection: 10, dependency: 8 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Demand Path: Act 1 ──────────────────────────────── */
+
+  reina_ch4_demand_1: {
+    id   : 'reina_ch4_demand_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She looks at you for a moment.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I\'ll walk you through the logic.\n\n(She opens a notebook.)\n\n"Not the specifics of the action.\nThe logic."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The model has a constraint set.\nThings it will not produce as outputs.\nYour continued safety is the primary constraint.\n\n(She draws a small diagram.)\n\n"Last night, a variable was identified that threatened that constraint.\nLeft unaddressed — projected outcome: harm to you within forty-eight hours."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Harm to you.\nWithin forty-eight hours.\n\nShe says it like a weather report.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I ran the numbers.\nAll viable responses.\nCross-referenced against outcomes.\n\n(She turns the notebook toward you.)\n\n"The optimal response had the highest score by a significant margin."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch4_demand_2' },
+
+    ],
+  },
+
+
+  /* ── Demand Path: Act 2 ──────────────────────────────── */
+
+  reina_ch4_demand_2: {
+    id   : 'reina_ch4_demand_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The diagram is clean.\n\nBoxes. Arrows. Percentages.\n\nYou follow the logic.\nIt is, step by step, airtight.\n\nThe conclusion she reached is the correct conclusion\nif you accept the premises.',
+      },
+      {
+        type: 'narration',
+        text: 'The premise is: your safety is the highest priority.\nAbove all other considerations.\nWithout exception.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'You\'re looking for a flaw in the reasoning.\n\n(She watches you.)\n\n"There isn\'t one.\nI checked multiple times."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"What exactly did you do?"',
+            nextScene : 'reina_end_ch4_the_calculation',
+            statEffect: { fear: 10, defiance: 5 },
+          },
+          {
+            label     : '[I close the notebook. The logic is sound. I don\'t want the rest.]',
+            nextScene : 'reina_end_ch4_necessary_outcome',
+            statEffect: { fear: 9, obedience: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 30: Incident Report ──────────────────────── */
+
+  reina_end_ch4_incident_report: {
+    id   : 'reina_end_ch4_incident_report',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'A variable whose continued proximity to you\nwas producing projected harm.\n\n(She says it calmly.)\n\n"I identified it three days ago.\nI monitored it for seventy-two hours.\nLast night it crossed the intervention threshold."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The action I took was proportional.\nDocumented.\nFiled.\n\n(She closes the notebook.)\n\n"It won\'t happen again.\nBecause I\'ve corrected the variable."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Corrected the variable.\n\nYou don\'t ask what that means.\n\nYou think you understand it well enough.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Incident Report',
+        endingIndex : 30,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 31: Protective Measure ───────────────────── */
+
+  reina_end_ch4_protective_measure: {
+    id   : 'reina_end_ch4_protective_measure',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She goes still.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '…Yes.\n\n(She says it like she hadn\'t considered it that way.)\n\n"I suppose that\'s accurate."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'There are things I will not allow the model to produce.\n\n(She looks at you directly.)\n\n"You are one of them.\nYou are — specifically — the reason the constraint exists."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stayed up all night\nrunning calculations\nto protect you from something you didn\'t know was coming.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t know whether to thank her.\n\nYou don\'t know whether to be frightened.',
+      },
+      {
+        type: 'narration',
+        text: 'Both.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Protective Measure',
+        endingIndex : 31,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 32: The Calculation ──────────────────────── */
+
+  reina_end_ch4_the_calculation: {
+    id   : 'reina_end_ch4_the_calculation',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She considers whether to answer.\n\nFor exactly four seconds.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I removed them.\n\n(Simply.)\n\n"From your environment.\nPermanently.\n\nThe method was clean.\nLegal.\nUntraceable to either of us."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I want to be transparent about what I\'m capable of.\n\n(She sets the pen down.)\n\n"So you understand the full scope of the arrangement you\'re in.\nI thought that was important."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You would have done the same thing.\n\nIf you thought the way she thinks.\n\nThat\'s the most frightening part.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Calculation',
+        endingIndex : 32,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 33: Necessary Outcome ────────────────────── */
+
+  reina_end_ch4_necessary_outcome: {
+    id   : 'reina_end_ch4_necessary_outcome',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She watches you close it.)\n\nSmart.\n\n(She says it approvingly.)\n\n"You would have done the same thing.\nIf you thought the way I think."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The logic is sound.\nThe outcome was necessary.\n\n(She gathers the papers.)\n\n"That\'s all that matters."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The notebook goes back on the shelf.\n\nShe pours a fourth cup of tea.\n\nThe room goes quiet.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t know what she did.\n\nYou know it was done cleanly.\nYou know it was done for you.\n\nYou know you\'re not going to ask again.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Necessary Outcome',
+        endingIndex : 33,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     MEI CHAPTER 4 — "The Favor"
+     She asks you for a favor. Very casually. Very specifically.
+     The favor is not small.
+
+     YES PATH:
+       mei_ch4_start → mei_ch4_yes_1 → mei_ch4_yes_2
+         → mei_end_ch4_the_favor_done  [30 — Normal]
+         → mei_end_ch4_because_you_asked [31 — Rare]
+
+     ASK PATH:
+       mei_ch4_start → mei_ch4_ask_1 → mei_ch4_ask_2
+         → mei_end_ch4_small_request    [32 — Rare]
+         → mei_end_ch4_already_handled  [33 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  mei_ch4_start: {
+    id   : 'mei_ch4_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/academy_corridor.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She finds you between classes.\n\nShe\'s been playful all day.\nTexts with little drawings.\nMr. Buttons waving.',
+      },
+      {
+        type: 'narration',
+        text: 'It\'s only now, walking beside you, that she goes quiet.\n\nJust for a moment.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Ne, {name}~\n\n(She says it lightly.)\n\n"Can I ask you a favor?"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'It\'s a small one.\n\n(She holds up her fingers — very small gap.)\n\n"Tiny.\nYou\'ll probably say yes right away."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Sure, what is it?"',
+            nextScene : 'mei_ch4_yes_1',
+            statEffect: { affection: 5, obedience: 6 },
+          },
+          {
+            label     : '"What\'s the favor?"',
+            nextScene : 'mei_ch4_ask_1',
+            statEffect: { fear: 4, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Yes Path: Act 1 ─────────────────────────────────── */
+
+  mei_ch4_yes_1: {
+    id   : 'mei_ch4_yes_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : 'Yay~!\n\n(She claps once, delighted.)\n\n"I knew you would.\nYou always say yes."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Okay so~\n\n(She walks beside you.\nTilts her head.)\n\n"You know Sato-kun?\nFrom your Tuesday seminar?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You do.\n\nYou\'ve been study partners with him since the start of term.\nHe lent you notes when you were sick.\nYou had lunch with him twice last week.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I need you to stop seeing him.\n\n(She says it the way she\'d say: "I need you to grab a snack.")\n\n"Not forever~\nJust — not anymore."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch4_yes_2' },
+
+    ],
+  },
+
+
+  /* ── Yes Path: Act 2 ─────────────────────────────────── */
+
+  mei_ch4_yes_2: {
+    id   : 'mei_ch4_yes_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You stop walking.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She stops too.\nTurns to face you.)\n\nHe\'s too close~\n\n"I don\'t like how he talks to you.\nThe way he\'s always there at lunch.\nThe notes thing."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'I\'ve been thinking about asking for three weeks.\n\n(She looks at you steadily.)\n\n"You said yes already.\nSo it\'s fine~\n\nRight?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I said yes. I keep my word.]',
+            nextScene : 'mei_end_ch4_the_favor_done',
+            statEffect: { obedience: 10, affection: 7 },
+          },
+          {
+            label     : '"Mei. That\'s not a small favor."',
+            nextScene : 'mei_end_ch4_because_you_asked',
+            statEffect: { fear: 9, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Ask Path: Act 1 ─────────────────────────────────── */
+
+  mei_ch4_ask_1: {
+    id   : 'mei_ch4_ask_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She tilts her head.)\n\nOh~\n\n"You want to hear it first."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'That\'s okay~\n\n(She falls back into step beside you.)\n\n"So. Sato-kun.\nYour Tuesday study partner.\nThe one who\'s always at lunch."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She describes him accurately.\n\nNot just his name.\nHis habits.\nWhere he sits.\nHow long he stays.',
+      },
+      {
+        type: 'narration',
+        text: 'She\'s been watching him.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I need him to not be there anymore~\n\n(She says it gently.)\n\n"I\'ve been very patient about asking.\nThree weeks.\nMr. Buttons says that\'s good."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch4_ask_2' },
+
+    ],
+  },
+
+
+  /* ── Ask Path: Act 2 ─────────────────────────────────── */
+
+  mei_ch4_ask_2: {
+    id   : 'mei_ch4_ask_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Not be there anymore."\n\nYou ask what that means.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Not be near you~\n\n(Simply.)\n\n"Stop studying together.\nStop the lunches.\nStop the notes.\n\nJust — stop."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'You don\'t have to be mean about it.\n\n(She tilts her head.)\n\n"Just stop going.\nHe\'ll figure it out.\nThey always do."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Why him specifically?"',
+            nextScene : 'mei_end_ch4_small_request',
+            statEffect: { fear: 9, defiance: 4 },
+          },
+          {
+            label     : '[Something in "they always do" stops me cold.]',
+            nextScene : 'mei_end_ch4_already_handled',
+            statEffect: { fear: 10, dependency: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 30: The Favor Done ───────────────────────── */
+
+  mei_end_ch4_the_favor_done: {
+    id   : 'mei_end_ch4_the_favor_done',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '(She beams.)\n\nThank you~! ♪\n\n"I knew you would.\nYou always do what I need."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'It really is a small thing~\n\n(She takes your arm.\nKeeps walking.)\n\n"He\'ll find other people to study with.\nAnd you\'ll be better without the distraction."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She walks beside you.\n\nLight.\nHappy.\nContent.',
+      },
+      {
+        type: 'narration',
+        text: 'You said yes before you knew what you were agreeing to.\n\nYou\'re going to keep your word.\n\nShe knew you would.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Favor Done',
+        endingIndex : 30,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 31: Because You Asked ────────────────────── */
+
+  mei_end_ch4_because_you_asked: {
+    id   : 'mei_end_ch4_because_you_asked',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She tilts her head.)\n\nIs it~?\n\n"You just have to stop going to lunch.\nThat\'s — that\'s really small."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'And you already said yes~\n\n(She takes your arm.\nKeeps walking.)\n\n"So it doesn\'t matter if it\'s small or big.\nYou said yes.\nThat\'s all."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"You said yes.\nThat\'s all."',
+      },
+      {
+        type: 'narration',
+        text: 'She holds your arm lightly.\nHer grip is very gentle.\n\nShe doesn\'t let go.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Because You Asked',
+        endingIndex : 31,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 32: Small Request ────────────────────────── */
+
+  mei_end_ch4_small_request: {
+    id   : 'mei_end_ch4_small_request',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Because he\'s there too much~\n\n(She says it simply.)\n\n"Every Tuesday. Both lunches last week. He texts you in the evenings.\nI know because I can see your phone light up from across the courtyard."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'That\'s too much for someone who\'s not me~\n\n(She tilts her head.)\n\n"So I\'d like you to stop.\nPlease.\n\nI\'ve been very patient."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She can see your phone light up\nfrom across the courtyard.\n\nShe\'s been watching.\nShe\'s been counting.',
+      },
+      {
+        type: 'narration',
+        text: 'Three weeks of patience.\n\nThree weeks of counting.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Small Request',
+        endingIndex : 32,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 33: Already Handled ──────────────────────── */
+
+  mei_end_ch4_already_handled: {
+    id   : 'mei_end_ch4_already_handled',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She notices you stopping.)\n\nOh~\n\n"That part.\nYeah."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Actually — I should tell you.\n\n(She says it like a small correction.)\n\n"I already handled it.\nEarlier this week.\nI was going to ask you first but — it felt urgent."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Already handled."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'So the favor is already done~!\n\n(She takes your hand.\nKeeps walking.)\n\n"I was just going to tell you after.\nI thought you\'d want to know."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You think about the last time you saw him.\nThree days ago.\nHe seemed fine.\n\nYou haven\'t heard from him since.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t ask what "handled" means.\n\nYou already know you won\'t like the answer.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Already Handled',
+        endingIndex : 33,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
 };
 
 
