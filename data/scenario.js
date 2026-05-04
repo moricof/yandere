@@ -1308,15 +1308,42 @@ const SCENES = {
   },
 
   /* ══════════════════════════════════════════════════════════
-     CHAPTER 1 PLACEHOLDERS — Shizuku / Reina / Mei
-     Add their full Chapter 1 scenes here when ready.
-     Each heroine's startScene in script.js HEROINE_DATA
-     should point to the corresponding key below.
+     SHIZUKU CHAPTER 1 — "Fragile Threads"
+     Four endings accessible via two branch paths.
+
+     GENTLE PATH:
+       shizuku_ch1_start → shizuku_ch1_gentle_1 → shizuku_ch1_gentle_2
+         → shizuku_end_sweet_submission  [Ending 2 — Normal]
+         → shizuku_end_midnight_vow      [Ending 5 — Rare]
+
+     CONCERN PATH:
+       shizuku_ch1_start → shizuku_ch1_concern_1 → shizuku_ch1_concern_2
+         → shizuku_end_broken_wings      [Ending 7 — Rare]
+         → shizuku_end_eternal_leash     [Ending 8 — Normal]
+
+     PLACEHOLDERS — Reina / Mei
+     Add their full Chapter 1 scenes below when ready.
      ══════════════════════════════════════════════════════════ */
+
   shizuku_ch1_start: {
     id   : 'shizuku_ch1_start',
     steps: [
+
       { type: 'bg', bg: 'assets/bg/library.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She\'s been here since morning.',
+      },
+      {
+        type: 'narration',
+        text: 'The librarian mentioned it quietly, to no one in particular.\n\n"Seven o\'clock.\nBefore the gates opened."',
+      },
+      {
+        type: 'narration',
+        text: 'It\'s late afternoon now.\n\nBlue light through the tall windows.\nThe stacks are nearly empty.',
+      },
+
       {
         type       : 'expression',
         character  : 'shizuku',
@@ -1327,34 +1354,615 @@ const SCENES = {
         type       : 'dialogue',
         character  : 'shizuku',
         expression : 'smile',
-        text       : 'Oh— {name}.\n\nYou came to the library.',
+        text       : '(She looks up from the page she\'s been on all day.)\n\nOh.\n\n{name}.\n\nYou came.',
       },
       {
         type       : 'dialogue',
         character  : 'shizuku',
         expression : 'default',
-        text       : '…I was hoping you would.\n\nI\'ve been here since morning.',
+        text       : 'I was hoping you would.\n\n(Soft. Like a thing she shouldn\'t say out loud.)',
       },
       {
         type       : 'dialogue',
         character  : 'shizuku',
         expression : 'sad',
-        text       : '(She looks down at her book. The same page as before.)\n\n"I can\'t focus when you\'re not nearby."\n"Is that… strange?"',
+        text       : '(She looks back at her book.\nThe bookmark is still on page one.)\n\n"I haven\'t been able to read."\n\n"Not since this morning."',
       },
+
       {
         type   : 'choice',
         choices: [
           {
-            label     : '"No. I\'ll stay here with you."',
-            nextScene : 'shizuku_ch1_stay',
-            statEffect: { dependency: 10, affection: 6 },
+            label     : '[I sit down beside her.]',
+            nextScene : 'shizuku_ch1_gentle_1',
+            statEffect: { affection: 6, dependency: 5 },
           },
           {
-            label     : '"…Maybe a little."',
-            nextScene : 'shizuku_ch1_hesitate',
-            statEffect: { fear: 6, dependency: 5 },
+            label     : '"Are you all right? You look pale."',
+            nextScene : 'shizuku_ch1_concern_1',
+            statEffect: { fear: 4, dependency: 6 },
           },
         ],
+      },
+
+    ],
+  },
+
+
+  /* ── Gentle Path: Act 1 ──────────────────────────────── */
+
+  shizuku_ch1_gentle_1: {
+    id   : 'shizuku_ch1_gentle_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : '(She breathes out.\nSomething in her shoulders loosens.)\n\nOh.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : '…You sat down.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I didn\'t ask you to.\n\n(A pause.)\n\n"I almost said — \'don\'t go anywhere.\' But I didn\'t."\n"I wasn\'t sure you\'d listen."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She opens her book again.\nThis time, her eyes actually move across the page.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Is it all right if I… read out loud?\n\n(She doesn\'t look at you.)\n\n"It helps me focus.\nWhen you\'re here."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Her voice, when she reads, is barely above a whisper.\nNot performing.\nJust present.',
+      },
+      {
+        type: 'narration',
+        text: 'An hour passes.\nOr maybe two.\n\nYou\'ve lost track.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(She closes the book.\nStill doesn\'t look at you.)\n\n"You stayed the whole time."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I wasn\'t counting.\n\n(Beat.)\n\n…I was counting.',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch1_gentle_2' },
+
+    ],
+  },
+
+
+  /* ── Gentle Path: Act 2 — she asks if you'll come back ─ */
+
+  shizuku_ch1_gentle_2: {
+    id   : 'shizuku_ch1_gentle_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'You\'ll be back tomorrow, won\'t you?\n\n(She finally looks at you.)\n\n"Not here, necessarily.\nI just mean — somewhere I can find you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I know that\'s a lot to ask.\n\nI know it is.\n\n(She looks back down.)\n\n"I just… don\'t do very well.\nWhen you\'re somewhere I can\'t reach."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Her fingers are tight around the spine of the book.\nYou watch her knuckles.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'cry',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(She laughs softly, at herself.)\n\n"This is the part where you say something kind.\nAnd I say I\'ll be fine.\n\nAnd then neither of us will believe it."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I like this. Being here with you."',
+            nextScene : 'shizuku_end_sweet_submission',
+            statEffect: { affection: 10, dependency: 8 },
+          },
+          {
+            label     : '"I… I should probably go soon."',
+            nextScene : 'shizuku_end_midnight_vow',
+            statEffect: { fear: 10, dependency: 10 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Concern Path: Act 1 ─────────────────────────────── */
+
+  shizuku_ch1_concern_1: {
+    id   : 'shizuku_ch1_concern_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She looks at her hands.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '…It gets like this.\n\n(Quietly.)\n\n"When I don\'t know where you are."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I know your class schedule.\nYour usual routes.\nWhich window of the cafeteria you sit nearest to.\n\n(She closes her book.)\n\n"But knowing isn\'t the same as seeing."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : 'I get very cold.\n\nAnd I can\'t eat.\nAnd the words stop making sense.\n\n(A pause.)\n\n"It started about six months ago."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it like she\'s reporting weather.\nLike it\'s just a fact about herself\nshe\'s had time to accept.',
+      },
+      {
+        type: 'narration',
+        text: 'Six months ago.',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch1_concern_2' },
+
+    ],
+  },
+
+
+  /* ── Concern Path: Act 2 — the coping list ──────────── */
+
+  shizuku_ch1_concern_2: {
+    id   : 'shizuku_ch1_concern_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I\'ve tried to be better about it.\n\n(She straightens the pages of her book.\nThey\'re already straight.)\n\n"I keep a list.\nThings I can do when I can\'t find you."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She shows you a small notepad.\n\nThe list has seven items.\n\nThe last one says: "wait."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I always end up at the last one.\n\n(She closes the notepad.)\n\n"But you\'re here now.\nSo it\'s all right."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(Her voice is very small.)\n\n"You are here.\n\n…You\'re not going anywhere.\n\nAre you?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I\'m here. I\'m not going anywhere."',
+            nextScene : 'shizuku_end_broken_wings',
+            statEffect: { affection: 8, dependency: 12 },
+          },
+          {
+            label     : '[Stay quiet. Don\'t answer.]',
+            nextScene : 'shizuku_end_eternal_leash',
+            statEffect: { fear: 8, dependency: 8, obedience: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 2: Sweet Submission ─────────────────────── */
+
+  shizuku_end_sweet_submission: {
+    id   : 'shizuku_end_sweet_submission',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'blush',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She goes very still.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'blush',
+        text       : '(Very quietly.)\n\nOh.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : 'Then… come back tomorrow.\n\nSame time, if you can.\n\n(She stands, begins tidying her things with careful, deliberate movements.)\n\n"I\'ll save your seat."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I already do.\n\nI\'ve been saving it for a while.\n\n(She doesn\'t look at you.)\n\n"I wasn\'t sure you\'d ever sit in it."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She walks to the door ahead of you.\nPauses with her hand on the frame.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(Without looking back.)\n\n"Thank you for today.\n\n…I\'ll be all right tonight.\nKnowing you\'ll come back."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The way she says "all right" —\n\nyou understand it means something specific for her.\nA scale you didn\'t know you were being measured against.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Sweet Submission',
+        endingIndex : 2,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 5: Midnight Vow ──────────────────────────── */
+
+  shizuku_end_midnight_vow: {
+    id   : 'shizuku_end_midnight_vow',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t react.\n\nA long pause.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '…All right.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She takes out a small slip of paper.\nWrites something.\nSlides it across the table.',
+      },
+      {
+        type: 'narration',
+        text: 'Your address.\n\nAlready written there.\n\nIn ink that isn\'t fresh.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I\'ve never…\n\nI never would have come uninvited.\n\n(She looks at the paper in your hands.)\n\n"But now that I\'ve written it down."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(She closes her book.\nFinally — after all day — turns to the next page.)\n\n"I suppose the rules have changed."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t say anything else.',
+      },
+      {
+        type: 'narration',
+        text: 'Neither do you.\n\nYou\'re still holding the slip of paper\nwhen you leave.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Midnight Vow',
+        endingIndex : 5,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 7: Broken Wings ──────────────────────────── */
+
+  shizuku_end_broken_wings: {
+    id   : 'shizuku_end_broken_wings',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'She closes her eyes.\n\nStays like that for a moment.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Say it again.',
+      },
+      {
+        type: 'narration',
+        text: 'You do.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She doesn\'t open her eyes.)\n\nOnce more.',
+      },
+      {
+        type: 'narration',
+        text: 'You do.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(She opens her eyes.)\n\n"I\'ll remember every time.\nI\'ll remember tonight\'s voice specifically."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '"And when it gets bad again —"\n"When it always gets bad again —"\n"I\'ll hear you saying it."\n\n"You\'ll be there even when you\'re not here."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : '(She tilts her head.\nVery gently.)\n\n"Isn\'t that a little like being mine?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it the way you\'d say: "isn\'t that a nice coincidence."\n\nLike it isn\'t a question at all.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Broken Wings',
+        endingIndex : 7,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 8: Eternal Leash ─────────────────────────── */
+
+  shizuku_end_eternal_leash: {
+    id   : 'shizuku_end_eternal_leash',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The silence stretches.',
+      },
+      {
+        type: 'narration',
+        text: 'She watches your face.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '(Very quietly.)\n\nAh.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'You don\'t have to say it.\n\nI know what it means,\nwhen someone doesn\'t answer.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She stands.\nPuts her things away.\nNeatly. Slowly. Like she\'s done this before.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Come back tomorrow anyway.\n\n(She picks up her bag.)\n\n"I\'ll be here. Same time."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'I always am.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She leaves first.\n\nThe seat across from her is empty.\nThe bookmark is still on page one.',
+      },
+      {
+        type: 'narration',
+        text: 'You come back the next day anyway.\n\nYou\'re not sure why.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Eternal Leash',
+        endingIndex : 8,
+        rarity      : 'normal',
       },
     ],
   },
@@ -1386,62 +1994,6 @@ const SCENES = {
         character  : 'reina',
         expression : 'cold',
         text       : 'There is no room for deviation.\n\nYou will find that following my guidelines\nis simply… easier.',
-      },
-      { type: 'end' },
-    ],
-  },
-
-  shizuku_ch1_stay: {
-    id   : 'shizuku_ch1_stay',
-    steps: [
-      {
-        type       : 'expression',
-        character  : 'shizuku',
-        expression : 'smile',
-        position   : 'center',
-      },
-      {
-        type       : 'dialogue',
-        character  : 'shizuku',
-        expression : 'smile',
-        text       : '(Her fingers stop trembling.\nShe exhales — slow, relieved.)\n\n…Thank you.\n\nPlease… don\'t ever leave.',
-      },
-      {
-        type       : 'dialogue',
-        character  : 'shizuku',
-        expression : 'blush',
-        text       : 'I know that\'s a lot to ask.\n\n(She turns back to her book, still smiling.)\n\n"I\'ll try to be worth staying for."',
-      },
-      { type: 'end' },
-    ],
-  },
-
-  shizuku_ch1_hesitate: {
-    id   : 'shizuku_ch1_hesitate',
-    steps: [
-      {
-        type       : 'expression',
-        character  : 'shizuku',
-        expression : 'cry',
-        position   : 'center',
-      },
-      {
-        type       : 'dialogue',
-        character  : 'shizuku',
-        expression : 'cry',
-        text       : '…Oh.',
-      },
-      {
-        type       : 'dialogue',
-        character  : 'shizuku',
-        expression : 'cry',
-        text       : '(She turns the page. She hasn\'t read a word.)\n\n"I thought so."\n\n…It\'s all right.',
-      },
-      {
-        type       : 'dialogue',
-        character  : 'shizuku',
-        expression : 'yandere',
-        text       : '(She looks up. The smile doesn\'t reach her eyes.)\n\n"You\'ll understand eventually."\n"That you can\'t leave either."',
       },
       { type: 'end' },
     ],
