@@ -3402,6 +3402,2078 @@ const SCENES = {
     ],
   },
 
+
+  /* ══════════════════════════════════════════════════════════
+     HIMARI CHAPTER 2 — "Portrait"
+     She had a painting made. Of you. From her photographs.
+
+     DEVOTED PATH:
+       himari_ch2_start → himari_ch2_devoted_1 → himari_ch2_devoted_2
+         → himari_end_ch2_portrait_subject  [10 — Normal]
+         → himari_end_ch2_living_canvas     [11 — Rare]
+
+     UNSETTLED PATH:
+       himari_ch2_start → himari_ch2_unsettled_1 → himari_ch2_unsettled_2
+         → himari_end_ch2_the_frame         [12 — Rare]
+         → himari_end_ch2_private_collection [13 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  himari_ch2_start: {
+    id   : 'himari_ch2_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/rose_salon.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She texted you at exactly the right time.\n\nNot a moment you could refuse.\nNot a moment that felt planned.\n\nBut it was.',
+      },
+      {
+        type: 'narration',
+        text: 'The Rose Salon again.\nDifferent, though.\n\nSomething on the far wall that wasn\'t there before.\nCovered in silk.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You noticed immediately.\n\n(She doesn\'t turn toward it yet.)\n\n"Good. I wanted you to notice."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I had it commissioned three months ago.\n\nThe artist required seventeen reference images.\n\n(A small pause.)\n\n"I had forty-three."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Shall I show you?',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I nod.]',
+            nextScene : 'himari_ch2_devoted_1',
+            statEffect: { affection: 6, obedience: 5 },
+          },
+          {
+            label     : '"You had my photograph taken without asking?"',
+            nextScene : 'himari_ch2_unsettled_1',
+            statEffect: { fear: 7, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Devoted Path: Act 1 ─────────────────────────────── */
+
+  himari_ch2_devoted_1: {
+    id   : 'himari_ch2_devoted_1',
+    steps: [
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : '(She crosses the room.\nTakes the silk edge in her fingers.)\n\n"Close your eyes first."',
+      },
+      {
+        type: 'narration',
+        text: 'You close them.',
+      },
+      {
+        type: 'narration',
+        text: 'The silk slides down.\n\nYou hear it land.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'Open.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'It\'s you.\n\nOil on canvas.\nLarge — two meters, perhaps more.\n\nYou, in the courtyard.\nLooking up at something off-frame.\nThe afternoon light.\nYour expression in that specific moment of not-quite-thinking.',
+      },
+      {
+        type: 'narration',
+        text: 'You didn\'t know anyone was watching that day.\n\nYou look — in the painting — like yourself.\nMore precisely yourself than any mirror.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'That expression.\n\n(She stands beside you, looking at it.)\n\n"You make it when you\'re thinking about something pleasant and don\'t realize it."\n"I\'ve seen it four hundred and twelve times."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I wanted to keep it.\n\nSo I did.',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch2_devoted_2' },
+
+    ],
+  },
+
+
+  /* ── Devoted Path: Act 2 ────────────────────────────── */
+
+  himari_ch2_devoted_2: {
+    id   : 'himari_ch2_devoted_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She begins to describe the painting.\n\nNot its technique.\nIts subject.',
+      },
+      {
+        type: 'narration',
+        text: 'She describes you the way an expert describes a beloved piece.\nClinically. Lovingly. With far too much detail.\n\nThe angle of your jaw.\nWhich side you favor when you turn.\nThe specific way the light catches your eyes when you\'re tired versus when you\'re not.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'I know your face better than you do.\n\n(She says this without arrogance.\nLike a fact.)\n\n"You\'ve never looked at yourself long enough.\nI have."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'I could describe you to a stranger in precise enough detail\nthat they would recognize you in a crowd.\n\n(She glances at you.)\n\n"Useful, don\'t you think?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I didn\'t know you paid that much attention."',
+            nextScene : 'himari_end_ch2_portrait_subject',
+            statEffect: { affection: 10, obedience: 7 },
+          },
+          {
+            label     : '[I look at the painting. Something feels wrong.]',
+            nextScene : 'himari_end_ch2_living_canvas',
+            statEffect: { fear: 8, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Unsettled Path: Act 1 ───────────────────────────── */
+
+  himari_ch2_unsettled_1: {
+    id   : 'himari_ch2_unsettled_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She pauses.\n\nNot because she\'s surprised.\nBecause she\'s deciding how to explain it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '"Without asking."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : '(She considers the phrase.)\n\n"I didn\'t take the photographs.\nI already had them.\nI commissioned a painting from what I already owned."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'You\'re conflating two different questions.\n\nWhether I had the right —\nand whether you could have stopped me.',
+      },
+
+      {
+        type: 'narration',
+        text: 'She pulls the silk down anyway.\n\nEasily. Unhurried.\nLike the conversation is already over.',
+      },
+
+      { type: 'goto-scene', scene: 'himari_ch2_unsettled_2' },
+
+    ],
+  },
+
+
+  /* ── Unsettled Path: Act 2 ───────────────────────────── */
+
+  himari_ch2_unsettled_2: {
+    id   : 'himari_ch2_unsettled_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The painting is large.\n\nYou, in the courtyard.\nAn afternoon you don\'t remember.\nLooking peaceful in a way that doesn\'t feel like yours anymore.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'re looking at it like it frightens you.\n\n(She tilts her head, curious.)\n\n"Why?"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Everything I\'ve done has been careful.\nDeliberate.\n\nYou\'ve been safe this whole time.\n\n(She gestures at the canvas.)\n\n"Nothing about this harms you.\nI simply wanted to keep something of yours."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'And I do.\n\nThe question is whether you\'ll make this unpleasant\nor whether you\'ll understand that I\'m going to keep it either way.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You can\'t just — this isn\'t right."',
+            nextScene : 'himari_end_ch2_the_frame',
+            statEffect: { fear: 10, defiance: 6 },
+          },
+          {
+            label     : '[I stop talking. The painting is already there.]',
+            nextScene : 'himari_end_ch2_private_collection',
+            statEffect: { fear: 7, obedience: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 10: Portrait Subject ─────────────────────── */
+
+  himari_end_ch2_portrait_subject: {
+    id   : 'himari_end_ch2_portrait_subject',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Of course I do.\n\n(She moves back to the painting.\nStands beside it.\nLooks between you and it.)\n\n"It\'s the most important thing I\'ve studied."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'ll notice I haven\'t hung anything else in this room.\n\n(She says it simply.)\n\n"There isn\'t anything else I\'d want here."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You stay until evening.\n\nShe talks. You listen.\nShe pours tea you don\'t ask for.\n\nAt some point you stop noticing the painting.\nAt some point it just becomes part of the room.',
+      },
+      {
+        type: 'narration',
+        text: 'At some point you stop noticing\nthat she\'s watching you the same way she watches it.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Portrait Subject',
+        endingIndex : 10,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 11: Living Canvas ────────────────────────── */
+
+  himari_end_ch2_living_canvas: {
+    id   : 'himari_end_ch2_living_canvas',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : '(She notices immediately.)\n\nWhat is it?\n\n(She steps closer.)\n\n"Your expression just changed.\nI want to know which one that was."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You can\'t describe it.\n\nThe feeling of seeing yourself owned.\nOf realizing the painting was always going to be here\nregardless of whether you agreed.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Oh.\n\n(A slow, delighted intake of breath.)\n\n"That one.\nI haven\'t captured that one yet."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'Sit there.\nJust like that.\nDon\'t change it.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She has a sketchbook open before you can respond.\n\nYou understand, in this moment, that the album was only the beginning.\n\nThe painting was only the beginning.',
+      },
+      {
+        type: 'narration',
+        text: 'She is going to document every version of you\nshe has not yet collected.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Living Canvas',
+        endingIndex : 11,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 12: The Frame ────────────────────────────── */
+
+  himari_end_ch2_the_frame: {
+    id   : 'himari_end_ch2_the_frame',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t flinch.\n\nShe watches you with the same calm she always has.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You\'re right.\n\n(She says it so easily it stops you.)\n\n"It\'s not right.\nNot by any standard you were taught."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'And yet here you are.\n\nIn my room.\nLooking at a painting I made of you.\nFor the third time this month.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'yandere',
+        text       : 'You keep coming back, {name}.\n\n(She tilts her head, genuinely curious.)\n\n"What does that tell you?"',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t answer.\n\nShe doesn\'t need you to.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Frame',
+        endingIndex : 12,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 13: Private Collection ──────────────────── */
+
+  himari_end_ch2_private_collection: {
+    id   : 'himari_end_ch2_private_collection',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The painting is already there.\n\nThe silk is already on the floor.\n\nYou are already in this room.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'himari',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'smile',
+        text       : 'There.\n\n(She sets a cup of tea in front of you.)\n\n"That\'s much better."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'himari',
+        expression : 'default',
+        text       : 'You don\'t have to like it.\n\n(She sits across from you.)\n\n"You just have to stay.\nThat\'s all I\'ve ever asked."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The painting watches from the far wall.\n\nYour own eyes, in oil and pigment, looking up at something you can\'t remember.',
+      },
+      {
+        type: 'narration',
+        text: 'She pours her tea.\n\nYou drink yours.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Private Collection',
+        endingIndex : 13,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     SHIZUKU CHAPTER 2 — "The Night Call"
+     2am. Your phone. She's been crying for so long
+     she doesn't remember when she started.
+
+     STAY PATH:
+       shizuku_ch2_start → shizuku_ch2_stay_1 → shizuku_ch2_stay_2
+         → shizuku_end_ch2_vigil          [10 — Normal]
+         → shizuku_end_ch2_the_only_light [11 — Rare]
+
+     BOUNDARY PATH:
+       shizuku_ch2_start → shizuku_ch2_boundary_1 → shizuku_ch2_boundary_2
+         → shizuku_end_ch2_paper_walls    [12 — Rare]
+         → shizuku_end_ch2_small_hours    [13 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  shizuku_ch2_start: {
+    id   : 'shizuku_ch2_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/bedroom_night.jpg' },
+
+      {
+        type: 'narration',
+        text: '2:17 a.m.',
+      },
+      {
+        type: 'narration',
+        text: 'Your phone lights up.\n\nShizuku.',
+      },
+      {
+        type: 'narration',
+        text: 'You answer before you\'re fully awake.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'cry',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(Breathing. Not speaking yet.)',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '…Sorry.\n\n(Her voice is raw.)\n\n"I know it\'s late.\nI just — I needed to hear you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : 'I\'ve been — I don\'t know how long I\'ve been—\n\n(A breath breaks in the middle.)\n\n"It got bad again."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I\'m here. I\'m not going anywhere."',
+            nextScene : 'shizuku_ch2_stay_1',
+            statEffect: { affection: 7, dependency: 7 },
+          },
+          {
+            label     : '"Shizuku… it\'s two in the morning."',
+            nextScene : 'shizuku_ch2_boundary_1',
+            statEffect: { fear: 5, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Stay Path: Act 1 ────────────────────────────────── */
+
+  shizuku_ch2_stay_1: {
+    id   : 'shizuku_ch2_stay_1',
+    steps: [
+
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(The sound she makes isn\'t a word.)\n\nOh—',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '…You\'re — you actually said that.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'There is silence for a moment.\n\nNot empty silence.\nFull silence.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Can you just…\n\n(Very quietly.)\n\n"Keep talking?\nIt doesn\'t have to be about anything.\nI just need — I need to know you\'re there."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You talk.\n\nAbout nothing.\nThe week. The courtyard pigeons. A book you\'ve been meaning to finish.\n\nHer breathing slows.',
+      },
+      {
+        type: 'narration',
+        text: 'Somewhere in the third hour she starts to talk back.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'When it gets like this…\n\n(Soft. Nearly asleep, almost.)\n\n"It feels like there\'s nothing holding me down.\nLike I could just — come apart."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Your voice is the thing.\n\n"It\'s — it\'s the weight.\nDo you understand?"\n"You\'re the weight that keeps me here."',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch2_stay_2' },
+
+    ],
+  },
+
+
+  /* ── Stay Path: Act 2 ────────────────────────────────── */
+
+  shizuku_ch2_stay_2: {
+    id   : 'shizuku_ch2_stay_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '4:40 a.m.\n\nThe dark has started going blue at the edges.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Are you still there?',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She asks it the same way she\'s asked it four times tonight.)\n\n"I keep thinking you might have fallen asleep.\nOr—"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'Or just put the phone down and not told me.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Still here. I haven\'t moved."',
+            nextScene : 'shizuku_end_ch2_vigil',
+            statEffect: { affection: 10, dependency: 9 },
+          },
+          {
+            label     : '"Shizuku… you know I can\'t do this every night."',
+            nextScene : 'shizuku_end_ch2_the_only_light',
+            statEffect: { fear: 9, dependency: 8 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Boundary Path: Act 1 ────────────────────────────── */
+
+  shizuku_ch2_boundary_1: {
+    id   : 'shizuku_ch2_boundary_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A long pause.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'cry',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '…I know.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : '(She doesn\'t hang up.)\n\n"I know it is.\nI\'m — I know this isn\'t fair."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : 'I tried not to call.\n\n(A small, broken sound.)\n\n"I tried for two hours.\nI kept picking up the phone and putting it down.\nI couldn\'t — I needed—"',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : 'You don\'t have to stay.\n\n(Quietly.)\n\n"I just needed to hear your voice for a second.\nYou can go back to sleep.\nI\'ll be fine."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t sound fine.',
+      },
+
+      { type: 'goto-scene', scene: 'shizuku_ch2_boundary_2' },
+
+    ],
+  },
+
+
+  /* ── Boundary Path: Act 2 ────────────────────────────── */
+
+  shizuku_ch2_boundary_2: {
+    id   : 'shizuku_ch2_boundary_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : 'Are you still on?\n\n(She asks it small.)',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You are.\n\nYou weren\'t sure you were going to be.\nBut you are.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I won\'t ask you to understand it.\n\n(She sounds tired.\nPast the crying stage.)\n\n"I just — the nights are longer than the days.\nAnd the days only make sense because I know I\'ll see you."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'Is that terrible?\n\n(A pause.)\n\n"Don\'t answer that."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Shizuku. You need more than just me."',
+            nextScene : 'shizuku_end_ch2_paper_walls',
+            statEffect: { fear: 8, defiance: 5 },
+          },
+          {
+            label     : '[I stay on the line without saying anything.]',
+            nextScene : 'shizuku_end_ch2_small_hours',
+            statEffect: { dependency: 8, affection: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 10: Vigil ────────────────────────────────── */
+
+  shizuku_end_ch2_vigil: {
+    id   : 'shizuku_end_ch2_vigil',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'smile',
+        text       : '(A sound that might be a small laugh.)\n\n…You haven\'t moved.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I\'m going to remember this night.\n\n(Soft. Precise.)\n\n"This exact hour.\nThe way it felt to know you were there\nthe whole time."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The light comes up slowly.\n\nYou\'re both quiet for the last twenty minutes.\nJust breathing on either end of the line.',
+      },
+      {
+        type: 'narration',
+        text: 'When she finally says goodbye\nher voice is steady.\n\nYou\'ve held her together through the night\nwith nothing but your presence.',
+      },
+      {
+        type: 'narration',
+        text: 'She will call again.\n\nYou both know it.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Vigil',
+        endingIndex : 10,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 11: The Only Light ───────────────────────── */
+
+  shizuku_end_ch2_the_only_light: {
+    id   : 'shizuku_end_ch2_the_only_light',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The line goes very quiet.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : 'I know.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(She doesn\'t say it defensively.\nShe says it like a thing she\'s already considered.)\n\n"I know you can\'t.\nI know this isn\'t healthy.\nI know all of it."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'yandere',
+        text       : 'And I still — I can\'t.\n\n(Very quietly.)\n\n"You\'re the only light I can see from here.\nI know that\'s not fair to put on you."\n\n"I\'m putting it on you anyway."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it without apology.\n\nNot cruelty — just honesty.\nThe kind that comes at 4am\nwhen there\'s nothing left to manage.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t know how to answer that.\n\nThe sky outside is turning gray.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Only Light',
+        endingIndex : 11,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 12: Paper Walls ──────────────────────────── */
+
+  shizuku_end_ch2_paper_walls: {
+    id   : 'shizuku_end_ch2_paper_walls',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'A very long silence.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'sad',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '…I know.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'sad',
+        text       : '(She says it like she\'s expected this.)\n\n"I know that\'s the right thing.\nI know you\'re right."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'cry',
+        text       : 'Don\'t go anyway.\n\n(Her voice breaks open.)\n\n"Please.\nJust — don\'t go yet.\nI know it\'s not okay to ask.\nI\'m asking anyway."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She knows.\n\nShe\'s always known.\n\nKnowing has never been enough to stop her.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Paper Walls',
+        endingIndex : 12,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 13: Small Hours ──────────────────────────── */
+
+  shizuku_end_ch2_small_hours: {
+    id   : 'shizuku_end_ch2_small_hours',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The silence between you carries.',
+      },
+      {
+        type: 'narration',
+        text: 'Not uncomfortable.\nJust present.\nTwo people on either end of a line at 3am.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'shizuku',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'shizuku',
+        expression : 'default',
+        text       : '(Eventually.)\n\n…Same time tomorrow?',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She asks it quietly.\n\nNot as a joke.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t answer.\n\nShe takes that as a yes.\n\nShe\'s probably right.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Small Hours',
+        endingIndex : 13,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     REINA CHAPTER 2 — "The Report"
+     She presents a monthly performance report. On you.
+
+     COMPLY PATH:
+       reina_ch2_start → reina_ch2_comply_1 → reina_ch2_comply_2
+         → reina_end_ch2_satisfactory   [10 — Normal]
+         → reina_end_ch2_revised_model  [11 — Rare]
+
+     OBJECT PATH:
+       reina_ch2_start → reina_ch2_object_1 → reina_ch2_object_2
+         → reina_end_ch2_the_subject            [12 — Rare]
+         → reina_end_ch2_acceptable_parameters  [13 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  reina_ch2_start: {
+    id   : 'reina_ch2_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/student_council.jpg' },
+
+      {
+        type: 'narration',
+        text: 'The document is waiting on the desk when you arrive.\n\nThick. Bound in a black cover.\nYour name on the front, printed and laminated.\n\nBelow it: Month Two — Progress Assessment.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I\'ll summarize the findings.\n\n(She sits.\nOpens her own copy.)\n\n"Sleep average — down eleven minutes from baseline.\nI\'ve identified a cause and a correction."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Academic performance — within acceptable range.\nSocial contact hours — trending in the correct direction.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She looks up briefly.)\n\n"\'Correct\' meaning reduced exposure to low-value contacts.\nThe model predicted you\'d resist that phase.\nYou didn\'t."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I open the report and start reading.]',
+            nextScene : 'reina_ch2_comply_1',
+            statEffect: { obedience: 6, affection: 3 },
+          },
+          {
+            label     : '"You\'ve been tracking all of this?"',
+            nextScene : 'reina_ch2_object_1',
+            statEffect: { fear: 6, defiance: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Comply Path: Act 1 ──────────────────────────────── */
+
+  reina_ch2_comply_1: {
+    id   : 'reina_ch2_comply_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Section two covers physiological baselines.\n\n(She doesn\'t pause for your reaction.)\n\n"Resting heart rate — I\'ve noted variance in high-interaction scenarios.\nI\'ve been averaging across contexts."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Section two is twelve pages.\n\nSleeping hours cross-referenced against meal timing.\nActivity logs.\nSubjective mood assessments drawn from — you check the footnote — observation.',
+      },
+      {
+        type: 'narration',
+        text: '"Observation."\n\nNot self-report.\nObservation.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'You\'re on page fourteen.\n\n(She checks her own copy without looking at yours.)\n\n"That section references cross-campus positioning data.\nI have a separate appendix if you\'d like the raw figures."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch2_comply_2' },
+
+    ],
+  },
+
+
+  /* ── Comply Path: Act 2 ──────────────────────────────── */
+
+  reina_ch2_comply_2: {
+    id   : 'reina_ch2_comply_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You keep reading.\n\nYou\'re not sure why you keep reading.\n\nYou keep reading.',
+      },
+      {
+        type: 'narration',
+        text: 'Section four is a projection model.\nThree scenarios.\nAll labeled with outcomes measured in years.\n\nThe shortest is labeled: Baseline Continuity — eighteen months.\n\nYou look at the longest.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The third scenario is the preferred outcome.\n\n(She says it without inflection.)\n\n"Indefinite continuation.\nOpen-ended.\nNo terminal date."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The model performs best with consistency.\n\n(She closes the report.)\n\n"You\'ve been consistent.\nThat\'s reflected in the assessment."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I scored highly?"',
+            nextScene : 'reina_end_ch2_satisfactory',
+            statEffect: { obedience: 10, affection: 5 },
+          },
+          {
+            label     : '"There\'s no end date on this."',
+            nextScene : 'reina_end_ch2_revised_model',
+            statEffect: { fear: 9, dependency: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Object Path: Act 1 ──────────────────────────────── */
+
+  reina_ch2_object_1: {
+    id   : 'reina_ch2_object_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She pauses.\n\nA single beat.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '"Tracking" implies passive observation without purpose.\n\n(She sets down her pen.)\n\n"This is structured data collection with defined objectives.\nThere\'s a meaningful distinction."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The objectives were established at the beginning of the arrangement.\nYou were provided with the general terms at our first meeting.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You think back to the first meeting.\n\nThe folder.\nSection three — social allocation.\nThe names crossed out.',
+      },
+      {
+        type: 'narration',
+        text: '"General terms" is doing a significant amount of work in that sentence.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'I understand your concern.\n\n(She reopens her copy.)\n\n"I\'ll walk you through the methodology.\nIt may clarify things."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch2_object_2' },
+
+    ],
+  },
+
+
+  /* ── Object Path: Act 2 ──────────────────────────────── */
+
+  reina_ch2_object_2: {
+    id   : 'reina_ch2_object_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The methodology section is twenty-two pages.\n\nShe reads it to you.\n\nAll of it.',
+      },
+      {
+        type: 'narration',
+        text: 'Not quickly.\nNot skipping.\nEvery footnote, every cross-reference, every definition.\n\nBy page twelve you\'ve stopped arguing.\nBy page eighteen you\'ve stopped thinking about arguing.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Your objection is noted.\n\n(She flips to the back of the document.)\n\n"I\'ve added it to the appendix.\nSection 7C — Subject Resistance Events.\nDate-stamped."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Your objection is now part of the data set.\n\n(She looks at you.)\n\n"Is there anything else you\'d like to add?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You can\'t just put my objection in a report."',
+            nextScene : 'reina_end_ch2_the_subject',
+            statEffect: { fear: 9, defiance: 6 },
+          },
+          {
+            label     : '[I have run out of things to say.]',
+            nextScene : 'reina_end_ch2_acceptable_parameters',
+            statEffect: { fear: 6, obedience: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 10: Satisfactory ─────────────────────────── */
+
+  reina_end_ch2_satisfactory: {
+    id   : 'reina_end_ch2_satisfactory',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(A brief pause.)\n\n…Yes.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The assessment places you in the ninety-first percentile\nof projected optimal outcomes.\n\n(She makes a small note.)\n\n"That figure will be updated monthly."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You don\'t know what the ninety-first percentile of her projected optimal outcomes means for you.',
+      },
+      {
+        type: 'narration',
+        text: 'Somehow, that she\'s pleased is not as comforting as it should be.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'smile',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'smile',
+        text       : 'Month three begins Monday.\n\n(She closes the folder.)\n\n"I look forward to the data."',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Satisfactory',
+        endingIndex : 10,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 11: Revised Model ────────────────────────── */
+
+  reina_end_ch2_revised_model: {
+    id   : 'reina_end_ch2_revised_model',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t deny it.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Correct.\n\n(She says it without hesitation.)\n\n"Terminal models introduce exit-point variables that degrade data integrity.\nI\'ve found the open-ended structure produces more reliable outputs."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The model requires you to continue.\n\nI\'m aware that\'s not a standard arrangement.\n\n(She meets your eyes.)\n\n"I find standard arrangements insufficient."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says "requires" the way an engineer says "requires."\n\nNot as a threat.\nAs a specification.',
+      },
+      {
+        type: 'narration',
+        text: 'The report is still open in your hands.\n\nYour name on every page.\nMonth two of an arrangement with no end.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Revised Model',
+        endingIndex : 11,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 12: The Subject ──────────────────────────── */
+
+  reina_end_ch2_the_subject: {
+    id   : 'reina_end_ch2_the_subject',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I just did.\n\n(Without looking up from the appendix.)\n\n"Section 7C contains all subject resistance events.\nThis is the fourth."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The data shows resistance events correlate with above-average comprehension of the arrangement\'s scope.\n\n(She adds another line.)\n\n"Which means you understand more than most.\nI consider that a positive variable."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Your objection is in the appendix.\n\nDate-stamped.\nCross-referenced.\n\nPart of her data.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type: 'narration',
+        text: 'You are the subject of a study that has no end date\nand no withdrawal option.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Subject',
+        endingIndex : 12,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 13: Acceptable Parameters ───────────────── */
+
+  reina_end_ch2_acceptable_parameters: {
+    id   : 'reina_end_ch2_acceptable_parameters',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She waits five seconds for an answer.\n\nWhen none comes, she makes a note.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'That concludes the monthly review.\n\n(She closes the folder.\nStacks it neatly to one side.)\n\n"You\'re free to go."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Month three begins Monday.\n\nSame time.\nBring the report.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'As if you have a copy.\n\nAs if you\'ll come.',
+      },
+      {
+        type: 'narration',
+        text: 'You pick up your bag.\n\nYou will come.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Acceptable Parameters',
+        endingIndex : 13,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ══════════════════════════════════════════════════════════
+     MEI CHAPTER 2 — "The Game"
+     She made a board game. The rules are in a notebook.
+     They are all in your favor until you realize they aren't.
+
+     PLAY PATH:
+       mei_ch2_start → mei_ch2_play_1 → mei_ch2_play_2
+         → mei_end_ch2_player_two  [10 — Normal]
+         → mei_end_ch2_predictable [11 — Rare]
+
+     EXAMINE PATH:
+       mei_ch2_start → mei_ch2_examine_1 → mei_ch2_examine_2
+         → mei_end_ch2_house_rules      [12 — Rare]
+         → mei_end_ch2_the_only_ending  [13 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
+  mei_ch2_start: {
+    id   : 'mei_ch2_start',
+    steps: [
+
+      { type: 'bg', bg: 'assets/bg/school_rooftop.jpg' },
+
+      {
+        type: 'narration',
+        text: 'She\'s on the rooftop.\n\nThere\'s a blanket spread on the ground.\nA board in the center.\nPieces arranged like she\'s been waiting for some time.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : '{name}~! ♪\n\nI\'ve been waiting~\nSat down, stood up, sat down again.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I made a game!\n\n(She pats the blanket beside her.)\n\n"I made all the pieces too.\nMr. Buttons helped judge the rules."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'This one is just for us~\n\n(She holds up a notebook.)\n\n"The rules are in here.\nDo you want to read them first\nor should we just start?"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Let\'s just start."',
+            nextScene : 'mei_ch2_play_1',
+            statEffect: { affection: 5, obedience: 5 },
+          },
+          {
+            label     : '"I\'d like to read the rules first."',
+            nextScene : 'mei_ch2_examine_1',
+            statEffect: { fear: 4, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Play Path: Act 1 ────────────────────────────────── */
+
+  mei_ch2_play_1: {
+    id   : 'mei_ch2_play_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : 'Okay~!\n\n(She settles cross-legged and sets Mr. Buttons on his designated square.)\n\n"I\'ll explain as we go.\nI\'m good at explaining."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Rule one: I go first.\n\nRule two: {name}\'s pieces can only move toward mine.\n\n(She places her first piece with great ceremony.)\n\n"Rule three: Mr. Buttons is an impartial judge."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The board doesn\'t resemble anything you\'ve seen before.\n\nThe squares are different sizes.\nSome are labeled in her handwriting.\nOne just says: "here."\n\nAnother says: "found you."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Your turn~\n\n(She watches your hand over the pieces with great interest.)\n\n"Go wherever you want.\nBut keep in mind — I already know where you\'ll go."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch2_play_2' },
+
+    ],
+  },
+
+
+  /* ── Play Path: Act 2 ────────────────────────────────── */
+
+  mei_ch2_play_2: {
+    id   : 'mei_ch2_play_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You move a piece.\n\nShe moves immediately.\n\nYou move again.\nShe moves immediately.\n\nShe never hesitates.\nNot once.',
+      },
+      {
+        type: 'narration',
+        text: 'By the fifth turn every path forward is blocked.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : 'You lose~! ♪\n\n(She claps.)\n\n"That was so fast~\nYou went exactly where I thought you would\nevery single time."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Want to play again?\n\n(She\'s already resetting the board.)\n\n"It\'ll be different this time.\nMaybe~"',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"Sure. Let\'s go again."',
+            nextScene : 'mei_end_ch2_player_two',
+            statEffect: { affection: 10, obedience: 7 },
+          },
+          {
+            label     : '"…You knew every move I was going to make?"',
+            nextScene : 'mei_end_ch2_predictable',
+            statEffect: { fear: 9, dependency: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Examine Path: Act 1 ─────────────────────────────── */
+
+  mei_ch2_examine_1: {
+    id   : 'mei_ch2_examine_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Oh~!\n\n(She holds the notebook out with both hands.)\n\n"Okay~ I\'m glad you want to read them.\nI worked really hard on them."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'The notebook is thick.',
+      },
+      {
+        type: 'narration',
+        text: 'The rules section begins on page one.\n\nRule 1 through Rule 12 are fairly ordinary.\nMovement. Turn order. Point values.',
+      },
+      {
+        type: 'narration',
+        text: 'Rule 13 reads:\n\n"The player who is {name} must not leave the board area until Mei says the game is over."\n\nYou check.\nThat\'s still the rules section.\n\nYou keep reading.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She watches you read.)\n\nYou\'re on rule thirteen~\n\n"There are forty-seven rules total.\nSome of them are about you specifically."',
+      },
+
+      { type: 'goto-scene', scene: 'mei_ch2_examine_2' },
+
+    ],
+  },
+
+
+  /* ── Examine Path: Act 2 ─────────────────────────────── */
+
+  mei_ch2_examine_2: {
+    id   : 'mei_ch2_examine_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Rule 27: "{name} must answer when called."\n\nRule 31: "If {name} moves to a square Mei hasn\'t been to yet, Mei goes there first. Retroactively."\n\nRule 40: "If {name} wins, the game was misread and should be replayed."',
+      },
+      {
+        type: 'narration',
+        text: 'Rule 47:\n\n"The game ends when Mei says it ends.\nNot before."\n\nRule 47, addendum:\n\n"This applies outside the game too."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'Did you find rule forty-seven yet?',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"There\'s an addendum to rule forty-seven."',
+            nextScene : 'mei_end_ch2_house_rules',
+            statEffect: { fear: 10, defiance: 4 },
+          },
+          {
+            label     : '[I close the notebook.]',
+            nextScene : 'mei_end_ch2_the_only_ending',
+            statEffect: { fear: 6, obedience: 6 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 10: Player Two ───────────────────────────── */
+
+  mei_end_ch2_player_two: {
+    id   : 'mei_end_ch2_player_two',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'excited',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'excited',
+        text       : 'Yay~! ♪\n\n(She resets the board in seconds.\nShe\'s clearly done this many times before.)\n\n"I\'ll give you a small hint this time."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'The hint is: it doesn\'t matter which way you go~\n\n(She places her piece.)\n\n"I know them all."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You play again.\n\nYou lose in six turns instead of five.\n\nShe calls it progress.',
+      },
+      {
+        type: 'narration',
+        text: 'The sun moves across the rooftop.\n\nShe resets the board.\n\n"Best of forever~" she says.\n\nIt doesn\'t sound like a joke.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Player Two',
+        endingIndex : 10,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 11: Predictable ──────────────────────────── */
+
+  mei_end_ch2_predictable: {
+    id   : 'mei_end_ch2_predictable',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She tilts her head.)\n\nMm~\n\n"Not every move.\nMost of them."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'I\'ve been watching you for a long time~\n\n(She picks up Mr. Buttons.)\n\n"I know how you think when you\'re comfortable.\nHow you move when you\'re nervous.\nWhat you do when you think no one is watching."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She\'s not bragging.\n\nShe\'s reporting.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'That\'s why I made the game for you specifically~\n\n(She begins resetting the pieces.)\n\n"It only works on you.\nI checked."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She checked.\n\nYou don\'t want to know what "checking" involved.\n\nYou think you already know.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Predictable',
+        endingIndex : 11,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 12: House Rules ──────────────────────────── */
+
+  mei_end_ch2_house_rules: {
+    id   : 'mei_end_ch2_house_rules',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'default',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : '(She nods, very seriously.)\n\nYes~\n\n"That part was important so I wanted to be clear."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : 'Some rules only exist inside the game.\n\n(She tilts her head.)\n\n"Rule forty-seven exists everywhere."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it so simply.\n\nLike it\'s been true for a while now.\nLike you just hadn\'t read that page yet.',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type: 'narration',
+        text: 'You think about every time you\'ve left a room and she\'s been there when you arrived somewhere else.\n\nEvery coincidence.\n\nThe game was already running.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'House Rules',
+        endingIndex : 12,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 13: The Only Ending ──────────────────────── */
+
+  mei_end_ch2_the_only_ending: {
+    id   : 'mei_end_ch2_the_only_ending',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'mei',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'smile',
+        text       : '(She watches you close it.)\n\nMm~\n\n"That\'s okay.\nYou\'ll learn the rules as you go."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'mei',
+        expression : 'default',
+        text       : 'There\'s only one ending anyway~\n\n(She picks up the first piece.)\n\n"So it doesn\'t really matter which path you take."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She holds the piece out to you.\n\nSmiling.\nPatient.\nLike the answer to what she means\nwill come to you eventually.',
+      },
+      {
+        type: 'narration',
+        text: 'You take the piece.\n\nThe game begins.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Only Ending',
+        endingIndex : 13,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
 };
 
 
