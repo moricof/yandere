@@ -1967,10 +1967,332 @@ const SCENES = {
     ],
   },
 
+  /* ══════════════════════════════════════════════════════════
+     REINA CHAPTER 1 — "Under Observation"
+     Four endings accessible via two branch paths.
+
+     COMPLIANT PATH:
+       reina_ch1_start → reina_ch1_compliant_1 → reina_ch1_compliant_2
+         → reina_end_devoted_servant  [Ending 0 — Normal]
+         → reina_end_perfect_cage     [Ending 1 — Rare]
+
+     DEFIANT PATH:
+       reina_ch1_start → reina_ch1_defiant_1 → reina_ch1_defiant_2
+         → reina_end_shattered_resistance  [Ending 3 — Rare]
+         → reina_end_gilded_prison          [Ending 4 — Normal]
+     ══════════════════════════════════════════════════════════ */
+
   reina_ch1_start: {
     id   : 'reina_ch1_start',
     steps: [
+
       { type: 'bg', bg: 'assets/bg/student_council.jpg' },
+
+      {
+        type: 'narration',
+        text: 'The memo was formatted correctly.\n\nThat\'s what you remember most.',
+      },
+      {
+        type: 'narration',
+        text: 'Your name in the header.\nThe date.\nThe room number.\nThe time.\n\nLike a meeting request.\nLike you work for her.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '(She\'s writing when you enter.\nDoesn\'t look up.)\n\n"You\'re on time."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '(She finishes the sentence.\nSets down the pen.)\n\n"I expected slightly early, based on your pattern.\nYou were not.\n\nI\'ve updated the model."',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She slides a folder across the desk toward you.)\n\n"Please sit.\nI have something to go over with you."',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '[I sit. I open the folder.]',
+            nextScene : 'reina_ch1_compliant_1',
+            statEffect: { obedience: 7, affection: 3 },
+          },
+          {
+            label     : '"What is this?"',
+            nextScene : 'reina_ch1_defiant_1',
+            statEffect: { fear: 5, defiance: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Compliant Path: Act 1 ───────────────────────────── */
+
+  reina_ch1_compliant_1: {
+    id   : 'reina_ch1_compliant_1',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Section one is your weekly structure.\nOptimized for observed energy patterns, academic output, and commute variables.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Each hour is accounted for.\n\nWake time. Meals. Transit. Study blocks.\nSomething labeled "ambient recovery."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Section two covers nutritional targets.\nYour current intake has three gaps I\'ve flagged.\nA corrected meal plan is included.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '(She turns to section three herself.)\n\n"Section three is social allocation.\nCertain current associations have been assessed.\n\nSome have been marked for reduction."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'There are names.\nSome crossed out.\nAnnotations in the margins.\n\n"Inefficient."\n"Disruptive variable."\n"Low yield."',
+      },
+      {
+        type: 'narration',
+        text: 'And at the end — one column with no name.\n\nHeader: "Primary Contact.\nAllocated: 3.5 hours, daily."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'Any questions so far?',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch1_compliant_2' },
+
+    ],
+  },
+
+
+  /* ── Compliant Path: Act 2 — fourteen months ────────── */
+
+  reina_ch1_compliant_2: {
+    id   : 'reina_ch1_compliant_2',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I should note — this is a living document.\nAs conditions change, the plan revises.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She places a second folder beside the first.)\n\n"Version twelve.\nThe date on the cover is fourteen months ago."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Version twelve.\n\nFourteen months ago.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Your preferences, habits, and behavioral variables have been tracked and integrated across that period.\nIterative refinement produces better outcomes than a static model.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'You\'ve been part of this project for fourteen months.\n\nYou weren\'t aware.\nThat was intentional.\n\nObserved subjects modify behavior.\nUnobserved data is cleaner.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"I\'ll follow it."',
+            nextScene : 'reina_end_devoted_servant',
+            statEffect: { obedience: 10, affection: 5 },
+          },
+          {
+            label     : '"This column. \'Primary Contact.\' What does that mean?"',
+            nextScene : 'reina_end_perfect_cage',
+            statEffect: { fear: 8, dependency: 5 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── Defiant Path: Act 1 ─────────────────────────────── */
+
+  reina_ch1_defiant_1: {
+    id   : 'reina_ch1_defiant_1',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She doesn\'t look surprised.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'A schedule revision.\nI\'ve been modeling your current time allocation.\nThe inefficiencies are significant.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She opens her notebook to a graph.)\n\n"This is your average output by day of week.\nEight months of data.\nThe dip on Tuesdays correlates with your fourth-period placement.\n\nI\'ve had it rescheduled."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You didn\'t ask for that.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'No.\n\nBut you would have, eventually.\n\nThis is simply faster.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She closes the notebook.)\n\n"Please sit.\nThere\'s more."',
+      },
+
+      { type: 'goto-scene', scene: 'reina_ch1_defiant_2' },
+
+    ],
+  },
+
+
+  /* ── Defiant Path: Act 2 — fourteen folders ─────────── */
+
+  reina_ch1_defiant_2: {
+    id   : 'reina_ch1_defiant_2',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She pulls something from the filing cabinet.\nSets it on the desk.',
+      },
+      {
+        type: 'narration',
+        text: 'A folder.\nNumbered on the spine: 01 / 14.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I began documentation fourteen months ago.\nThis is the first volume.\n\nThere are thirteen more.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Fourteen folders.\nFourteen months.\nA complete archive.',
+      },
+      {
+        type: 'narration',
+        text: 'About you.',
+      },
+
       {
         type       : 'expression',
         character  : 'reina',
@@ -1980,22 +2302,374 @@ const SCENES = {
       {
         type       : 'dialogue',
         character  : 'reina',
+        expression : 'default',
+        text       : 'I want to clarify something.\n\nThis is not surveillance.\nSurveillance implies adversarial framing.\n\nThis is optimization research.\nWith a specific subject.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
         expression : 'cold',
-        text       : 'You\'re on time.\n\nFor once.',
+        text       : '(She looks at you directly.)\n\nYou.',
+      },
+
+      {
+        type   : 'choice',
+        choices: [
+          {
+            label     : '"You can\'t plan my entire life."',
+            nextScene : 'reina_end_shattered_resistance',
+            statEffect: { fear: 10, defiance: 8 },
+          },
+          {
+            label     : '[Open the folder. Read it.]',
+            nextScene : 'reina_end_gilded_prison',
+            statEffect: { fear: 6, obedience: 5, dependency: 4 },
+          },
+        ],
+      },
+
+    ],
+  },
+
+
+  /* ── ENDING 0: Devoted Servant ───────────────────────── */
+
+  reina_end_devoted_servant: {
+    id   : 'reina_end_devoted_servant',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type: 'narration',
+        text: 'She makes a note.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Good.\n\nI\'ll log compliance from today\'s date.',
       },
       {
         type       : 'dialogue',
         character  : 'reina',
         expression : 'default',
-        text       : '(She sets a folder on the desk in front of you.)\n\n"Your schedule for the next four weeks.\nI\'ve optimized it."',
+        text       : '(She turns back to section one.)\n\n"I\'d recommend beginning with the sleep revision.\nYour current pattern is suboptimal by twenty-two minutes.\nThe compounding effect over one week is measurable."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You\'re going to follow a schedule\nsomeone else designed for you.\n\nDown to when you sleep.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
       },
       {
         type       : 'dialogue',
         character  : 'reina',
         expression : 'cold',
-        text       : 'There is no room for deviation.\n\nYou will find that following my guidelines\nis simply… easier.',
+        text       : 'Report back in one week.\nI\'ve blocked time for a review.\n\n(Without looking up.)\n\n"It\'s in the document.\nSection four."',
       },
-      { type: 'end' },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You look.\n\nIt is.',
+      },
+      {
+        type: 'narration',
+        text: 'So is next week.\nAnd the week after that.\n\nA full year of reviews,\nalready scheduled.',
+      },
+      {
+        type: 'narration',
+        text: 'You hadn\'t noticed the last page.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Devoted Servant',
+        endingIndex : 0,
+        rarity      : 'normal',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 1: The Perfect Cage ─────────────────────── */
+
+  reina_end_perfect_cage: {
+    id   : 'reina_end_perfect_cage',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type: 'narration',
+        text: 'She doesn\'t look at the column right away.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'That allocation refers to a contact type I\'ve found produces consistent positive outcomes across tracked metrics.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : '(A pause.)\n\n"The specific variable is you."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it like a result.\nLike she\'s reading a number off a chart.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : 'The hours aren\'t restrictive.\n3.5 is a minimum.\nThe ceiling is currently unspecified.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She closes the folder.)\n\n"I don\'t place ceilings on productive variables."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You understand what kind of variable you are.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'smile',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'smile',
+        text       : '(Almost a smile.\nNot quite.)\n\n"You\'re processing it.\nGood.\n\nThe sooner you process, the more efficiently we can proceed."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You\'re not sure if you\'ve agreed to something.\n\nYou haven\'t said anything at all.\n\nSomehow that doesn\'t seem to matter.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'The Perfect Cage',
+        endingIndex : 1,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 3: Shattered Resistance ─────────────────── */
+
+  reina_end_shattered_resistance: {
+    id   : 'reina_end_shattered_resistance',
+    steps: [
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'center',
+      },
+      {
+        type: 'narration',
+        text: 'A long pause.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'I modeled this response.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She opens to a specific page.\nTurns it to face you.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Objection rate at this stage of the process: high.\nCompliance rate within seventy-two hours: 94.3%.\n\nHistorical data.\nNot a prediction for you specifically.',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(She closes the folder.)\n\n"I\'m not planning your entire life.\nI\'m planning the portion that intersects with optimal outcomes.\n\nThat portion is currently significant.\nBut not total."',
+      },
+
+      { type: 'horror', effect: 'static_brief' },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'yandere',
+        position   : 'center',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'yandere',
+        text       : '(She looks at you steadily.)\n\n"The 5.7% is why I keep the files open.\nNot every subject processes at the same rate.\n\nI can wait.\n\nI\'ve already been waiting fourteen months."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'She says it like a deadline.\nNot a threat.\nJust a projection.',
+      },
+      {
+        type: 'narration',
+        text: 'Somehow that\'s worse.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Shattered Resistance',
+        endingIndex : 3,
+        rarity      : 'rare',
+      },
+    ],
+  },
+
+
+  /* ── ENDING 4: Gilded Prison ─────────────────────────── */
+
+  reina_end_gilded_prison: {
+    id   : 'reina_end_gilded_prison',
+    steps: [
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Folder 01 / 14.',
+      },
+      {
+        type: 'narration',
+        text: 'Your first week at this school.\nNotes in a precise hand.\n\nSubject heading.\nPhysical description.\nClass section.\nClub affiliation.\nLunch window.\n\nInitial parameters.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'Month one was baseline collection only.\nNo hypothesis yet.\n\n(She looks toward the window.)\n\n"Just interest."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'Just interest.\n\nFrom someone who doesn\'t use that word loosely.',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'default',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'default',
+        text       : '(Without looking at you.)\n\n"The hypothesis formed in month two.\nSupporting documentation begins in volume three.\nYou can read those as well, if you prefer.\n\nThey\'re more conclusive."',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: '"Conclusive."',
+      },
+
+      {
+        type       : 'expression',
+        character  : 'reina',
+        expression : 'cold',
+        position   : 'right',
+      },
+      {
+        type       : 'dialogue',
+        character  : 'reina',
+        expression : 'cold',
+        text       : 'The conclusion was:\nyou are the most efficient path to a stable long-term outcome.\nFor the relevant variables.',
+      },
+
+      { type: 'clear-characters' },
+
+      {
+        type: 'narration',
+        text: 'You\'re not sure what "the relevant variables" means.',
+      },
+      {
+        type: 'narration',
+        text: 'You don\'t ask.',
+      },
+
+      {
+        type        : 'end',
+        endingName  : 'Gilded Prison',
+        endingIndex : 4,
+        rarity      : 'normal',
+      },
     ],
   },
 
