@@ -176,17 +176,42 @@
 
   </main><!-- /heroine-grid -->
 
-  <!-- Hidden character row — locked until all main routes complete -->
-  <div class="hidden-row" aria-label="Locked characters">
-    <div class="hidden-slot" aria-label="Unknown character — locked">
-      <div class="hidden-silhouette" aria-hidden="true">?</div>
-      <p class="hidden-name">???</p>
-      <p class="hidden-hint">Complete all main routes</p>
+  <!-- Secret heroine row — revealed when all 4 True Endings are cleared -->
+  <div class="hidden-row" id="hidden-row" aria-label="Secret characters">
+
+    <div class="hidden-slot hs-locked" id="secret-slot-1" aria-label="Secret character — locked">
+      <div class="hs-portrait">
+        <div class="hs-portrait-bg"></div>
+        <span class="hs-kanji-hidden" aria-hidden="true">?</span>
+        <div class="hs-lock-pulse" aria-hidden="true"></div>
+      </div>
+      <div class="hs-info">
+        <p class="hs-name">???</p>
+        <p class="hs-condition" id="secret-condition-1">Clear all True Endings</p>
+      </div>
     </div>
-    <div class="hidden-slot" aria-label="Unknown character — locked">
-      <div class="hidden-silhouette" aria-hidden="true">?</div>
-      <p class="hidden-name">???</p>
-      <p class="hidden-hint">Complete all main routes</p>
+
+    <div class="hidden-slot hs-locked" id="secret-slot-2" aria-label="Secret character — locked">
+      <div class="hs-portrait">
+        <div class="hs-portrait-bg"></div>
+        <span class="hs-kanji-hidden" aria-hidden="true">?</span>
+        <div class="hs-lock-pulse" aria-hidden="true"></div>
+      </div>
+      <div class="hs-info">
+        <p class="hs-name">???</p>
+        <p class="hs-condition" id="secret-condition-2">Clear all True Endings</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Final Chapter teaser — always visible, locked until secrets unlock -->
+  <div class="final-chapter-teaser" id="final-chapter-teaser" aria-label="Locked final chapter">
+    <div class="fct-inner">
+      <p class="fct-lock-icon" aria-hidden="true">🔒</p>
+      <p class="fct-eyebrow">— ??? —</p>
+      <p class="fct-title">第六章  ·  The Cage Breaks</p>
+      <p class="fct-hint">"What happens when all four doors open at once?"</p>
     </div>
   </div>
 
@@ -505,9 +530,48 @@
 </div><!-- /screen-result -->
 
 
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN: UNLOCK  (Post–Himari Ch.1 transition)
+     Shown the first time the player clears Himari's chapter.
+     Reveals the other heroines and opens the main menu.
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="screen-unlock" class="screen" aria-label="Unlock">
+
+  <div class="unlock-bg" aria-hidden="true"></div>
+
+  <div class="unlock-inner">
+    <p class="unlock-eyebrow">— Chapter One Complete —</p>
+
+    <div class="unlock-sigil" aria-hidden="true">⛧</div>
+
+    <h2 class="unlock-title">The Cage Has Opened</h2>
+
+    <p class="unlock-body">
+      You survived Himari's chapter.<br/>
+      But the other girls have been watching from the beginning.<br/>
+      They have been waiting far longer than you realize.
+    </p>
+
+    <div class="unlock-names" aria-hidden="true">
+      <span class="unlock-name un-shizuku">清滝 雫</span>
+      <span class="unlock-sep">·</span>
+      <span class="unlock-name un-reina">葛葉 怜奈</span>
+      <span class="unlock-sep">·</span>
+      <span class="unlock-name un-mei">桃園 芽衣</span>
+    </div>
+
+    <p class="unlock-hint">All routes are now available.</p>
+
+    <button class="unlock-btn" onclick="unlockMainMenu()">Enter the Cage  ✦</button>
+  </div>
+
+</div><!-- /screen-unlock -->
+
+
 <!-- ─────────────────────────────────────────────────────
      Scripts — data file first, then engine
      ───────────────────────────────────────────────────── -->
+<script src="data/strings.js"></script>    <!-- Localization & voice index      -->
 <script src="data/scenario.js"></script>   <!-- Story data (characters, scenes) -->
 <script src="script.js"></script>           <!-- Game engine + UI navigation    -->
 

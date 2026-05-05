@@ -121,6 +121,7 @@ const UIState = {
   progress      : {},                  // { heroineId: { chNum: [true,false,...] } }
   playerName    : 'Player',            // Set during name-input step
   prologueDone  : false,               // True after prologue completes once
+  forcedIntro   : false,               // True during the forced Himari Ch1 first-run
 };
 
 
@@ -495,6 +496,42 @@ function updateHomeRings() {
     if (pctEl)  pctEl.textContent  = `${pct}%`;
     if (infoEl) infoEl.textContent = `Ch.1 · ${unlocked} / ${total}`;
   });
+
+  // Also check whether secret heroines should be revealed
+  checkSecretUnlocks();
+}
+
+/**
+ * checkSecretUnlocks — Reveals the two secret heroine slots and the Final
+ * Chapter teaser once all four main heroines' True Endings are cleared.
+ * True Ending for each heroine is endingIndex 43 in Chapter 5.
+ */
+function checkSecretUnlocks() {
+  const heroines = ['himari', 'shizuku', 'reina', 'mei'];
+  const allTrue  = heroines.every(h => {
+    const ch5 = (UIState.progress[h] || {})[5] || [];
+    return ch5[43] === true;
+  });
+
+  const slot1 = document.getElementById('secret-slot-1');
+  const slot2 = document.getElementById('secret-slot-2');
+  const fct   = document.getElementById('final-chapter-teaser');
+
+  if (!slot1 || !slot2) return;
+
+  if (allTrue) {
+    slot1.classList.remove('hs-locked');
+    slot1.classList.add('hs-unlocked');
+    slot2.classList.remove('hs-locked');
+    slot2.classList.add('hs-unlocked');
+    if (fct) fct.classList.add('fct-unlocked');
+
+    // Update hint text for the unlocked slots
+    const c1 = document.getElementById('secret-condition-1');
+    const c2 = document.getElementById('secret-condition-2');
+    if (c1) c1.textContent = 'A new obsession has awakened…';
+    if (c2) c2.textContent = 'She was watching the whole time…';
+  }
 }
 
 
@@ -826,6 +863,9 @@ function showDialogueStep(characterId, text) {
 
   const resolved = (text || '').replace(/\{name\}/g, UIState.playerName || 'you');
   typeText(D.dialogueText, resolved);
+
+  // Ambient horror — fires stochastically based on accumulated Fear/Dependency
+  checkAmbientHorror();
 }
 
 function showChoices(choices) {
@@ -864,7 +904,22 @@ function showEndCard(endingName, endingIndex, rarity) {
     EngineState.currentEnding = null;
   }
 
+  // First-run forced intro: after Himari Ch1 ends, show the unlock transition screen
+  if (UIState.forcedIntro) {
+    UIState.forcedIntro  = false;
+    UIState.prologueDone = true;
+    localStorage.setItem('cage_prologue_done', 'true');
+    setTimeout(() => UI.goTo('screen-unlock', { pushHistory: false }), 900);
+    return;
+  }
+
   D.endCard.classList.remove('hidden');
+}
+
+/** unlockMainMenu — Called by screen-unlock's button to enter the main game. */
+function unlockMainMenu() {
+  UI.goTo('screen-home', { pushHistory: false });
+  setTimeout(updateHomeRings, 400);
 }
 
 // ── Name Input Modal ──────────────────────────────────────────────────────────
@@ -911,7 +966,111 @@ function showNameInput(step, onConfirm) {
   });
 }
 
-// ── Horror Effects ────────────────────────────────────────────────────────────
+// ── Ambient Horror System ─────────────────────────────────────────────────────
+//
+// Three real-time effects that fire DURING dialogue based on Fear/Dependency
+// stat levels — not from explicit 'horror' steps. Effects are stochastic and
+// cooldown-gated so they feel unpredictable, not scripted.
+//
+//  NAME SPAM   — {name} appears scattered, fading, across the screen
+//                Trigger: Fear > 55  OR  Dependency > 65
+//
+//  UI GLITCH   — dialogue box jerks, skews, color-shifts for 0.5 s
+//                Trigger: Fear > 65
+//
+//  HEAVY HEART — dark crimson vignette pulses in from edges for 2–3 s
+//                Trigger: Dependency > 55
+
+const AmbientHorror = {
+  lastNameSpam : 0,
+  lastGlitch   : 0,
+  lastHeart    : 0,
+  CD_NAME      : 9000,   // min ms between name-spam events
+  CD_GLITCH    : 14000,  // min ms between glitch events
+  CD_HEART     : 7000,   // min ms between heavy-heart events
+};
+
+function checkAmbientHorror() {
+  // Only fire when the dialogue screen is visible and not in a name-input modal
+  if (!document.getElementById('screen-dialogue').classList.contains('active')) return;
+  if (document.getElementById('name-input-overlay')) return;
+
+  const fear = EngineState.stats.fear       || 0;
+  const dep  = EngineState.stats.dependency || 0;
+  const now  = Date.now();
+
+  // ── Name Spam ──────────────────────────────────────────────────────────────
+  const nameLevel = Math.max(fear - 55, 0) + Math.max(dep - 65, 0);
+  if (nameLevel > 0 && (now - AmbientHorror.lastNameSpam) > AmbientHorror.CD_NAME) {
+    const chance = Math.min(nameLevel / 50, 1) * 0.42;
+    if (Math.random() < chance) {
+      AmbientHorror.lastNameSpam = now;
+      triggerNameSpam();
+    }
+  }
+
+  // ── UI Glitch ──────────────────────────────────────────────────────────────
+  if (fear > 65 && (now - AmbientHorror.lastGlitch) > AmbientHorror.CD_GLITCH) {
+    const chance = Math.min((fear - 65) / 35, 1) * 0.30;
+    if (Math.random() < chance) {
+      AmbientHorror.lastGlitch = now;
+      triggerUIGlitch();
+    }
+  }
+
+  // ── Heavy Heart ────────────────────────────────────────────────────────────
+  if (dep > 55 && (now - AmbientHorror.lastHeart) > AmbientHorror.CD_HEART) {
+    const chance = Math.min((dep - 55) / 45, 1) * 0.35;
+    if (Math.random() < chance) {
+      AmbientHorror.lastHeart = now;
+      triggerHeavyHeart();
+    }
+  }
+}
+
+function triggerNameSpam() {
+  const name    = UIState.playerName || 'you';
+  const screen  = document.getElementById('screen-dialogue');
+  const overlay = document.createElement('div');
+  overlay.className = 'ambient-name-spam';
+
+  const count = 5 + Math.floor(Math.random() * 4);
+  for (let i = 0; i < count; i++) {
+    const span      = document.createElement('span');
+    span.className  = 'ns-word';
+    span.textContent = name;
+    span.style.top         = `${8  + Math.random() * 80}%`;
+    span.style.left        = `${4  + Math.random() * 86}%`;
+    span.style.fontSize    = `${0.65 + Math.random() * 1.1}rem`;
+    span.style.opacity     = `${0.12 + Math.random() * 0.42}`;
+    span.style.animationDelay = `${Math.random() * 0.7}s`;
+    span.style.transform   = `rotate(${-18 + Math.random() * 36}deg)`;
+    overlay.appendChild(span);
+  }
+
+  screen.appendChild(overlay);
+  setTimeout(() => overlay.remove(), 2400);
+}
+
+function triggerUIGlitch() {
+  const box = document.getElementById('dialogue-box');
+  box.classList.add('dl-glitch');
+  setTimeout(() => box.classList.remove('dl-glitch'), 520);
+
+  const scan = document.createElement('div');
+  scan.className = 'ambient-scanlines';
+  document.getElementById('screen-dialogue').appendChild(scan);
+  setTimeout(() => scan.remove(), 520);
+}
+
+function triggerHeavyHeart() {
+  const el = document.createElement('div');
+  el.className = 'ambient-heavy-heart';
+  document.getElementById('screen-dialogue').appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+// ── Explicit Horror Effects (from 'horror' step type) ─────────────────────────
 
 function triggerHorrorEffect(effect, onDone) {
   const overlay = document.getElementById('horror-overlay');
@@ -1089,10 +1248,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
   animateLoadingBar(() => {
     if (!prologueDone) {
-      // First time — play the prologue automatically
+      // First time — play the prologue, then force Himari Ch1
       loadStats();
+      UIState.forcedIntro = true;
+      UIState.heroine     = 'himari';
+      UIState.chapter     = 1;
       UI.goTo('screen-dialogue', { pushHistory: false });
-      setTimeout(() => Engine.start('prologue', null), 350);
+      setTimeout(() => Engine.start('prologue', 'himari'), 350);
     } else {
       UI.goTo('screen-home', { pushHistory: false });
       setTimeout(updateHomeRings, 400);

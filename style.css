@@ -2118,3 +2118,413 @@ button {
   opacity         : 0.70;
   transform       : translateY(1px);
 }
+
+
+/* ── SCREEN: UNLOCK ────────────────────────────────────────────────────────── */
+
+#screen-unlock {
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  background      : var(--base-black);
+}
+
+.unlock-bg {
+  position        : fixed;
+  inset           : 0;
+  background      : radial-gradient(ellipse at 50% 30%, rgba(180,20,50,0.18) 0%, transparent 65%),
+                    radial-gradient(ellipse at 50% 80%, rgba(80,10,120,0.14) 0%, transparent 60%);
+  pointer-events  : none;
+}
+
+.unlock-inner {
+  position        : relative;
+  z-index         : 1;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  gap             : 1.1rem;
+  padding         : 2.5rem 2rem;
+  max-width       : 440px;
+  text-align      : center;
+  animation       : fadeInUp 0.9s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.unlock-eyebrow {
+  font-family     : var(--font-display);
+  font-size       : clamp(0.55rem, 1.8vw, 0.65rem);
+  letter-spacing  : 0.28em;
+  text-transform  : uppercase;
+  color           : var(--gold);
+  margin          : 0;
+}
+
+.unlock-sigil {
+  font-size       : clamp(2rem, 6vw, 2.8rem);
+  color           : rgba(200,170,230,0.30);
+  line-height     : 1;
+}
+
+.unlock-title {
+  font-family     : var(--font-display);
+  font-size       : clamp(1.4rem, 5vw, 2rem);
+  font-weight     : 600;
+  letter-spacing  : 0.08em;
+  color           : var(--text-1);
+  margin          : 0;
+}
+
+.unlock-body {
+  font-family     : var(--font-body);
+  font-size       : clamp(0.78rem, 2.4vw, 0.90rem);
+  color           : var(--text-2);
+  line-height     : 1.85;
+  margin          : 0;
+}
+
+.unlock-names {
+  display         : flex;
+  align-items     : center;
+  gap             : 0.7rem;
+  margin-top      : 0.3rem;
+}
+
+.unlock-name {
+  font-family     : var(--font-jp);
+  font-size       : clamp(0.75rem, 2.4vw, 0.88rem);
+  letter-spacing  : 0.05em;
+  opacity         : 0;
+  animation       : fadeIn 0.6s ease forwards;
+}
+.unlock-name:nth-child(1) { animation-delay: 0.4s; }
+.unlock-name:nth-child(3) { animation-delay: 0.7s; }
+.unlock-name:nth-child(5) { animation-delay: 1.0s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+
+.un-shizuku { color: var(--shizuku-light); }
+.un-reina   { color: var(--reina-light);   }
+.un-mei     { color: #ff80c0;              }
+
+.unlock-sep {
+  color           : var(--text-3);
+  font-size       : 0.7rem;
+}
+
+.unlock-hint {
+  font-family     : var(--font-display);
+  font-size       : clamp(0.55rem, 1.8vw, 0.62rem);
+  letter-spacing  : 0.22em;
+  text-transform  : uppercase;
+  color           : var(--text-3);
+  margin          : 0;
+}
+
+.unlock-btn {
+  margin-top      : 0.6rem;
+  padding         : 0.75rem 2.8rem;
+  background      : linear-gradient(135deg, #a01828, #600010);
+  border          : 1px solid rgba(212,40,72,0.50);
+  border-radius   : 3px;
+  color           : rgba(255,255,255,0.92);
+  font-family     : var(--font-display);
+  font-size       : clamp(0.65rem, 2.2vw, 0.75rem);
+  letter-spacing  : 0.24em;
+  text-transform  : uppercase;
+  cursor          : pointer;
+  transition      : opacity 0.18s, box-shadow 0.18s;
+  box-shadow      : 0 0 28px rgba(180,20,50,0.40), 0 4px 16px rgba(0,0,0,0.50);
+}
+
+.unlock-btn:hover {
+  opacity         : 0.88;
+  box-shadow      : 0 0 40px rgba(212,40,72,0.55), 0 4px 20px rgba(0,0,0,0.60);
+}
+
+.unlock-btn:active {
+  opacity         : 0.70;
+  transform       : translateY(1px);
+}
+
+
+/* ── AMBIENT HORROR SYSTEM ─────────────────────────────────────────────────── */
+
+/* Name Spam — player's name scattered across the dialogue screen */
+.ambient-name-spam {
+  position        : absolute;
+  inset           : 0;
+  pointer-events  : none;
+  z-index         : 200;
+  overflow        : hidden;
+}
+
+.ns-word {
+  position        : absolute;
+  font-family     : var(--font-display);
+  letter-spacing  : 0.18em;
+  color           : rgba(212, 40, 72, 0.55);
+  text-transform  : uppercase;
+  white-space     : nowrap;
+  animation       : nsWordAnim 2.4s ease-in-out forwards;
+}
+
+@keyframes nsWordAnim {
+  0%    { opacity: 0;   transform: translateY(0)    scale(0.8); }
+  18%   { opacity: 1; }
+  75%   { opacity: 1; }
+  100%  { opacity: 0;   transform: translateY(-8px) scale(1.05); }
+}
+
+/* UI Glitch — dialogue box stutters and color-shifts */
+.dl-glitch {
+  animation: dlGlitchAnim 0.52s ease forwards;
+}
+
+@keyframes dlGlitchAnim {
+  0%    { transform: translateX(0)   skewX(0);     filter: none; }
+  12%   { transform: translateX(-6px) skewX(-2deg); filter: hue-rotate(35deg) brightness(1.25); }
+  28%   { transform: translateX( 6px) skewX( 2deg); filter: hue-rotate(-35deg) saturate(2.5); }
+  44%   { transform: translateX(-3px) skewX(-1deg); filter: brightness(0.65); }
+  60%   { transform: translateX( 4px) skewX( 1deg); filter: hue-rotate(20deg); }
+  80%   { transform: translateX(-2px); filter: brightness(1.1); }
+  100%  { transform: translateX(0)    skewX(0);     filter: none; }
+}
+
+/* Scanline overlay — brief CRT texture during glitch */
+.ambient-scanlines {
+  position        : absolute;
+  inset           : 0;
+  pointer-events  : none;
+  z-index         : 199;
+  background      : repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.13) 3px,
+    rgba(0, 0, 0, 0.13) 4px
+  );
+  animation       : scanlineFadeAnim 0.52s ease forwards;
+}
+
+@keyframes scanlineFadeAnim {
+  0%    { opacity: 0.9; }
+  60%   { opacity: 0.6; }
+  100%  { opacity: 0; }
+}
+
+/* Heavy Heart — dark crimson vignette that breathes in from the screen edges */
+.ambient-heavy-heart {
+  position        : absolute;
+  inset           : 0;
+  pointer-events  : none;
+  z-index         : 198;
+  background      : radial-gradient(
+    ellipse at 50% 55%,
+    transparent 28%,
+    rgba(110, 5, 18, 0.52) 100%
+  );
+  animation       : heavyHeartAnim 3.0s ease-in-out forwards;
+}
+
+@keyframes heavyHeartAnim {
+  0%    { opacity: 0; }
+  22%   { opacity: 1; }
+  68%   { opacity: 1; }
+  100%  { opacity: 0; }
+}
+
+
+/* ── SECRET HEROINE SLOTS (Home Screen) ────────────────────────────────────── */
+
+.hidden-slot {
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  gap             : 0.5rem;
+  padding         : 0.6rem;
+  width           : 110px;
+  cursor          : default;
+  transition      : transform 0.2s;
+}
+
+.hs-portrait {
+  position        : relative;
+  width           : 64px;
+  height          : 64px;
+  border-radius   : 50%;
+  overflow        : visible;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+}
+
+.hs-portrait-bg {
+  position        : absolute;
+  inset           : 0;
+  border-radius   : 50%;
+  background      : radial-gradient(ellipse at 40% 30%, #2a1030 0%, #0c0614 100%);
+  border          : 1px solid rgba(200, 170, 230, 0.12);
+}
+
+.hs-locked .hs-portrait-bg {
+  border-color    : rgba(200, 170, 230, 0.08);
+  filter          : brightness(0.6);
+}
+
+.hs-kanji-hidden {
+  position        : relative;
+  z-index         : 1;
+  font-family     : var(--font-jp);
+  font-size       : 1.6rem;
+  color           : rgba(200, 170, 230, 0.20);
+  line-height     : 1;
+}
+
+.hs-locked .hs-kanji-hidden {
+  color           : rgba(200, 170, 230, 0.12);
+}
+
+/* Pulsing glow that hints something is locked but alive */
+.hs-lock-pulse {
+  position        : absolute;
+  inset           : -4px;
+  border-radius   : 50%;
+  border          : 1px solid rgba(212, 40, 72, 0.20);
+  animation       : hsPulseLocked 3.5s ease-in-out infinite;
+  pointer-events  : none;
+}
+
+@keyframes hsPulseLocked {
+  0%, 100% { opacity: 0.3; transform: scale(1);    box-shadow: none; }
+  50%       { opacity: 0.8; transform: scale(1.04); box-shadow: 0 0 12px rgba(212,40,72,0.20); }
+}
+
+.hs-unlocked .hs-lock-pulse {
+  border-color    : rgba(212, 40, 72, 0.55);
+  animation       : hsPulseUnlocked 2.2s ease-in-out infinite;
+}
+
+@keyframes hsPulseUnlocked {
+  0%, 100% { opacity: 0.6; transform: scale(1);    box-shadow: 0 0 10px rgba(212,40,72,0.25); }
+  50%       { opacity: 1.0; transform: scale(1.06); box-shadow: 0 0 24px rgba(212,40,72,0.50); }
+}
+
+.hs-info {
+  text-align      : center;
+}
+
+.hs-name {
+  font-family     : var(--font-display);
+  font-size       : 0.68rem;
+  letter-spacing  : 0.16em;
+  color           : var(--text-3);
+  margin          : 0 0 0.2rem;
+}
+
+.hs-condition {
+  font-family     : var(--font-body);
+  font-size       : 0.55rem;
+  color           : rgba(200, 170, 230, 0.28);
+  letter-spacing  : 0.06em;
+  margin          : 0;
+  line-height     : 1.4;
+}
+
+.hs-unlocked .hs-condition {
+  color           : rgba(212, 100, 120, 0.70);
+  font-style      : italic;
+}
+
+
+/* ── FINAL CHAPTER TEASER ──────────────────────────────────────────────────── */
+
+.final-chapter-teaser {
+  width           : 100%;
+  max-width       : 420px;
+  margin          : 0.4rem auto 0;
+  padding         : 0.9rem 1.4rem;
+  background      : rgba(12, 4, 20, 0.70);
+  border          : 1px solid rgba(200, 170, 230, 0.07);
+  border-radius   : 4px;
+  text-align      : center;
+  position        : relative;
+  overflow        : hidden;
+  transition      : border-color 0.5s, box-shadow 0.5s;
+}
+
+.final-chapter-teaser::before {
+  content         : '';
+  position        : absolute;
+  inset           : 0;
+  background      : radial-gradient(ellipse at 50% 0%, rgba(180,20,40,0.08) 0%, transparent 70%);
+  pointer-events  : none;
+}
+
+.fct-inner {
+  position        : relative;
+  z-index         : 1;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  gap             : 0.22rem;
+}
+
+.fct-lock-icon {
+  font-size       : 1.1rem;
+  opacity         : 0.35;
+  margin          : 0 0 0.1rem;
+  transition      : opacity 0.5s;
+}
+
+.fct-unlocked .fct-lock-icon {
+  opacity         : 0;
+  display         : none;
+}
+
+.fct-eyebrow {
+  font-family     : var(--font-display);
+  font-size       : 0.52rem;
+  letter-spacing  : 0.30em;
+  text-transform  : uppercase;
+  color           : rgba(200, 170, 230, 0.20);
+  margin          : 0;
+}
+
+.fct-title {
+  font-family     : var(--font-display);
+  font-size       : clamp(0.78rem, 2.5vw, 0.92rem);
+  letter-spacing  : 0.12em;
+  color           : rgba(200, 170, 230, 0.35);
+  margin          : 0;
+  transition      : color 0.5s;
+}
+
+.fct-hint {
+  font-family     : var(--font-body);
+  font-style      : italic;
+  font-size       : 0.62rem;
+  color           : rgba(200, 170, 230, 0.18);
+  margin          : 0.1rem 0 0;
+  transition      : color 0.5s;
+}
+
+/* State when all True Endings are cleared */
+.final-chapter-teaser.fct-unlocked {
+  border-color    : rgba(212, 40, 72, 0.30);
+  box-shadow      : 0 0 30px rgba(212, 40, 72, 0.12);
+}
+
+.final-chapter-teaser.fct-unlocked .fct-title {
+  color           : rgba(240, 160, 170, 0.85);
+}
+
+.final-chapter-teaser.fct-unlocked .fct-hint {
+  color           : rgba(200, 170, 230, 0.55);
+}
