@@ -693,83 +693,24 @@ function skipTyping() {
 }
 
 // ── Character Sprite Management ───────────────────────────────────────────────
+// Delegates to CharacterSystem (engine/character-system.js).
+// Functions keep their original signatures for full backward compatibility.
 
-/**
- * showCharacter — Displays a character sprite with the given expression.
- * Swaps expression by cross-fading if the sprite already exists.
- */
 function showCharacter(characterId, expression, position) {
-  const charData = CHARACTERS[characterId];
-  if (!charData) {
-    console.warn(`[Engine] Unknown character: "${characterId}"`);
-    return;
-  }
-
-  const pos = position || charData.defaultPosition || 'center';
-  const imagePath = charData.expressions[expression] || charData.expressions['default'];
-
-  let sprite = EngineState.activeSprites[characterId];
-
-  if (sprite) {
-    sprite.style.opacity = '0';
-    setTimeout(() => {
-      if (sprite.tagName === 'IMG') sprite.src = imagePath;
-      sprite.style.opacity = '1';
-    }, 150);
-    sprite.className = `char-sprite pos-${pos}`;
-  } else {
-    sprite = document.createElement('img');
-    sprite.className = `char-sprite pos-${pos}`;
-    sprite.alt       = charData.name;
-    sprite.onerror   = () => handleMissingSprite(sprite, characterId, charData.name, pos);
-    sprite.src       = imagePath;
-
-    // Trigger enter animation by class
-    const enterAnim = pos === 'center' ? 'char-enter-center'
-                    : pos === 'left'   ? 'char-enter-left'
-                    : 'char-enter-right';
-    sprite.style.animation = `${enterAnim} 0.4s ease forwards`;
-
-    D.charLayer.appendChild(sprite);
-    EngineState.activeSprites[characterId] = sprite;
-  }
-
-  dimInactiveCharacters(characterId);
-}
-
-function handleMissingSprite(imgEl, characterId, name, pos) {
-  const ph = document.createElement('div');
-  ph.className = `char-placeholder pos-${pos}`;
-
-  // Use heroine data for kanji + gradient if available
-  const hData = HEROINE_DATA[characterId];
-  if (hData) {
-    ph.style.background = hData.colorGrad;
-    ph.innerHTML = `
-      <span class="placeholder-kanji">${hData.kanji}</span>
-      <span class="placeholder-name">${name}</span>
-    `;
-  } else {
-    ph.innerHTML = `<span class="placeholder-name">${name}</span>`;
-  }
-
-  imgEl.replaceWith(ph);
-  // Track the placeholder as the active sprite so clear/dim still works
-  if (EngineState.activeSprites[characterId] === imgEl) {
-    EngineState.activeSprites[characterId] = ph;
-  }
-}
-
-function dimInactiveCharacters(activeId) {
-  Object.entries(EngineState.activeSprites).forEach(([id, sprite]) => {
-    sprite.classList.toggle('dim', id !== activeId);
-  });
+  CharacterSystem.show(characterId, expression || 'default', position);
 }
 
 function clearAllCharacters() {
-  D.charLayer.innerHTML = '';
-  EngineState.activeSprites = {};
+  CharacterSystem.clearAll();
 }
+
+// Dim is handled internally by CharacterSystem.show() — kept as no-op for compat.
+function dimInactiveCharacters(activeId) {
+  // intentionally empty — CharacterSystem.show() dims all others automatically
+}
+
+// No longer needed directly — CharacterSystem handles missing assets.
+function handleMissingSprite() {}
 
 // ── Step Processing ───────────────────────────────────────────────────────────
 
@@ -785,7 +726,8 @@ function processStep(index) {
 
   switch (step.type) {
     case 'bg':
-      if (step.bg) D.bgLayer.style.backgroundImage = `url("${step.bg}")`;
+      if (step.bg) BackgroundManager.set(step.bg, { fade: true });
+      else BackgroundManager.clear();
       processStep(index + 1);
       break;
 
@@ -797,6 +739,7 @@ function processStep(index) {
     case 'dialogue':
       if (step.character && step.expression) showCharacter(step.character, step.expression);
       else if (step.character) dimInactiveCharacters(step.character);
+      if (step.emotion && step.character) TagVoiceSystem.play(step.character, step.emotion);
       showDialogueStep(step.character, step.text);
       break;
 
@@ -1071,38 +1014,23 @@ function triggerHeavyHeart() {
 }
 
 // ── Explicit Horror Effects (from 'horror' step type) ─────────────────────────
+// Delegates to EffectManager (engine/effects.js).
+// Supports: red_flash | static_brief | flicker_slow | zoom_in | glitch | shake
 
 function triggerHorrorEffect(effect, onDone) {
-  const overlay = document.getElementById('horror-overlay');
-
-  if (effect === 'red_flash') {
-    overlay.classList.remove('static-noise');
-    overlay.classList.add('red-flash');
-    setTimeout(() => {
-      overlay.classList.remove('red-flash');
-      if (typeof onDone === 'function') onDone();
-    }, 420);
-
-  } else if (effect === 'static_brief') {
-    overlay.classList.remove('red-flash');
-    overlay.classList.add('static-noise');
-    setTimeout(() => {
-      overlay.classList.remove('static-noise');
-      if (typeof onDone === 'function') onDone();
-    }, 600);
-
-  } else {
-    if (typeof onDone === 'function') onDone();
-  }
+  EffectManager.horror(effect, onDone);
 }
 
 function loadScene(sceneId) {
   if (!SCENES[sceneId]) { console.error(`[Engine] Scene not found: "${sceneId}"`); return; }
+  TagVoiceSystem.stop();
   EngineState.currentScene = sceneId;
   EngineState.stepIndex    = 0;
   clearAllCharacters();
   D.endCard.classList.add('hidden');
   D.choiceContainer.classList.add('hidden');
+  // Pre-warm voice cache for this scene so first-play has no discovery delay
+  TagVoiceSystem.preloadScene(sceneId);
   processStep(0);
 }
 
@@ -1234,7 +1162,44 @@ function closeStatusPanel() {
    Entry point — runs when the DOM is fully loaded.
    ═══════════════════════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION 10.5 — SCENE API
+   Convenience functions usable from custom story steps or the browser console.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/** Set expression without advancing the scene (used in 'expression' steps). */
+function setCharacterExpression(charId, expr) { CharacterSystem.setExpression(charId, expr); }
+
+/** Swap a character's body layer (layered mode only). */
+function setCharacterBody(charId, bodyFile) { CharacterSystem.setBody(charId, bodyFile); }
+
+/** Add a named overlay layer (layered mode only). */
+function addCharacterOverlay(charId, overlayFile) { CharacterSystem.addOverlay(charId, overlayFile); }
+
+/** Remove a named overlay layer (layered mode only). */
+function removeCharacterOverlay(charId, overlayFile) { CharacterSystem.removeOverlay(charId, overlayFile); }
+
+/** Trigger a visual effect by name. */
+function triggerVisualEffect(type, onDone) { EffectManager.horror(type, onDone); }
+
+/** Change background using a scene key (see BackgroundManager.SCENE_MAP). */
+function changeBackground(keyOrPath, opts) {
+  if (keyOrPath.includes('/') || keyOrPath.includes('.')) {
+    BackgroundManager.set(keyOrPath, opts);
+  } else {
+    BackgroundManager.setScene(keyOrPath, opts);
+  }
+}
+
+
 window.addEventListener('DOMContentLoaded', () => {
+
+  // 0. Initialize layered character + effects systems
+  CharacterSystem.init();
+  BackgroundManager.init();
+  EffectManager.init();
+  // Wire EngineState.activeSprites to the CharacterSystem proxy for backward compat
+  EngineState.activeSprites = CharacterSystem.activeSprites;
 
   // 1. Load saved progress so home cards show correct completion rings
   loadProgress();

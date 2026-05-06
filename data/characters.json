@@ -1,0 +1,41 @@
+{
+  "himari": {
+    "expressions": {
+      "default":  { "body": "body_default", "eyes": "eyes_default" },
+      "smile":    { "body": "body_default", "eyes": "eyes_smile" },
+      "blush":    { "body": "body_blush",   "eyes": "eyes_smile" },
+      "yandere":  { "body": "body_tense",   "eyes": "eyes_yandere" },
+      "angry":    { "body": "body_tense",   "eyes": "eyes_angry" },
+      "cry":      { "body": "body_default", "eyes": "eyes_cry" }
+    }
+  },
+  "shizuku": {
+    "expressions": {
+      "default":  { "body": "body_default", "eyes": "eyes_default" },
+      "smile":    { "body": "body_default", "eyes": "eyes_smile" },
+      "blush":    { "body": "body_blush",   "eyes": "eyes_smile" },
+      "sad":      { "body": "body_sad",     "eyes": "eyes_sad" },
+      "cry":      { "body": "body_sad",     "eyes": "eyes_cry" },
+      "yandere":  { "body": "body_default", "eyes": "eyes_yandere" }
+    }
+  },
+  "reina": {
+    "expressions": {
+      "default":  { "body": "body_default", "eyes": "eyes_default" },
+      "cold":     { "body": "body_default", "eyes": "eyes_cold" },
+      "smile":    { "body": "body_default", "eyes": "eyes_smile" },
+      "scorn":    { "body": "body_default", "eyes": "eyes_scorn" },
+      "angry":    { "body": "body_tense",   "eyes": "eyes_angry" },
+      "yandere":  { "body": "body_tense",   "eyes": "eyes_yandere" }
+    }
+  },
+  "mei": {
+    "expressions": {
+      "default":  { "body": "body_default", "eyes": "eyes_default" },
+      "smile":    { "body": "body_default", "eyes": "eyes_smile" },
+      "excited":  { "body": "body_excited", "eyes": "eyes_excited" },
+      "angry":    { "body": "body_tense",   "eyes": "eyes_angry" },
+      "yandere":  { "body": "body_tense",   "eyes": "eyes_yandere" }
+    }
+  }
+}

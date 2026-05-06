@@ -571,9 +571,12 @@
 <!-- ─────────────────────────────────────────────────────
      Scripts — data file first, then engine
      ───────────────────────────────────────────────────── -->
-<script src="data/strings.js"></script>    <!-- Localization & voice index      -->
-<script src="data/scenario.js"></script>   <!-- Story data (characters, scenes) -->
-<script src="script.js"></script>           <!-- Game engine + UI navigation    -->
+<script src="data/strings.js"></script>          <!-- Localization & voice index         -->
+<script src="data/scenario.js"></script>         <!-- Story data (characters, scenes)    -->
+<script src="engine/character-system.js"></script> <!-- Layered character renderer        -->
+<script src="engine/effects.js"></script>          <!-- Background, effects, voice        -->
+<script src="engine/voice-system.js"></script>     <!-- Tag-based voice reaction system   -->
+<script src="script.js"></script>                  <!-- Game engine + UI navigation       -->
 
 </body>
 </html>

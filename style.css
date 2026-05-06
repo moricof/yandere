@@ -2528,3 +2528,301 @@ button {
 .final-chapter-teaser.fct-unlocked .fct-hint {
   color           : rgba(200, 170, 230, 0.55);
 }
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   LAYERED CHARACTER SYSTEM
+   engine/character-system.js renders characters into .char-container nodes.
+   Three modes: layered (PNG layers) → flat (single sprite) → placeholder.
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* ── Container — position only, no transform animations here ──────────── */
+.char-container {
+  position        : absolute;
+  bottom          : 26%;
+  max-height      : 70%;
+  display         : flex;
+  align-items     : flex-end;
+  justify-content : center;
+  transition      : opacity var(--t-mid) ease,
+                    filter  var(--t-fast) ease;
+  pointer-events  : none;
+}
+
+.char-container.pos-left   { left: 5%; }
+.char-container.pos-center { left: 50%; transform: translateX(-50%); }
+.char-container.pos-right  { right: 5%; }
+
+.char-container.char-dim {
+  filter  : brightness(0.42) drop-shadow(0 8px 28px rgba(0,0,0,0.7));
+  opacity : 0.85;
+}
+
+/* ── Anim-wrap — receives all transform animations (float, enter, react) ─ */
+.char-anim-wrap {
+  display         : flex;
+  align-items     : flex-end;
+  justify-content : center;
+  max-height      : 100%;
+}
+
+/* ── Idle float ──────────────────────────────────────────────────────── */
+@keyframes char-idle-float {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-4px); }
+}
+
+.char-anim-wrap.char-floating {
+  animation : char-idle-float 3.5s ease-in-out infinite;
+}
+
+/* ── Enter / exit ────────────────────────────────────────────────────── */
+@keyframes char-enter-kf {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes char-exit-kf {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(12px); }
+}
+
+.char-anim-wrap.char-enter { animation: char-enter-kf 0.40s ease forwards; }
+.char-anim-wrap.char-exit  { animation: char-exit-kf  0.35s ease forwards; }
+
+/* ── Micro-reactions ────────────────────────────────────────────────── */
+@keyframes react-shake-kf {
+  0%, 100% { transform: translateX(0); }
+  18%      { transform: translateX(-7px); }
+  36%      { transform: translateX(7px); }
+  54%      { transform: translateX(-4px); }
+  72%      { transform: translateX(4px); }
+}
+
+@keyframes react-bounce-kf {
+  0%, 100% { transform: translateY(0) scale(1); }
+  30%      { transform: translateY(-11px) scale(1.04); }
+  65%      { transform: translateY(-4px) scale(1.01); }
+}
+
+@keyframes react-zoom-kf {
+  0%, 100% { transform: scale(1); }
+  40%      { transform: scale(1.09); }
+}
+
+.char-anim-wrap.react-shake  { animation: react-shake-kf  0.45s ease; }
+.char-anim-wrap.react-bounce { animation: react-bounce-kf 0.40s ease; }
+.char-anim-wrap.react-zoom   { animation: react-zoom-kf   0.35s ease; }
+
+/* ── Layered mode — stacked PNGs ────────────────────────────────────── */
+.char-layers {
+  position        : relative;
+  width           : 52vw;
+  max-width       : 340px;
+  height          : 68vh;
+  max-height      : 640px;
+}
+
+.char-layer {
+  position        : absolute;
+  inset           : 0;
+  width           : 100%;
+  height          : 100%;
+  object-fit      : contain;
+  object-position : bottom;
+  transition      : opacity 140ms ease;
+  user-select     : none;
+  pointer-events  : none;
+}
+
+/* ── Flat mode — single expression PNG ──────────────────────────────── */
+.char-sprite-flat {
+  max-height      : 68vh;
+  max-width       : 52vw;
+  object-fit      : contain;
+  object-position : bottom;
+  filter          : drop-shadow(0 8px 28px rgba(0,0,0,0.70));
+  transition      : opacity var(--t-mid) ease;
+  user-select     : none;
+  pointer-events  : none;
+}
+
+/* ── Placeholder mode — styled kanji card ───────────────────────────── */
+.char-placeholder-wrap {
+  width           : 52vw;
+  max-width       : 260px;
+  height          : 60vh;
+  max-height      : 500px;
+  border-radius   : var(--radius-md);
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  gap             : 0.5rem;
+  overflow        : hidden;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   CUTE EFFECTS
+   ════════════════════════════════════════════════════════════════════════ */
+
+.hearts-container {
+  position        : absolute;
+  inset           : 0;
+  pointer-events  : none;
+  z-index         : 8;
+  overflow        : hidden;
+}
+
+@keyframes float-heart-kf {
+  0%   { opacity: 0;   transform: translateY(0)    scale(0.5); }
+  20%  { opacity: 1; }
+  80%  { opacity: 0.8; }
+  100% { opacity: 0;   transform: translateY(-90px) scale(1.2); }
+}
+
+.floating-heart {
+  position   : absolute;
+  bottom     : 36%;
+  font-size  : clamp(1rem, 3vw, 1.5rem);
+  color      : #f06090;
+  text-shadow: 0 0 8px #ff80c0;
+  animation  : float-heart-kf 1.4s ease-in-out forwards;
+  pointer-events : none;
+}
+
+@keyframes cute-glow-kf {
+  0%   { filter: brightness(1)    drop-shadow(0 0  0px transparent); }
+  50%  { filter: brightness(1.15) drop-shadow(0 0 22px rgba(255,120,200,0.65)); }
+  100% { filter: brightness(1)    drop-shadow(0 0  0px transparent); }
+}
+
+.char-anim-wrap.cute-glow .char-layers,
+.char-anim-wrap.cute-glow .char-sprite-flat {
+  animation: cute-glow-kf 1.2s ease;
+}
+
+.sparkle-container {
+  position        : absolute;
+  inset           : 0;
+  pointer-events  : none;
+  z-index         : 8;
+  overflow        : hidden;
+}
+
+@keyframes sparkle-kf {
+  0%   { opacity: 0; transform: scale(0.4) rotate(0deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: scale(1.4) rotate(50deg); }
+}
+
+.sparkle {
+  position       : absolute;
+  color          : #ffd080;
+  text-shadow    : 0 0 6px #ffe0a0;
+  animation      : sparkle-kf 1s ease-in-out forwards;
+  pointer-events : none;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   BACKGROUND CROSSFADE
+   ════════════════════════════════════════════════════════════════════════ */
+
+.bg-crossfade {
+  position            : absolute;
+  inset               : 0;
+  z-index             : 0;
+  background-size     : cover;
+  background-position : center;
+  opacity             : 1;
+  transition          : opacity 700ms ease;
+  pointer-events      : none;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   HORROR EFFECTS (screen-level)
+   ════════════════════════════════════════════════════════════════════════ */
+
+/* Slow flicker */
+@keyframes horror-flicker-kf {
+  0%   { opacity: 0; }
+  8%   { opacity: 0.88; }
+  14%  { opacity: 0.15; }
+  24%  { opacity: 0.92; }
+  34%  { opacity: 0.10; }
+  48%  { opacity: 0.80; }
+  62%  { opacity: 0.08; }
+  78%  { opacity: 0.82; }
+  88%  { opacity: 0.25; }
+  100% { opacity: 0; }
+}
+
+#horror-overlay.horror-flicker {
+  display    : block !important;
+  background : rgba(12, 0, 0, 0.72);
+  animation  : horror-flicker-kf 1.8s ease forwards;
+}
+
+/* Screen zoom-in */
+@keyframes fx-zoom-in-kf {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+#screen-dialogue.fx-zoom-in {
+  animation: fx-zoom-in-kf 0.8s ease;
+}
+
+/* Screen glitch */
+@keyframes fx-glitch-kf {
+  0%, 100% { transform: translate(0);          filter: none; }
+  10%      { transform: translate(-4px, 1px);  filter: hue-rotate(20deg); }
+  20%      { transform: translate(4px, -1px); }
+  30%      { transform: translate(-3px, 2px);  filter: hue-rotate(-15deg); }
+  40%      { transform: translate(3px, -2px); }
+  55%      { transform: translate(-1px, 0);    filter: brightness(1.15) hue-rotate(10deg); }
+  70%      { transform: translate(1px, 1px); }
+}
+
+#screen-dialogue.fx-glitch {
+  animation: fx-glitch-kf 0.65s ease;
+}
+
+/* Screen shake */
+@keyframes fx-shake-kf {
+  0%, 100% { transform: translate(0); }
+  15%      { transform: translate(-5px,  2px); }
+  30%      { transform: translate( 5px, -2px); }
+  45%      { transform: translate(-4px,  1px); }
+  60%      { transform: translate( 4px, -1px); }
+  75%      { transform: translate(-2px,  0); }
+}
+
+#screen-dialogue.fx-shake {
+  animation: fx-shake-kf 0.5s ease;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════════
+   CRITICAL CHOICE DIM
+   ════════════════════════════════════════════════════════════════════════ */
+
+@keyframes critical-pulse-kf {
+  0%, 100% { opacity: 0.50; }
+  50%      { opacity: 0.78; }
+}
+
+#screen-dialogue.critical-choice-active::before {
+  content        : '';
+  position       : absolute;
+  inset          : 0;
+  background     : radial-gradient(ellipse at center, transparent 25%, rgba(14,0,22,0.68) 100%);
+  animation      : critical-pulse-kf 2s ease-in-out infinite;
+  z-index        : 5;
+  pointer-events : none;
+}
+
