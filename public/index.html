@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Idle Goddess">
+  <meta name="theme-color" content="#06091b">
+  <meta name="description" content="Idle Goddess: Impact of Fate — an epic idle RPG by Caelum Noir. Summon divine Goddesses, conquer stages, and shape the fate of the realm.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Idle Goddess: Impact of Fate">
+  <meta property="og:description" content="Summon divine Goddesses. Defeat ancient evils. Forge a new fate.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/icons/og-image.png">
+
+  <title>Idle Goddess: Impact of Fate</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icons/icon-180.png">
+  <link rel="apple-touch-startup-image" href="/icons/splash.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+
+  <link rel="stylesheet" href="/src/styles/main.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ══ Loading Screen ═══════════════════════════════════════════════════ -->
+  <div id="loading-screen">
+
+    <!-- Decorative orbital rings (CSS animated, behind logo) -->
+    <div class="load-ring load-ring-a" aria-hidden="true"></div>
+    <div class="load-ring load-ring-b" aria-hidden="true"></div>
+    <div class="load-ring load-ring-c" aria-hidden="true"></div>
+
+    <!-- Rising mana particles -->
+    <div class="load-particles" aria-hidden="true">
+      <span class="lp lp1"></span>
+      <span class="lp lp2"></span>
+      <span class="lp lp3"></span>
+      <span class="lp lp4"></span>
+      <span class="lp lp5"></span>
+      <span class="lp lp6"></span>
+      <span class="lp lp7"></span>
+      <span class="lp lp8"></span>
+    </div>
+
+    <div class="loading-logo">
+      <div class="logo-crest">◆ ◇ ◆</div>
+      <div class="logo-title">IDLE GODDESS</div>
+      <div class="logo-subtitle">IMPACT OF FATE</div>
+      <div class="logo-rule">◆</div>
+      <div class="caelum-noir">by CAELUM NOIR</div>
+    </div>
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loading-bar"></div>
+    </div>
+    <div class="loading-text" id="loading-text">Initializing the realm...</div>
+  </div>
+
+  <!-- ══ Main Game ═════════════════════════════════════════════════════════ -->
+  <div id="game-screen" class="hidden">
+
+    <!-- Top HUD: settings + stage badge + gems -->
+    <header id="hud">
+      <div class="hud-left">
+        <button class="settings-btn" id="settings-btn" aria-label="Settings">⚙</button>
+      </div>
+      <div class="hud-center">
+        <div class="stage-badge">
+          <span class="stage-label">STAGE</span>
+          <span class="stage-num" id="stage-display">1</span>
+        </div>
+      </div>
+      <div class="hud-right">
+        <div class="resource-gem">
+          <span class="resource-icon">💎</span>
+          <span id="gems-display">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Resources bar: gold / mana / dps -->
+    <div id="resources-bar">
+      <div class="resource-item">
+        <span class="resource-icon gold-icon">✦</span>
+        <span class="resource-label">Gold</span>
+        <span class="resource-value" id="gold-display">0</span>
+      </div>
+      <div class="resource-item">
+        <span class="resource-icon mana-icon">◈</span>
+        <span class="resource-label">Mana</span>
+        <span class="resource-value" id="mana-display">300</span>
+      </div>
+      <div class="resource-item">
+        <span class="resource-label">DPS</span>
+        <span class="resource-value" id="dps-display">0/s</span>
+      </div>
+    </div>
+
+    <!-- ── Main Content ──────────────────────────────────────────────── -->
+    <main id="main-content">
+
+      <!-- Battle Screen (default) -->
+      <section id="battle-screen" class="screen active">
+
+        <video id="battle-bg-video" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.25;display:none" muted loop playsinline></video>
+
+        <!-- Full-screen impact flash overlay -->
+        <div id="battle-flash" aria-hidden="true"></div>
+
+        <!-- Monster HP & Boss Timer -->
+        <div id="monster-hp-container" style="position:relative;z-index:1">
+          <div id="monster-name" class="monster-name">Corrupted Sprite</div>
+          <div class="hp-bar-outer">
+            <div class="hp-bar-fill" id="monster-hp-fill" style="width:100%"></div>
+            <span class="hp-text" id="monster-hp-text">100 / 100</span>
+          </div>
+          <div id="boss-timer" class="hidden">
+            <span class="boss-warning">— BOSS BATTLE —</span>
+            <span id="boss-time" class="boss-time">30s</span>
+          </div>
+        </div>
+
+        <!-- Tap target -->
+        <div id="battle-zone" style="position:relative;z-index:1" role="button" aria-label="Tap to attack">
+          <div id="monster-container">
+            <div id="monster-sprite">
+              <img id="monster-img" src="" alt="Enemy" style="display:none">
+              <div id="monster-fallback" class="monster-emoji">👾</div>
+            </div>
+            <div id="floating-texts"></div>
+          </div>
+          <!-- Combo multiplier display (top-right of battle zone) -->
+          <div id="combo-display" class="combo-display hidden" aria-live="polite" aria-atomic="true">
+            <div class="combo-hits">
+              <span id="combo-count">0</span>
+              <span class="combo-label">COMBO</span>
+            </div>
+            <div id="combo-mult" class="combo-mult-label"></div>
+            <div class="combo-decay-track">
+              <div id="combo-decay-bar" class="combo-decay-bar"></div>
+            </div>
+          </div>
+
+          <!-- Expanding impact ring (positioned at tap point by JS) -->
+          <div id="tap-ring" aria-hidden="true"></div>
+        </div>
+
+        <!-- Battle stats -->
+        <div id="battle-info" style="position:relative;z-index:1">
+          <div class="info-item">
+            <span class="info-label">TAP DMG</span>
+            <span class="info-value" id="tap-damage-display">10</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">AUTO DPS</span>
+            <span class="info-value" id="auto-dps-display">0/s</span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">KILLS</span>
+            <span class="info-value" id="kills-display">0/10</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Holy Maidens Screen -->
+      <section id="maidens-screen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Holy Maidens</h2>
+          <p class="screen-subtitle">Your Goddesses deal auto-damage every second</p>
+        </div>
+        <div id="maidens-list" class="maidens-list"></div>
+        <div id="locked-hint" class="locked-hint">
+          <p>◈ Summon Goddesses from the Sacred Summon tab to unlock them here.</p>
+        </div>
+      </section>
+
+      <!-- Sacred Summon Screen -->
+      <section id="gacha-screen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Sacred Summon</h2>
+          <p class="screen-subtitle">Awaken divine Goddesses from the beyond</p>
+        </div>
+
+        <div id="gacha-banner">
+          <div id="banner-image-container">
+            <img id="banner-img" src="" alt="Summon Banner" style="display:none">
+            <div id="banner-fallback" class="banner-art">✦ SACRED SUMMON ✦</div>
+          </div>
+        </div>
+
+        <div id="pity-display">Fate Counter: <span id="pity-count">0</span> / 90</div>
+
+        <div id="gacha-rates" class="rates-display">
+          <span class="rate-ssr">SSR 5%</span>
+          <span class="rate-sr">SR 15%</span>
+          <span class="rate-r">R 80%</span>
+        </div>
+
+        <div id="gacha-buttons">
+          <button class="gacha-btn single-pull" id="pull-1x">
+            <span class="btn-label">Summon ×1</span>
+            <span class="btn-cost">◈ 100 Mana</span>
+          </button>
+          <button class="gacha-btn multi-pull" id="pull-10x">
+            <span class="btn-label">Summon ×10</span>
+            <span class="btn-cost">◈ 900 Mana <span class="discount">−10%</span></span>
+          </button>
+        </div>
+
+        <div class="gacha-history" id="gacha-recent">
+          <h3>Recent Summons</h3>
+          <div id="recent-pulls-list"><p class="no-history">No summons yet.</p></div>
+        </div>
+      </section>
+
+      <!-- Upgrades Screen -->
+      <section id="shop-screen" class="screen">
+        <div class="screen-header">
+          <h2 class="screen-title">Arsenal</h2>
+          <p class="screen-subtitle">Spend Gold to amplify your divine power</p>
+        </div>
+        <div id="upgrades-list" class="upgrades-list"></div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav id="bottom-nav" aria-label="Main navigation">
+      <button class="nav-btn active" data-screen="battle">
+        <span class="nav-icon">⚔</span>
+        <span class="nav-label">BATTLE</span>
+      </button>
+      <button class="nav-btn" data-screen="maidens">
+        <span class="nav-icon">✦</span>
+        <span class="nav-label">MAIDENS</span>
+      </button>
+      <button class="nav-btn" data-screen="gacha">
+        <span class="nav-icon">◈</span>
+        <span class="nav-label">SUMMON</span>
+      </button>
+      <button class="nav-btn" data-screen="shop">
+        <span class="nav-icon">▲</span>
+        <span class="nav-label">ARSENAL</span>
+      </button>
+    </nav>
+
+  </div><!-- /#game-screen -->
+
+  <!-- ══ Modal Overlay ════════════════════════════════════════════════════ -->
+  <div id="modal-overlay" class="hidden">
+
+    <!-- Gacha Result -->
+    <div id="gacha-result-modal" class="modal hidden">
+      <div class="modal-content">
+        <div id="gacha-results-display"></div>
+        <button class="share-pull-btn" id="share-pull-btn">Share Results</button>
+        <button class="modal-close-btn" id="close-gacha-result">Continue</button>
+      </div>
+    </div>
+
+    <!-- Boss Warning -->
+    <div id="boss-modal" class="modal hidden">
+      <div class="modal-content boss-warning-modal">
+        <div class="boss-icon">⚔</div>
+        <h2>BOSS APPEARS</h2>
+        <p id="boss-name-display"></p>
+        <p>Defeat it within 30 seconds.</p>
+        <button id="boss-ready-btn" class="btn-primary" style="margin-top:14px">Engage</button>
+      </div>
+    </div>
+
+    <!-- Stage Clear -->
+    <div id="stage-clear-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="stage-clear-icon">◆</div>
+        <h2>STAGE CLEARED</h2>
+        <p>Advancing to Stage <strong id="new-stage-num" style="color:var(--gold)"></strong></p>
+        <button id="stage-continue-btn" class="btn-primary" style="margin-top:14px">Continue</button>
+      </div>
+    </div>
+
+    <!-- Offline Earnings -->
+    <div id="offline-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="offline-icon">◇</div>
+        <h2>Welcome Back</h2>
+        <p id="offline-time-away"></p>
+        <div class="offline-rewards">
+          <p>Earnings while away</p>
+          <p class="offline-gold" id="offline-gold-earned"></p>
+        </div>
+        <button id="offline-claim-btn" class="btn-primary">Claim Rewards</button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div id="settings-modal" class="modal hidden">
+      <div class="modal-content">
+        <h2 style="margin-bottom:18px">Settings</h2>
+        <div class="setting-row">
+          <label for="sound-toggle">Sound</label>
+          <input type="checkbox" id="sound-toggle" checked>
+        </div>
+        <div class="setting-row">
+          <label for="volume-slider">Volume</label>
+          <div class="volume-row">
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="80">
+            <span id="volume-label" class="volume-label">80%</span>
+          </div>
+        </div>
+        <div class="setting-row">
+          <label>Push Notifications</label>
+          <button id="notif-btn" class="btn-secondary">Enable</button>
+        </div>
+        <div class="setting-row">
+          <label>Cloud Save</label>
+          <button id="cloud-save-btn" class="btn-secondary">Save Now</button>
+        </div>
+        <div class="setting-row" style="border:none;justify-content:center;color:var(--text-faint);font-size:.64rem;letter-spacing:.15em">
+          v1.0.0 &nbsp;·&nbsp; CAELUM NOIR
+        </div>
+        <button class="modal-close-btn" id="close-settings">Close</button>
+      </div>
+    </div>
+
+  </div><!-- /#modal-overlay -->
+
+</div><!-- /#app -->
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

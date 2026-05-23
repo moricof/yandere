@@ -1,0 +1,50 @@
+{
+  "name": "Goddess Rebirth: Idle Oaths",
+  "short_name": "GR: Idle Oaths",
+  "description": "Summon Holy Maidens. Defeat gods. Ascend beyond eternity. An epic idle RPG by Caelum Noir.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#08080f",
+  "theme_color": "#08080f",
+  "categories": ["games"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "/icons/screenshot-battle.png",
+      "type": "image/png",
+      "sizes": "390x844",
+      "form_factor": "narrow",
+      "label": "Battle Screen"
+    },
+    {
+      "src": "/icons/screenshot-gacha.png",
+      "type": "image/png",
+      "sizes": "390x844",
+      "form_factor": "narrow",
+      "label": "Sacred Summon"
+    }
+  ],
+  "icons": [
+    { "src": "/icons/icon-72.png",  "sizes": "72x72",   "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-96.png",  "sizes": "96x96",   "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-128.png", "sizes": "128x128", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-152.png", "sizes": "152x152", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-384.png", "sizes": "384x384", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Sacred Summon",
+      "short_name": "Summon",
+      "description": "Go straight to the gacha banner",
+      "url": "/?screen=gacha",
+      "icons": [{ "src": "/icons/shortcut-gacha.png", "sizes": "96x96" }]
+    }
+  ]
+}

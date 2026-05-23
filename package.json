@@ -1,0 +1,18 @@
+{
+  "name": "goddess-rebirth-idle-oaths",
+  "version": "1.0.0",
+  "description": "Goddess Rebirth: Idle Oaths — by Caelum Noir",
+  "private": true,
+  "scripts": {
+    "dev:worker": "cd workers && npx wrangler dev --port 8787",
+    "deploy:worker": "cd workers && npx wrangler deploy",
+    "deploy:pages": "npx wrangler pages deploy public --project-name goddess-rebirth",
+    "db:init": "cd workers && npx wrangler d1 execute goddess-rebirth-db --file src/schema.sql",
+    "db:init:prod": "cd workers && npx wrangler d1 execute goddess-rebirth-db --file src/schema.sql --remote",
+    "vapid:generate": "node -e \"const {generateVAPIDKeys}=require('./scripts/gen-vapid.js');generateVAPIDKeys();\""
+  },
+  "devDependencies": {
+    "playwright": "^1.60.0",
+    "wrangler": "^3.0.0"
+  }
+}

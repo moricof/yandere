@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Loading Preview — Idle Goddess: Impact of Fate</title>
+  <link rel="stylesheet" href="/src/styles/main.css">
+  <style>
+    /* Keep the loading screen permanently visible for preview */
+    #app { height: 100dvh; }
+    #loading-screen { position: relative; height: 100%; inset: auto; z-index: auto; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div id="loading-screen">
+
+    <div class="load-ring load-ring-a" aria-hidden="true"></div>
+    <div class="load-ring load-ring-b" aria-hidden="true"></div>
+    <div class="load-ring load-ring-c" aria-hidden="true"></div>
+
+    <div class="load-particles" aria-hidden="true">
+      <span class="lp lp1"></span>
+      <span class="lp lp2"></span>
+      <span class="lp lp3"></span>
+      <span class="lp lp4"></span>
+      <span class="lp lp5"></span>
+      <span class="lp lp6"></span>
+      <span class="lp lp7"></span>
+      <span class="lp lp8"></span>
+    </div>
+
+    <div class="loading-logo">
+      <div class="logo-crest">◆ ◇ ◆</div>
+      <div class="logo-title">IDLE GODDESS</div>
+      <div class="logo-subtitle">IMPACT OF FATE</div>
+      <div class="logo-rule">◆</div>
+      <div class="caelum-noir">by CAELUM NOIR</div>
+    </div>
+
+    <div class="loading-bar-container">
+      <div class="loading-bar" id="loading-bar"></div>
+    </div>
+    <div class="loading-text" id="loading-text">Initializing the realm...</div>
+
+  </div>
+</div>
+
+<script>
+  const bar    = document.getElementById('loading-bar');
+  const textEl = document.getElementById('loading-text');
+
+  const steps = [
+    { pct: 10,  text: 'Initializing the realm...' },
+    { pct: 38,  text: 'Awakening the Goddesses...' },
+    { pct: 65,  text: 'Restoring your progress...' },
+    { pct: 88,  text: 'Preparing the battlefield...' },
+    { pct: 100, text: 'Ready.' },
+  ];
+
+  function runSequence() {
+    let i = 0;
+    bar.style.transition = 'none';
+    bar.style.width = '0%';
+
+    // Small delay so the CSS entrance animations play first
+    setTimeout(function tick() {
+      if (i >= steps.length) {
+        // Pause at 100% then restart
+        setTimeout(() => { i = 0; runSequence(); }, 1800);
+        return;
+      }
+      const step = steps[i++];
+      bar.style.transition = 'width .55s ease';
+      bar.style.width = step.pct + '%';
+      textEl.textContent = step.text;
+      setTimeout(tick, step.pct === 100 ? 400 : 700);
+    }, 1500);
+  }
+
+  runSequence();
+</script>
+</body>
+</html>

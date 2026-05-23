@@ -1,0 +1,28 @@
+# Cloudflare Workers + Pages configuration
+# Run: npx wrangler deploy (from /workers directory)
+
+name = "goddess-rebirth-api"
+main = "workers/src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+# Override these in Cloudflare Dashboard > Workers > Settings > Variables
+# NEVER commit real secrets here
+ADMIN_SECRET = "change-me-in-cloudflare-dashboard"
+VAPID_SUBJECT = "mailto:admin@caelumnoir.com"
+# Generate with: npx web-push generate-vapid-keys
+# Then add VAPID_PUBLIC_KEY and VAPID_PRIVATE_KEY_JWK as encrypted secrets in dashboard
+
+[[d1_databases]]
+binding = "DB"
+database_name = "goddess-rebirth-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+
+[env.production]
+name = "goddess-rebirth-api"
+route = { pattern = "api.goddessoaths.com/*", zone_name = "goddessoaths.com" }

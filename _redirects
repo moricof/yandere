@@ -1,0 +1,4 @@
+# Cloudflare Pages Redirects
+# SPA fallback - all unknown routes serve index.html
+/caelum-admin  /admin/index.html  200
+/*  /index.html  200

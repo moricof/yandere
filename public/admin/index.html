@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caelum Noir — Admin Console</title>
+  <!-- Intentionally no robots.txt entry; this page is hidden by obscure URL -->
+  <style>
+    :root {
+      --bg:     #08080f; --bg2: #0f0f1a; --card: #131325;
+      --border: #1e1e3f; --gold: #f5c842; --accent: #6d28d9;
+      --text:   #e2e8f0; --dim:  #94a3b8; --red: #ef4444; --green: #22c55e;
+      --ssr: #ff9f00; --sr: #c084fc; --r: #60a5fa;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+    a { color: var(--gold); }
+
+    /* Layout */
+    .wrapper { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px;
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; color: var(--gold); letter-spacing: .1em; }
+    .logo small { display: block; font-size: .65rem; color: var(--dim); letter-spacing: .2em; font-weight: 400; }
+    .logout-btn { background: none; border: 1px solid var(--border); color: var(--dim); padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: .8rem; }
+    .logout-btn:hover { color: var(--text); border-color: var(--text); }
+
+    /* Login form */
+    #login-screen { display: flex; align-items: center; justify-content: center; min-height: 80vh; }
+    .login-box {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 32px; width: 360px; text-align: center;
+    }
+    .login-box h2 { color: var(--gold); font-size: 1.3rem; margin-bottom: 6px; }
+    .login-box p  { color: var(--dim); font-size: .82rem; margin-bottom: 20px; }
+
+    /* Generic form controls */
+    input[type=password], input[type=text], input[type=url], select, textarea {
+      width: 100%; background: var(--bg2); border: 1px solid var(--border);
+      color: var(--text); padding: 10px 12px; border-radius: 8px;
+      font-family: inherit; font-size: .88rem; outline: none;
+      transition: border-color .2s;
+    }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+    textarea { resize: vertical; min-height: 60px; }
+    label { display: block; font-size: .75rem; color: var(--dim); margin-bottom: 5px; }
+    .form-group { margin-bottom: 14px; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 10px 20px; border-radius: 8px; border: none;
+      font-family: inherit; font-size: .85rem; font-weight: 700; cursor: pointer;
+      transition: opacity .2s, transform .1s;
+    }
+    .btn:active { transform: scale(.97); }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), #4f1f9e); color: white; }
+    .btn-danger  { background: linear-gradient(135deg, #7f1d1d, #ef4444); color: white; }
+    .btn-sm      { padding: 6px 12px; font-size: .75rem; }
+    .btn:disabled { opacity: .4; pointer-events: none; }
+
+    /* Dashboard sections */
+    #dashboard { display: none; }
+    .section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 20px; overflow: hidden; }
+    .section-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .section-title  { font-size: .95rem; font-weight: 700; color: var(--gold); }
+    .section-body   { padding: 18px; }
+
+    /* Stats bar */
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .stat-box { background: var(--bg2); border-radius: 8px; padding: 14px; text-align: center; }
+    .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--gold); }
+    .stat-lbl { font-size: .7rem; color: var(--dim); margin-top: 2px; letter-spacing: .08em; }
+
+    /* Asset upsert form */
+    .upsert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 600px) { .upsert-grid { grid-template-columns: 1fr; } }
+
+    /* Asset table */
+    .asset-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+    .asset-table th { text-align: left; padding: 8px 10px; color: var(--dim); font-size: .7rem; letter-spacing: .06em; border-bottom: 1px solid var(--border); }
+    .asset-table td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,.04); vertical-align: middle; }
+    .asset-table tr:last-child td { border-bottom: none; }
+    .asset-table tr:hover td { background: rgba(255,255,255,.02); }
+    .type-badge { font-size: .65rem; padding: 2px 8px; border-radius: 12px; background: rgba(109,40,217,.25); color: var(--accent); letter-spacing: .05em; }
+    .url-cell { max-width: 260px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--dim); font-size: .75rem; }
+    .url-cell a { color: var(--dim); }
+
+    /* Alert */
+    .alert { padding: 10px 14px; border-radius: 8px; font-size: .82rem; margin-bottom: 14px; }
+    .alert-error   { background: rgba(239,68,68,.15); border: 1px solid var(--red); color: var(--red); }
+    .alert-success { background: rgba(34,197,94,.12); border: 1px solid var(--green); color: var(--green); }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ═══ Login Screen ═══════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h2>Caelum Noir Admin</h2>
+    <p>Enter your admin password to access the console.</p>
+    <div class="form-group">
+      <label for="admin-pw">Admin Password</label>
+      <input type="password" id="admin-pw" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <div id="login-error" class="alert alert-error hidden"></div>
+    <button class="btn btn-primary" id="login-btn" style="width:100%;margin-top:4px">Sign In</button>
+  </div>
+</div>
+
+<!-- ═══ Admin Dashboard ═══════════════════════════════════════════════════ -->
+<div id="dashboard">
+  <div class="wrapper">
+    <header>
+      <div class="logo">
+        Goddess Rebirth: Idle Oaths
+        <small>CAELUM NOIR — ADMIN CONSOLE</small>
+      </div>
+      <button class="logout-btn" id="logout-btn">Sign Out</button>
+    </header>
+
+    <!-- Stats -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Overview</span>
+        <button class="btn btn-sm btn-primary" id="refresh-stats-btn">Refresh</button>
+      </div>
+      <div class="section-body">
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-num" id="stat-users">—</div><div class="stat-lbl">TOTAL PLAYERS</div></div>
+          <div class="stat-box"><div class="stat-num" id="stat-pulls">—</div><div class="stat-lbl">TOTAL PULLS</div></div>
+          <div class="stat-box"><div class="stat-num" id="stat-assets">—</div><div class="stat-lbl">ASSETS CONFIGURED</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Asset Upsert Form -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Add / Update Asset URL</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:.8rem;color:var(--dim);margin-bottom:14px">
+          Paste external URLs (Discord CDN, YouTube thumbnail, Cloudflare R2, etc.).
+          The game client dynamically loads these on startup. Changes take effect within 5 minutes.
+        </p>
+        <div id="upsert-alert" class="hidden"></div>
+        <div class="upsert-grid">
+          <div class="form-group">
+            <label>Asset Type</label>
+            <select id="asset-type">
+              <option value="character_art">character_art — Character illustration (PNG/JPG/WebP)</option>
+              <option value="character_video">character_video — Character animated loop (MP4/WebM)</option>
+              <option value="monster_art">monster_art — Monster image</option>
+              <option value="banner_art">banner_art — Gacha banner image</option>
+              <option value="background_art">background_art — Screen background image/video</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Asset Key <span style="color:var(--dim);font-weight:400">(e.g. "seraphine", "banner_main", "battle")</span></label>
+            <input type="text" id="asset-key" placeholder="seraphine" list="key-suggestions">
+            <datalist id="key-suggestions">
+              <!-- Character IDs -->
+              <option value="seraphine"><option value="lyraneth"><option value="veilara">
+              <option value="mirael"><option value="zephyrine"><option value="solaris"><option value="noctis">
+              <option value="elara"><option value="fauna"><option value="pyris">
+              <option value="aqua"><option value="terryn"><option value="lumi">
+              <!-- Monster IDs -->
+              <option value="corrupted_sprite"><option value="shadow_imp"><option value="iron_golem">
+              <option value="shade_king"><option value="iron_colossus"><option value="abyss_lord">
+              <!-- Banner/Background -->
+              <option value="banner_main"><option value="battle"><option value="maidens"><option value="gacha">
+            </datalist>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>URL <span style="color:var(--dim);font-weight:400">(must be publicly accessible — HTTPS required)</span></label>
+          <input type="url" id="asset-url" placeholder="https://cdn.discordapp.com/attachments/...">
+        </div>
+        <div class="form-group">
+          <label>Metadata JSON (optional) <span style="color:var(--dim);font-weight:400">— extra properties passed to the client</span></label>
+          <textarea id="asset-meta" placeholder='{"alt": "Seraphine art", "credit": "Artist Name"}'>{}</textarea>
+        </div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-primary" id="save-asset-btn">Save Asset</button>
+          <button class="btn btn-sm" style="background:var(--bg2);border:1px solid var(--border);color:var(--dim)" id="preview-asset-btn">Preview URL</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Assets Table -->
+    <div class="section">
+      <div class="section-header">
+        <span class="section-title">Configured Assets</span>
+        <button class="btn btn-sm btn-primary" id="refresh-assets-btn">Refresh</button>
+      </div>
+      <div class="section-body" style="padding:0">
+        <div id="assets-loading" style="padding:20px;text-align:center;color:var(--dim);font-size:.85rem">Loading...</div>
+        <div id="assets-empty" class="hidden" style="padding:20px;text-align:center;color:var(--dim);font-size:.85rem">No assets configured yet.</div>
+        <table class="asset-table" id="assets-table" style="display:none">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Key</th>
+              <th>URL</th>
+              <th>Updated</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="assets-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Image Preview Panel -->
+    <div id="preview-panel" class="section hidden">
+      <div class="section-header">
+        <span class="section-title">URL Preview</span>
+        <button class="btn btn-sm" style="background:none;border:1px solid var(--border);color:var(--dim)" id="close-preview">✕ Close</button>
+      </div>
+      <div class="section-body" style="text-align:center">
+        <img id="preview-img" src="" alt="Preview" style="max-width:100%;max-height:400px;border-radius:8px;margin-bottom:12px">
+        <video id="preview-video" controls muted style="max-width:100%;max-height:400px;border-radius:8px;display:none"></video>
+        <p id="preview-error" class="hidden" style="color:var(--red);font-size:.82rem"></p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // ── Configuration ──────────────────────────────────────────────────────────
+  // Update this to your deployed Worker URL
+  const API_URL = 'https://goddess-rebirth-api.YOUR_ACCOUNT.workers.dev';
+
+  let adminToken = sessionStorage.getItem('cn_admin_token');
+
+  // ── Boot ──────────────────────────────────────────────────────────────────
+  if (adminToken) showDashboard();
+
+  // ── Login ─────────────────────────────────────────────────────────────────
+  document.getElementById('login-btn').addEventListener('click', doLogin);
+  document.getElementById('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  async function doLogin() {
+    const pw = document.getElementById('admin-pw').value.trim();
+    if (!pw) return;
+
+    const btn = document.getElementById('login-btn');
+    btn.disabled = true; btn.textContent = 'Signing in...';
+
+    try {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? 'Invalid password');
+
+      adminToken = data.token;
+      sessionStorage.setItem('cn_admin_token', adminToken);
+      showDashboard();
+    } catch (err) {
+      document.getElementById('login-error').textContent = err.message;
+      document.getElementById('login-error').classList.remove('hidden');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Sign In';
+    }
+  }
+
+  function showDashboard() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadStats();
+    loadAssets();
+  }
+
+  // ── Logout ────────────────────────────────────────────────────────────────
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem('cn_admin_token');
+    adminToken = null;
+    location.reload();
+  });
+
+  // ── Stats ─────────────────────────────────────────────────────────────────
+  document.getElementById('refresh-stats-btn').addEventListener('click', loadStats);
+
+  async function loadStats() {
+    try {
+      const res = await adminFetch('/api/admin/stats');
+      document.getElementById('stat-users').textContent  = fmt(res.totalUsers);
+      document.getElementById('stat-pulls').textContent  = fmt(res.totalPulls);
+      document.getElementById('stat-assets').textContent = fmt(res.configuredAssets);
+    } catch (e) {
+      console.warn('Stats load failed:', e);
+    }
+  }
+
+  // ── Assets ────────────────────────────────────────────────────────────────
+  document.getElementById('refresh-assets-btn').addEventListener('click', loadAssets);
+
+  async function loadAssets() {
+    document.getElementById('assets-loading').style.display = 'block';
+    document.getElementById('assets-table').style.display = 'none';
+    document.getElementById('assets-empty').classList.add('hidden');
+
+    try {
+      const { assets } = await adminFetch('/api/admin/assets');
+      renderAssetsTable(assets);
+    } catch {
+      document.getElementById('assets-loading').textContent = 'Failed to load assets.';
+    }
+  }
+
+  function renderAssetsTable(assets) {
+    document.getElementById('assets-loading').style.display = 'none';
+
+    if (!assets.length) {
+      document.getElementById('assets-empty').classList.remove('hidden');
+      return;
+    }
+
+    const tbody = document.getElementById('assets-tbody');
+    tbody.innerHTML = assets.map(a => `
+      <tr data-id="${a.id}">
+        <td><span class="type-badge">${a.asset_type}</span></td>
+        <td style="font-weight:600">${a.asset_key}</td>
+        <td class="url-cell"><a href="${a.url}" target="_blank" rel="noopener">${a.url}</a></td>
+        <td style="color:var(--dim);font-size:.72rem">${new Date(a.updated_at * 1000).toLocaleDateString()}</td>
+        <td>
+          <button class="btn btn-sm btn-danger delete-btn" data-id="${a.id}" style="padding:4px 10px;font-size:.7rem">Delete</button>
+        </td>
+      </tr>
+    `).join('');
+
+    tbody.querySelectorAll('.delete-btn').forEach(btn => {
+      btn.addEventListener('click', () => deleteAsset(parseInt(btn.dataset.id)));
+    });
+
+    document.getElementById('assets-table').style.display = 'table';
+  }
+
+  // ── Save Asset ─────────────────────────────────────────────────────────────
+  document.getElementById('save-asset-btn').addEventListener('click', saveAsset);
+
+  async function saveAsset() {
+    const type = document.getElementById('asset-type').value;
+    const key  = document.getElementById('asset-key').value.trim();
+    const url  = document.getElementById('asset-url').value.trim();
+    const meta = document.getElementById('asset-meta').value.trim();
+
+    showUpsertAlert('', '');
+    if (!key || !url) { showUpsertAlert('Asset Key and URL are required.', 'error'); return; }
+
+    let parsedMeta = {};
+    try { parsedMeta = JSON.parse(meta || '{}'); } catch { showUpsertAlert('Metadata must be valid JSON.', 'error'); return; }
+
+    const btn = document.getElementById('save-asset-btn');
+    btn.disabled = true; btn.textContent = 'Saving...';
+
+    try {
+      await adminFetch('/api/admin/assets', 'POST', { asset_type: type, asset_key: key, url, metadata: parsedMeta });
+      showUpsertAlert(`✓ Asset "${type}:${key}" saved successfully.`, 'success');
+      loadAssets();
+      loadStats();
+    } catch (e) {
+      showUpsertAlert(e.message, 'error');
+    } finally {
+      btn.disabled = false; btn.textContent = 'Save Asset';
+    }
+  }
+
+  function showUpsertAlert(msg, type) {
+    const el = document.getElementById('upsert-alert');
+    el.textContent = msg;
+    el.className = `alert ${type === 'error' ? 'alert-error' : 'alert-success'} ${msg ? '' : 'hidden'}`;
+  }
+
+  // ── Delete Asset ──────────────────────────────────────────────────────────
+  async function deleteAsset(id) {
+    if (!confirm('Delete this asset? The game will stop using this URL immediately on next sync.')) return;
+    try {
+      await adminFetch(`/api/admin/assets/${id}`, 'DELETE');
+      loadAssets();
+      loadStats();
+    } catch (e) {
+      alert('Delete failed: ' + e.message);
+    }
+  }
+
+  // ── Preview URL ───────────────────────────────────────────────────────────
+  document.getElementById('preview-asset-btn').addEventListener('click', () => {
+    const url = document.getElementById('asset-url').value.trim();
+    if (!url) { alert('Enter a URL first.'); return; }
+
+    const panel = document.getElementById('preview-panel');
+    const img   = document.getElementById('preview-img');
+    const video = document.getElementById('preview-video');
+    const err   = document.getElementById('preview-error');
+
+    panel.classList.remove('hidden');
+    err.classList.add('hidden');
+
+    const isVideo = /\.(mp4|webm|mov|ogg)(\?.*)?$/i.test(url) || url.includes('video');
+    if (isVideo) {
+      img.style.display = 'none';
+      video.style.display = 'block';
+      video.src = url;
+    } else {
+      video.style.display = 'none';
+      img.style.display = 'block';
+      img.src = url;
+      img.onerror = () => {
+        img.style.display = 'none';
+        err.textContent = 'Could not load image. Check that the URL is publicly accessible and CORS allows it.';
+        err.classList.remove('hidden');
+      };
+    }
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  document.getElementById('close-preview').addEventListener('click', () => {
+    document.getElementById('preview-panel').classList.add('hidden');
+  });
+
+  // ── API helper ────────────────────────────────────────────────────────────
+  async function adminFetch(path, method = 'GET', body) {
+    const opts = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Admin ${adminToken}`,
+      },
+    };
+    if (body) opts.body = JSON.stringify(body);
+
+    const res = await fetch(API_URL + path, opts);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+    return data;
+  }
+
+  function fmt(n) {
+    if (n >= 1e9) return (n / 1e9).toFixed(1) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+    if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+    return String(n);
+  }
+</script>
+</body>
+</html>
